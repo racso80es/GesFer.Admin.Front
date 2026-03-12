@@ -1,0 +1,232 @@
+{
+  "action_id": "spec",
+  "feature_id": "audit-inicial-admin-front",
+  "title": "Saneamiento y Adaptación de GesFer.Admin.Front",
+  "date": "2026-03-12",
+  "status": "spec",
+  "context_path": "docs/features/audit-inicial-admin-front/",
+  "origin": "objectives.md (OBJ-01 a OBJ-06)",
+  "scope": {
+    "in_scope": [
+      {
+        "id": "SPEC-01",
+        "title": "Internalización de Shared",
+        "priority": "P2",
+        "phase": 3,
+        "description": "Migrar componentes de TmpMigration a src/, eliminar alias @shared/, actualizar imports y configs.",
+        "affected_files": {
+          "components_to_migrate_ui": [
+            "card.tsx", "loading.tsx", "button.tsx", "input.tsx", "label.tsx", "error-message.tsx",
+            "dialog.tsx", "alert-dialog.tsx", "form.tsx", "select.tsx", "table.tsx", "overlay-fix.tsx"
+          ],
+          "components_to_migrate_shared": [
+            "Button.tsx", "Button.spec.tsx", "DataTable.tsx", "DestructiveActionConfirm.tsx",
+            "Input.tsx", "Input.spec.tsx", "ModalBase.tsx"
+          ],
+          "consumers_to_update": [
+            "src/app/login/page.tsx",
+            "src/app/dashboard/page.tsx",
+            "src/components/layout/Sidebar.tsx",
+            "src/components/layout/admin-layout.tsx",
+            "src/components/layout/admin-app-wrapper.tsx",
+            "src/__tests__/components/shared/Button.test.tsx"
+          ],
+          "configs_to_update": [
+            "src/tsconfig.json",
+            "src/tailwind.config.ts",
+            "src/jest.config.js"
+          ],
+          "to_delete": ["src/TmpMigration/"]
+        },
+        "objective_refs": ["OBJ-01", "OBJ-05"]
+      },
+      {
+        "id": "SPEC-02",
+        "title": "Dockerfile",
+        "priority": "P2",
+        "phase": 3,
+        "description": "Reescribir Dockerfile para estructura standalone sin monorepo.",
+        "affected_files": ["src/Dockerfile"],
+        "depends_on": ["SPEC-01"],
+        "objective_refs": ["OBJ-01"]
+      },
+      {
+        "id": "SPEC-03",
+        "title": "GitHub Workflow",
+        "priority": "P1",
+        "phase": 2,
+        "description": "Adaptar pr-validation.yml de .NET a Node.js/Next.js.",
+        "affected_files": [".github/workflows/pr-validation.yml"],
+        "depends_on": ["SPEC-04", "SPEC-08"],
+        "objective_refs": ["OBJ-02", "OBJ-04"]
+      },
+      {
+        "id": "SPEC-04",
+        "title": "Scripts",
+        "priority": "P1",
+        "phase": 2,
+        "description": "Limpiar/adaptar/eliminar scripts que apuntan a .NET o monorepo.",
+        "affected_files": [
+          "scripts/Run-E2ELocal.ps1",
+          "scripts/ejecutar-tests.ps1",
+          "scripts/validate-services-and-health.ps1",
+          "scripts/install-front-dependencies.ps1",
+          "scripts/cerrar-procesos-servicios.ps1",
+          "scripts/run-service-with-log.ps1",
+          "scripts/README-E2E.md",
+          "SddIA/skills/pr-skill.sh",
+          "SddIA/skills/commit-skill.sh"
+        ],
+        "objective_refs": ["OBJ-02"]
+      },
+      {
+        "id": "SPEC-05",
+        "title": "Agentes SddIA",
+        "priority": "P0",
+        "phase": 1,
+        "description": "Actualizar agentes con refs backend para contexto frontend.",
+        "affected_files": [
+          "SddIA/agents/tekton-developer.json",
+          "SddIA/agents/qa-judge.json",
+          "SddIA/agents/auditor/auditor.json",
+          "SddIA/agents/performance-engineer.json",
+          "SddIA/agents/security-engineer.json",
+          "SddIA/agents/architect.json"
+        ],
+        "objective_refs": ["OBJ-04"]
+      },
+      {
+        "id": "SPEC-06",
+        "title": "Constituciones y Manifesto",
+        "priority": "P0",
+        "phase": 1,
+        "description": "Actualizar referencias de GesFer.Admin.Back a GesFer.Admin.Front.",
+        "affected_files": [
+          "SddIA/CONSTITUTION.md",
+          "SddIA/constitution/constitution.architect.md",
+          "SddIA/constitution/constitution.architect.json",
+          "SddIA/constitution/constitution.audity.md",
+          "SddIA/constitution/constitution.audity.json",
+          "SddIA/constitution/constitution.cognitive.md",
+          "SddIA/constitution/constitution.cognitive.json",
+          "SddIA/constitution/constitution.duality.md",
+          "SddIA/constitution/constitution.duality.json",
+          "SddIA/manifesto.json",
+          "SddIA/norms/pr-acceptance-protocol.md",
+          "SddIA/templates/spec-template.md"
+        ],
+        "objective_refs": ["OBJ-04", "OBJ-06"]
+      },
+      {
+        "id": "SPEC-07",
+        "title": "Configuración URLs/Puertos",
+        "priority": "P2",
+        "phase": 3,
+        "description": "Unificar fallbacks de API, eliminar refs a Product API, corregir inconsistencias HTTP/HTTPS.",
+        "affected_files": [
+          "src/auth.ts",
+          "src/lib/api/admin-api.ts",
+          "src/lib/api/admin-api-server.ts",
+          "src/lib/config.ts",
+          "src/app/dashboard/page.tsx",
+          "src/README.md"
+        ],
+        "objective_refs": ["OBJ-03"]
+      },
+      {
+        "id": "SPEC-08",
+        "title": "Tools SddIA",
+        "priority": "P2",
+        "phase": 2,
+        "description": "Marcar tools .NET como no aplicables; crear tools frontend equivalentes.",
+        "affected_files": [
+          "scripts/tools/start-api/",
+          "scripts/tools/run-tests-local/",
+          "scripts/tools/invoke-mysql-seeds/",
+          "scripts/tools/postman-mcp-validation/",
+          "scripts/tools/prepare-full-env/",
+          "SddIA/tools/"
+        ],
+        "actions": {
+          "rewrite": ["start-api → start-frontend", "run-tests-local → run-tests-frontend"],
+          "eliminate": ["invoke-mysql-seeds", "postman-mcp-validation"],
+          "simplify": ["prepare-full-env → prepare-frontend-env"]
+        },
+        "objective_refs": ["OBJ-04"]
+      },
+      {
+        "id": "SPEC-09",
+        "title": "Documentación",
+        "priority": "P0",
+        "phase": 1,
+        "description": "Actualizar documentos que describen proyecto backend.",
+        "affected_files": [
+          "Objetivos.md",
+          "scripts/README-E2E.md",
+          "SddIA/skills/invoke-command/spec.md",
+          "SddIA/skills/invoke-command/spec.json",
+          "SddIA/skills/invoke-commit/spec.md",
+          "SddIA/skills/invoke-commit/spec.json",
+          "SddIA/skills/pr-skill.md"
+        ],
+        "objective_refs": ["OBJ-06"]
+      }
+    ],
+    "out_of_scope": [
+      "Desarrollo de nueva funcionalidad (features de negocio)",
+      "Migración de backend o API",
+      "Upgrade de versiones de dependencias (Next.js 15, React 19)",
+      "Refactorización de lógica de negocio existente"
+    ]
+  },
+  "execution_phases_note": "Orden invertido tras clarify (CL-PRIO): la IA debe operar con contexto correcto antes de asistir en cambios de código.",
+  "execution_phases": [
+    {
+      "phase": 1,
+      "label": "P0 — Contexto IA",
+      "specs": ["SPEC-05", "SPEC-06", "SPEC-09"],
+      "description": "Agentes, constituciones, manifesto y documentación. Ecosistema SddIA refleja GesFer.Admin.Front."
+    },
+    {
+      "phase": 2,
+      "label": "P1 — CI/CD",
+      "specs": ["SPEC-04", "SPEC-08", "SPEC-03"],
+      "description": "Scripts, tools y workflow adaptados al frontend."
+    },
+    {
+      "phase": 3,
+      "label": "P2 — Código fuente",
+      "specs": ["SPEC-01", "SPEC-02", "SPEC-07"],
+      "description": "Internalización Shared, Dockerfile, URLs. El proyecto compila y se construye independientemente."
+    }
+  ],
+  "acceptance_criteria": [
+    { "id": "AC-01", "criterion": "npm run build exitoso sin warnings de paths rotos", "verification": "Ejecución local" },
+    { "id": "AC-02", "criterion": "npm run test — todos los tests pasan", "verification": "Ejecución local" },
+    { "id": "AC-03", "criterion": "npm run lint sin errores", "verification": "Ejecución local" },
+    { "id": "AC-04", "criterion": "docker build exitoso (Dockerfile adaptado)", "verification": "Ejecución local" },
+    { "id": "AC-05", "criterion": "Cero referencias a @shared/ en imports", "verification": "Grep en src/" },
+    { "id": "AC-06", "criterion": "Cero referencias a ../../Shared/ en configs", "verification": "Grep en src/" },
+    { "id": "AC-07", "criterion": "Cero refs a GesFer.Admin.Back, .sln, .csproj, dotnet en SddIA y scripts", "verification": "Grep en SddIA/ y scripts/" },
+    { "id": "AC-08", "criterion": "Cero referencias a localhost:5000 (API Product)", "verification": "Grep global" },
+    { "id": "AC-09", "criterion": "src/TmpMigration/ eliminada", "verification": "Verificar ausencia" },
+    { "id": "AC-10", "criterion": "GitHub workflow adaptado a Node.js", "verification": "Revisión manual" }
+  ],
+  "security": {
+    "secrets_exposure": "Sin riesgo; .env en .gitignore. .env.example con credenciales de seeds (solo dev).",
+    "next_auth": "v5.0-beta.30; monitorizar. AUTH_SECRET pendiente en prod.",
+    "vision_zero": "DestructiveActionConfirm disponible en TmpMigration para internalizar.",
+    "csp_xss": "Pendiente auditoría post-saneamiento."
+  },
+  "dependency_graph": {
+    "SPEC-01": { "depends_on": [], "enables": ["SPEC-02", "SPEC-07", "AC-01", "AC-02", "AC-03"] },
+    "SPEC-02": { "depends_on": ["SPEC-01"], "enables": ["AC-04"] },
+    "SPEC-03": { "depends_on": ["SPEC-04", "SPEC-08"], "enables": ["AC-10"] },
+    "SPEC-04": { "depends_on": [], "enables": ["SPEC-03", "AC-07"] },
+    "SPEC-05": { "depends_on": [], "enables": ["AC-07"] },
+    "SPEC-06": { "depends_on": [], "enables": ["AC-07"] },
+    "SPEC-07": { "depends_on": ["SPEC-01"], "enables": ["AC-08"] },
+    "SPEC-08": { "depends_on": [], "enables": ["SPEC-03", "AC-07"] },
+    "SPEC-09": { "depends_on": [], "enables": ["AC-07"] }
+  }
+}

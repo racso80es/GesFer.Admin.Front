@@ -1,0 +1,125 @@
+{
+  "action_id": "clarify",
+  "feature_id": "audit-inicial-admin-front",
+  "date": "2026-03-12",
+  "spec_ref": "spec.md",
+  "status": "clarify-confirmed",
+  "confirmed_by": "user",
+  "confirmed_at": "2026-03-12",
+  "confirmation_results": {
+    "CL-PRIO": "confirmed",
+    "CL-05": "confirmed",
+    "CL-06": "confirmed",
+    "CL-08": "confirmed",
+    "CL-03": "confirmed",
+    "CL-01": "confirmed",
+    "CL-07": "confirmed"
+  },
+  "priority_change": {
+    "id": "CL-PRIO",
+    "description": "Inversión del orden de fases. La IA debe operar con contexto correcto antes de asistir en cambios de código.",
+    "previous_order": [
+      { "phase": 1, "priority": "P0", "specs": ["SPEC-01", "SPEC-02", "SPEC-07"], "label": "Código fuente" },
+      { "phase": 2, "priority": "P1", "specs": ["SPEC-04", "SPEC-08", "SPEC-03"], "label": "CI/CD" },
+      { "phase": 3, "priority": "P2/P3", "specs": ["SPEC-05", "SPEC-06", "SPEC-09"], "label": "SddIA" }
+    ],
+    "corrected_order": [
+      { "phase": 1, "priority": "P0", "specs": ["SPEC-05", "SPEC-06", "SPEC-09"], "label": "Contexto IA correcto (agentes, constituciones, documentación)" },
+      { "phase": 2, "priority": "P1", "specs": ["SPEC-04", "SPEC-08", "SPEC-03"], "label": "Infraestructura CI/CD (scripts, tools, workflow)" },
+      { "phase": 3, "priority": "P2", "specs": ["SPEC-01", "SPEC-02", "SPEC-07"], "label": "Código fuente (Shared, Dockerfile, URLs)" }
+    ]
+  },
+  "clarifications": [
+    {
+      "id": "CL-05",
+      "spec_ref": "SPEC-05",
+      "phase": 1,
+      "gaps_resolved": [
+        { "id": "CL-05.1", "gap": "Alcance de modificación de agentes", "decision": "Actualizar refs backend, no reescribir desde cero" },
+        { "id": "CL-05.2", "gap": "Skill dotnet-development inexistente en frontend", "decision": "Reemplazar por frontend-build" },
+        { "id": "CL-05.3", "gap": "Agente auditor con doble rol", "decision": "Convertir en Auditor Frontend; eliminar instrucciones backend" }
+      ]
+    },
+    {
+      "id": "CL-06",
+      "spec_ref": "SPEC-06",
+      "phase": 1,
+      "gaps_resolved": [
+        { "id": "CL-06.1", "gap": "¿Reescribir o actualizar constituciones?", "decision": "Solo actualizar referencias; principios abstractos son válidos" },
+        { "id": "CL-06.2", "gap": "dependency_rules.backend en manifesto", "decision": "Eliminar; mantener y adaptar dependency_rules.frontend" },
+        { "id": "CL-06.3", "gap": "Validaciones en pr-acceptance-protocol", "decision": "dotnet build/test → npm run build/test/lint" }
+      ]
+    },
+    {
+      "id": "CL-09",
+      "spec_ref": "SPEC-09",
+      "phase": 1,
+      "gaps_resolved": [
+        { "id": "CL-09.1", "gap": "Objetivos.md — ¿reescribir o eliminar?", "decision": "Reescribir para GesFer.Admin.Front" },
+        { "id": "CL-09.2", "gap": "Skills invoke-* — ¿qué cambiar?", "decision": "Solo contexto default: GesFer → GesFer.Admin.Front" }
+      ]
+    },
+    {
+      "id": "CL-04",
+      "spec_ref": "SPEC-04",
+      "phase": 2,
+      "gaps_resolved": [
+        { "id": "CL-04.1", "gap": "¿Eliminar o adaptar scripts?", "decision": "Adaptar mayoría; mantener Propuesta/ como referencia" },
+        { "id": "CL-04.2", "gap": "pr-skill.sh y commit-skill.sh son .sh en proyecto Windows", "decision": "Adaptar contenido a npm; evaluar crear equivalentes .ps1" }
+      ]
+    },
+    {
+      "id": "CL-08",
+      "spec_ref": "SPEC-08",
+      "phase": 2,
+      "gaps_resolved": [
+        { "id": "CL-08.1", "gap": "¿Eliminar tools completas o dejar estructura?", "decision": "2 eliminar (mysql-seeds, postman), 2 reescribir (start→frontend, tests→frontend), 1 simplificar (prepare-env)" },
+        { "id": "CL-08.2", "gap": "¿Actualizar índices al cambiar tools?", "decision": "Sí: index.json, SddIA/tools/, cumulo.paths.json" }
+      ]
+    },
+    {
+      "id": "CL-03",
+      "spec_ref": "SPEC-03",
+      "phase": 2,
+      "gaps_resolved": [
+        { "id": "CL-03.1", "gap": "¿Mantener verify_pr_protocol (Rust) o reemplazar?", "decision": "Reemplazar por npm scripts directos en workflow YAML (primera iteración)" }
+      ]
+    },
+    {
+      "id": "CL-01",
+      "spec_ref": "SPEC-01",
+      "phase": 3,
+      "gaps_resolved": [
+        { "id": "CL-01.1", "gap": "cn.ts — ¿copiar o mantener local?", "decision": "Mantener local si idéntico; si difiere, usar el más completo" },
+        { "id": "CL-01.2", "gap": "api.ts — Country/City relevantes para Admin?", "decision": "Evaluar en ejecución; no bloquea migración" },
+        { "id": "CL-01.3", "gap": "¿Copiar tests .spec.tsx?", "decision": "Sí; adaptar rutas" },
+        { "id": "CL-01.4", "gap": "Imports internos relativos en TmpMigration", "decision": "Convertir a alias @/ al migrar" }
+      ]
+    },
+    {
+      "id": "CL-02",
+      "spec_ref": "SPEC-02",
+      "phase": 3,
+      "gaps_resolved": [
+        { "id": "CL-02.1", "gap": "Estructura de la app en la imagen Docker", "decision": "Estructura plana desde src/; sin rutas de monorepo" },
+        { "id": "CL-02.2", "gap": "Carpeta public/ ausente", "decision": "Eliminar COPY public/; Next.js funciona sin ella" }
+      ]
+    },
+    {
+      "id": "CL-07",
+      "spec_ref": "SPEC-07",
+      "phase": 3,
+      "gaps_resolved": [
+        { "id": "CL-07.1", "gap": "URL canónica de API Admin en desarrollo", "decision": "https://localhost:5011 (según .env.example)" },
+        { "id": "CL-07.2", "gap": "localhost:5000 en dashboard", "decision": "Reemplazar por API Admin o placeholder" },
+        { "id": "CL-07.3", "gap": "HTTP vs HTTPS fallback", "decision": "HTTPS (5011); no HTTP (5010)" }
+      ]
+    }
+  ],
+  "total_gaps_resolved": 22,
+  "decisions_summary": {
+    "phase_1_p0_sddia": "Corregir contexto IA: agentes (actualizar, no reescribir), constituciones (solo refs), documentación (reescribir Objetivos.md, contexto skills)",
+    "phase_2_p1_cicd": "Scripts (adaptar mayoría), tools (2 eliminar, 2 reescribir, 1 simplificar + actualizar índices), workflow (npm scripts directos, sin Rust)",
+    "phase_3_p2_code": "Shared (internalizar desde TmpMigration, adaptar imports a @/, copiar tests), Dockerfile (estructura plana, sin public/), URLs (https://localhost:5011 canónica)"
+  }
+}
