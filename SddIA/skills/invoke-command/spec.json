@@ -13,7 +13,7 @@
       "required": false,
       "description": "Ruta a archivo cuyo contenido es el comando. Evita inyección en terminal. Acepta --command-file/-CommandFile."
     },
-    "contexto": { "required": false, "default": "GesFer" },
+    "contexto": { "required": false, "default": "GesFer.Admin.Front" },
     "fase": {
       "required": false,
       "default": "Accion",
@@ -29,6 +29,6 @@
     "Interface: Command (obligatorio) o --command-file; Contexto (default GesFer); Fase (Triaje|Analisis|Evaluacion|Marcado|Accion). El exe acepta -Command/-Fase y --command-file.",
     "Compliance: AC-001 validación sintáctica; registro en docs/diagnostics/{branch}/execution_history.json; alineación Protocolo Racso-Tormentosa."
   ],
-  "scope_clarification": "Aplica siempre que el agente ejecute cualquier comando de sistema: sin excepción para git, dotnet, npm, pwsh. No hay excepciones.",
+  "scope_clarification": "Aplica siempre que el agente ejecute cualquier comando de sistema: sin excepción para git, npm, pwsh. No hay excepciones.",
   "usage_instruction": "Cada vez que el agente deba ejecutar un comando, invocar la cápsula invoke-command (paths.skillCapsules.invoke-command). Prohibido ejecutar comandos directamente en el shell."
 }

@@ -3,13 +3,13 @@
   "id": "CFG-COG-003",
   "purpose": "Establish persistent memory and context learning.",
   "guidelines": [
-    "Secure persistent storage for critical state (Memory).",
+    "Structured documentation (MD + JSON) for critical project state.",
     "Dynamic context injection based on historical interactions.",
     "Semantic indexing for AI compatibility."
   ],
   "status": "Active",
   "implementation": {
-    "storagePath": "N/A (GesFer.Admin.Back); persistence via Infrastructure/DbContext.",
-    "contextManagement": "Core Services"
+    "storagePath": "N/A (GesFer.Admin.Front; frontend web). Client state via React Query and React Context (src/contexts/). Project memory via SddIA docs.",
+    "contextManagement": "React Query (server state) + React Context (client state) + SddIA documentation (project knowledge)."
   }
 }

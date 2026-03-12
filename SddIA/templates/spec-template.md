@@ -4,7 +4,7 @@
 
 | Campo | Detalle |
 | :--- | :--- |
-| **ID de Especificación** | SPEC-GF-2026-{Correlativo} |
+| **ID de Especificación** | SPEC-GAF-2026-{Correlativo} |
 | **Rama Relacionada** | {tipo}/{descripcion-breve} |
 | **Estado** | Draft / Validado / Implementado |
 | **Responsable** | Spec Architect |
@@ -22,38 +22,41 @@ Describir de forma sucinta qué se quiere lograr y qué problema resuelve.
 ## 3. Arquitectura y Diseño Técnico
 
 ### 3.1. Componentes Afectados
-Identificar qué partes del sistema GesFer serán modificadas:
-*   `src/Core`: Entidades de dominio o VOs.
-*   `src/Infrastructure`: Repositorios o persistencia.
+Identificar qué partes del proyecto GesFer.Admin.Front serán modificadas:
+*   `src/app/`: Páginas, layouts o rutas.
+*   `src/components/`: Componentes UI, shared o layout.
+*   `src/lib/`: Clientes API, configuración, utilidades.
+*   `src/contexts/`: Contextos de estado global.
+*   `src/types/`: Definiciones de tipos TypeScript.
+
 ### 3.2. Modelo de Datos / Lógica
-Si aplica, incluir definiciones de tipos o cambios en el esquema.
-> **Nota de Arquitectura:** Se debe respetar el uso de `company` en lugar de `empresa` en todo el código nuevo.
+Si aplica, incluir definiciones de tipos, interfaces o cambios en contratos de API.
 
 ## 4. Requisitos de Seguridad
 
-*   **Validación de Input:** Uso de `SecurityScanner` para todas las entradas de usuario.
+*   **Validación de Input:** Uso de Zod para validación de formularios y respuestas de API.
 *   **Privacidad:** Identificar si se manejan datos sensibles (PII).
-*   **Autorización:** Roles necesarios para ejecutar la funcionalidad.
+*   **Autorización:** Roles necesarios para acceder a la funcionalidad (NextAuth session).
 
 ## 5. Criterios de Aceptación
 
 Para dar por cerrada esta especificación, se deben cumplir los siguientes puntos:
 
-- [ ] El código compila sin errores (`dotnet build`).
-- [ ] Se han pasado los tests unitarios correspondientes.
-- [ ] El log de auditoría en paths.auditsPath + paths.accessLogFile (Cúmulo) ha sido actualizado.
+- [ ] `npm run build` pasa sin errores.
+- [ ] `npm run lint` pasa sin errores.
+- [ ] Se han pasado los tests correspondientes (`npm run test`).
+- [ ] El log de auditoría en paths.auditsPath (Cúmulo) ha sido actualizado.
 - [ ] El Audit Log de la rama refleja la evolución.
 
-## 6. Structured Action Tags (Previstos)
+## 6. Notas de Implementación
 
-Lista de etiquetas que se usarán en la fase de implementación:
-```csharp
-// TODO: [REF-VO] - ...
-// TODO: [FIX-LOG] - ... (Activando AC-001 [LOGS])
-```
+Lista de puntos clave para la fase de implementación:
+- Componentes: ¿Server Component o Client Component?
+- Imports: usar alias `@/` para todos los imports cross-directory.
+- Accesibilidad: cumplir WCAG 2.1 AA en elementos interactivos.
 
 ## 7. Trazabilidad de Auditoría
 
 *   **Fecha de Creación:** YYYY-MM-DD hh:mm
 *   **Evento:** Generación inicial mediante proceso documental (invoke-command, documentation; paths.skillCapsules, paths.skillsDefinitionPath).
-*   **Referencia de Log:** paths.auditsPath + paths.accessLogFile (Cúmulo)
+*   **Referencia de Log:** paths.auditsPath (Cúmulo)
