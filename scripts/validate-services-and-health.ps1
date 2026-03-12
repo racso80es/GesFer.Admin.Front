@@ -1,26 +1,24 @@
 <#
 .SYNOPSIS
-    Valida la ejecucion de servicios: inicia APIs y Front, hace ping a /health y revisa logs.
+    Valida la ejecucion del frontend: hace ping al dev server y revisa logs.
 .DESCRIPTION
-    Opcion A: Si los servicios ya estan en marcha, solo ejecuta health checks y muestra ultimas lineas de logs.
-    Opcion B: Con -StartServices, inicia ProductApi y AdminApi en background, espera, hace health checks y muestra logs.
-    Referencia: docs/operations/FIX_PROCEDURE_VALIDATION_RUN.md
-.PARAMETER StartServices
-    Si se especifica, inicia ProductApi y AdminApi en background antes de los health checks (ProductFront no se inicia por tiempo).
+    Opcion A: Si el frontend ya esta en marcha, solo ejecuta health check y muestra ultimas lineas de logs.
+    Opcion B: Con -StartService, inicia el dev server en background, espera, hace health check y muestra logs.
+.PARAMETER StartService
+    Si se especifica, inicia el dev server en background antes del health check.
 #>
 [CmdletBinding()]
 param(
-    [switch] $StartServices
+    [switch] $StartService
 )
 
 $ErrorActionPreference = "SilentlyContinue"
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $logsDir = Join-Path $projectRoot "logs\services"
+$srcPath = Join-Path $projectRoot "src"
 
 $endpoints = @(
-    @{ Service = "ProductApi";   Url = "http://localhost:5000/health" },
-    @{ Service = "AdminApi";    Url = "http://localhost:5010/health" },
-    @{ Service = "ProductFront"; Url = "http://localhost:3000" }
+    @{ Service = "AdminFront"; Url = "http://localhost:3001" }
 )
 
 function Get-HealthStatus {
@@ -34,22 +32,15 @@ function Get-HealthStatus {
     }
 }
 
-# Iniciar servicios en background si se solicita
-if ($StartServices) {
-    Write-Host "Iniciando ProductApi y AdminApi en background..." -ForegroundColor Cyan
-    $productApiPath = Join-Path $projectRoot "src\Product\Back\Api"
-    $adminApiPath = Join-Path $projectRoot "src\Admin\Back\Api"
+if ($StartService) {
+    Write-Host "Iniciando AdminFront en background..." -ForegroundColor Cyan
     $runScript = Join-Path $PSScriptRoot "run-service-with-log.ps1"
-    $jobProduct = Start-Job -ScriptBlock {
+    $jobFront = Start-Job -ScriptBlock {
         param($script, $name, $dir, $cmd)
         & $script -ServiceName $name -WorkingDir $dir -Command $cmd
-    } -ArgumentList $runScript, "ProductApi", $productApiPath, "dotnet run"
-    $jobAdmin = Start-Job -ScriptBlock {
-        param($script, $name, $dir, $cmd)
-        & $script -ServiceName $name -WorkingDir $dir -Command $cmd
-    } -ArgumentList $runScript, "AdminApi", $adminApiPath, "dotnet run"
-    Write-Host "Esperando 25 segundos para que las APIs enlacen..." -ForegroundColor Yellow
-    Start-Sleep -Seconds 25
+    } -ArgumentList $runScript, "AdminFront", $srcPath, "npm run dev"
+    Write-Host "Esperando 15 segundos para que el frontend enlace..." -ForegroundColor Yellow
+    Start-Sleep -Seconds 15
 }
 
 Write-Host "`n=== Health checks ===" -ForegroundColor Green
@@ -69,7 +60,7 @@ foreach ($ep in $endpoints) {
 $healthResults | Format-Table -AutoSize
 
 Write-Host "`n=== Ultimas lineas de logs (cola) ===" -ForegroundColor Green
-foreach ($name in @("ProductApi", "AdminApi", "ProductFront")) {
+foreach ($name in @("AdminFront")) {
     $logFile = Join-Path $logsDir "$name.log"
     if (Test-Path $logFile) {
         Write-Host "--- $name.log (ultimas 12 lineas) ---" -ForegroundColor Cyan
@@ -78,8 +69,8 @@ foreach ($name in @("ProductApi", "AdminApi", "ProductFront")) {
     }
 }
 
-if ($StartServices) {
-    Write-Host "Los trabajos de ProductApi y AdminApi siguen en ejecucion. Para detenerlos: Get-Job | Stop-Job; Get-Job | Remove-Job" -ForegroundColor Yellow
+if ($StartService) {
+    Write-Host "El trabajo de AdminFront sigue en ejecucion. Para detenerlo: Get-Job | Stop-Job; Get-Job | Remove-Job" -ForegroundColor Yellow
 }
 
 return $healthResults

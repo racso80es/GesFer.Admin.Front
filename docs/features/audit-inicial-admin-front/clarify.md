@@ -33,6 +33,21 @@
 
 **Impacto en dependencias:** El grafo de dependencias técnicas entre SPECs se mantiene (SPEC-01 → SPEC-02, etc.), pero dentro de cada fase. Las fases son secuenciales entre sí por contexto, no por dependencia técnica.
 
+### CL-PRIO-STATE — Estado de ejecución de fases
+
+**Nueva información confirmada por usuario:** La **Fase 1 ya ha sido aplicada en la rama actual** y este estado debe quedar registrado explícitamente en la documentación operativa de la feature.
+
+**Decisión:** A partir de esta clarificación:
+
+- La **Fase 1** pasa de "planificada" a **"aplicada"**.
+- La **Fase 2** debe planificarse y ejecutarse **asumiendo como precondición satisfecha** el saneamiento previo del contexto IA.
+- Al finalizar la **Fase 2**, la documentación de planificación/seguimiento deberá dejar constancia de:
+  - Fase 1 = aplicada
+  - Fase 2 = aplicada/validada (si procede)
+  - Fase 3 = pendiente
+
+**Impacto:** Se elimina el riesgo de ejecutar CI/CD con contexto IA heredado del backend, pero la validación de la Fase 2 debe seguir comprobando que no se reintroduzcan referencias incompatibles con el frontend.
+
 ---
 
 ## 2. Clarificaciones por SPEC
@@ -116,8 +131,25 @@ Los agentes heredados del backend tienen dos tipos de contenido:
 **Gap 2: `pr-skill.sh` y `commit-skill.sh` — ¿Son `.sh` en un proyecto Windows?**
 
 **Clarificación:** Estos scripts `.sh` son ejecutados por git hooks (husky) que pueden ejecutar bash incluso en Windows (via Git Bash). Sin embargo, dado que el entorno definido es PowerShell, la acción ideal es:
-1. Crear equivalentes `.ps1` o adaptar los `.sh` existentes.
-2. Si se mantienen como `.sh`, asegurar que los comandos dentro sean `npm run build` / `npm run test` (no dotnet).
+1. **En esta iteración, mantener los `.sh` existentes** y adaptar su contenido a `npm run build` / `npm run test` (no `dotnet`).
+2. **No abrir ahora** una migración adicional a `.ps1`, salvo que aparezca un bloqueo real de ejecución en hooks.
+
+### CL-04.3 — Ubicación de implementaciones de skills
+
+**Gap:** La planificación inicial citaba rutas bajo `SddIA/skills/` para artefactos ejecutables de skill, pero en este repositorio las **implementaciones de skills** deben mantenerse en `scripts/skills/`.
+
+**Clarificación:** Distinguir dos niveles:
+
+- `SddIA/skills/` = definición, contrato y documentación del ecosistema SddIA.
+- `scripts/skills/` = implementación ejecutable real usada por hooks/automatizaciones.
+
+**Decisión:** Para la Fase 2, cualquier cambio sobre `pr-skill` y `commit-skill` se realizará sobre:
+
+- `scripts/skills/pr-skill.sh`
+- `scripts/skills/pr-skill.md`
+- `scripts/skills/commit-skill.sh`
+
+No se planifican binarios o scripts ejecutables equivalentes dentro de `SddIA/skills/`.
 
 ---
 
@@ -139,8 +171,19 @@ Los agentes heredados del backend tienen dos tipos de contenido:
 
 **Clarificación:** Sí. Actualizar ambos:
 - `scripts/tools/index.json`: eliminar entradas de tools eliminadas, añadir las nuevas.
-- `SddIA/tools/`: eliminar carpetas de tools eliminadas, crear spec.md y spec.json para las nuevas.
+- `SddIA/tools/`: eliminar carpetas de tools eliminadas, crear `spec.md` y `spec.json` para las nuevas definiciones.
 - `cumulo.paths.json` → `toolCapsules`: actualizar con los nuevos nombres de tools.
+
+### CL-08.3 — Separación entre definición e implementación de tools
+
+**Gap:** En esta rama conviven `scripts/tools/` y `SddIA/tools/`, y debe quedar explícito qué se modifica en cada capa.
+
+**Clarificación:** La convención operativa para esta feature será:
+
+- `scripts/tools/` = implementación ejecutable de las tools.
+- `SddIA/tools/` = definición documental/contractual de las tools.
+
+**Decisión:** Toda reescritura funcional de `start-frontend`, `run-tests-frontend` y `prepare-frontend-env` debe ocurrir en `scripts/tools/`, mientras que `SddIA/tools/` solo se actualizará para mantener sincronizados `spec.md` y `spec.json` con dichas tools.
 
 ---
 

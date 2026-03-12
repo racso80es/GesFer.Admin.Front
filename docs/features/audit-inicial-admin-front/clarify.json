@@ -29,6 +29,25 @@
       { "phase": 3, "priority": "P2", "specs": ["SPEC-01", "SPEC-02", "SPEC-07"], "label": "Código fuente (Shared, Dockerfile, URLs)" }
     ]
   },
+  "phase_state": {
+    "phase_1": {
+      "status": "applied",
+      "confirmed_by": "user",
+      "notes": [
+        "La Fase 1 ya fue aplicada en la rama actual.",
+        "La Fase 2 debe ejecutarse tomando la Fase 1 como precondicion satisfecha."
+      ]
+    },
+    "phase_2": {
+      "status": "pending",
+      "notes": [
+        "Al finalizar debe registrarse explicitamente su estado junto al de las demas fases."
+      ]
+    },
+    "phase_3": {
+      "status": "pending"
+    }
+  },
   "clarifications": [
     {
       "id": "CL-05",
@@ -65,7 +84,8 @@
       "phase": 2,
       "gaps_resolved": [
         { "id": "CL-04.1", "gap": "¿Eliminar o adaptar scripts?", "decision": "Adaptar mayoría; mantener Propuesta/ como referencia" },
-        { "id": "CL-04.2", "gap": "pr-skill.sh y commit-skill.sh son .sh en proyecto Windows", "decision": "Adaptar contenido a npm; evaluar crear equivalentes .ps1" }
+        { "id": "CL-04.2", "gap": "pr-skill.sh y commit-skill.sh son .sh en proyecto Windows", "decision": "Mantener los .sh en esta iteración y adaptar contenido a npm; no abrir migración a .ps1 salvo bloqueo real" },
+        { "id": "CL-04.3", "gap": "Ubicación de implementaciones de skills", "decision": "Las implementaciones ejecutables deben mantenerse en scripts/skills/; SddIA/skills/ queda como capa de definición/documentación" }
       ]
     },
     {
@@ -74,7 +94,8 @@
       "phase": 2,
       "gaps_resolved": [
         { "id": "CL-08.1", "gap": "¿Eliminar tools completas o dejar estructura?", "decision": "2 eliminar (mysql-seeds, postman), 2 reescribir (start→frontend, tests→frontend), 1 simplificar (prepare-env)" },
-        { "id": "CL-08.2", "gap": "¿Actualizar índices al cambiar tools?", "decision": "Sí: index.json, SddIA/tools/, cumulo.paths.json" }
+        { "id": "CL-08.2", "gap": "¿Actualizar índices al cambiar tools?", "decision": "Sí: index.json, SddIA/tools/, cumulo.paths.json" },
+        { "id": "CL-08.3", "gap": "Separación entre definición e implementación de tools", "decision": "scripts/tools/ contiene la implementación ejecutable; SddIA/tools/ mantiene spec.md y spec.json sincronizados" }
       ]
     },
     {
@@ -116,10 +137,10 @@
       ]
     }
   ],
-  "total_gaps_resolved": 22,
+  "total_gaps_resolved": 25,
   "decisions_summary": {
     "phase_1_p0_sddia": "Corregir contexto IA: agentes (actualizar, no reescribir), constituciones (solo refs), documentación (reescribir Objetivos.md, contexto skills)",
-    "phase_2_p1_cicd": "Scripts (adaptar mayoría), tools (2 eliminar, 2 reescribir, 1 simplificar + actualizar índices), workflow (npm scripts directos, sin Rust)",
+    "phase_2_p1_cicd": "Scripts (adaptar mayoría; mantener skills ejecutables en scripts/skills), tools (2 eliminar, 2 reescribir, 1 simplificar en scripts/tools + sincronizar SddIA/tools), workflow (npm scripts directos, sin Rust)",
     "phase_3_p2_code": "Shared (internalizar desde TmpMigration, adaptar imports a @/, copiar tests), Dockerfile (estructura plana, sin public/), URLs (https://localhost:5011 canónica)"
   }
 }

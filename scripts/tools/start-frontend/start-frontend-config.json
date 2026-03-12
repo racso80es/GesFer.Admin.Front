@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "description": "Configuracion para start-frontend: directorio del frontend, comando y salud.",
+  "frontendWorkingDir": "src",
+  "command": "npm run dev",
+  "defaultPort": 3001,
+  "healthUrl": "http://localhost:3001",
+  "healthCheckTimeoutSeconds": 30
+}

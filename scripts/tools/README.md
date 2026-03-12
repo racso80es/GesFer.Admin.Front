@@ -1,6 +1,6 @@
 # Herramientas (paths.toolsPath)
 
-Este directorio es **paths.toolsPath** (Cúmulo, `SddIA/agents/cumulo.json`). Contiene el índice de herramientas y los launchers wrapper que delegan a cada cápsula.
+Este directorio es **paths.toolsPath** (Cúmulo, `SddIA/agents/cumulo.json`). Contiene el índice de herramientas y las cápsulas de implementación.
 
 ## Listado de herramientas
 
@@ -11,10 +11,11 @@ El listado canónico de herramientas existentes se obtiene de:
 
 | toolId | Descripción breve | Launcher (wrapper) |
 |--------|-------------------|-------------------|
-| **invoke-mysql-seeds** | Migraciones EF y seeds de Admin sobre MySQL. | `Invoke-MySqlSeeds.bat` |
-| **prepare-full-env** | Docker (DB, cache, Adminer) y opcionalmente API y clientes. | `Prepare-FullEnv.bat` |
+| **start-frontend** | Dev server Next.js (npm run dev, puerto 3001). | `start-frontend/Start-Frontend.bat` |
+| **run-tests-frontend** | Tests frontend (unit, e2e, build, lint). | `run-tests-frontend/Run-Tests-Frontend.bat` |
+| **prepare-frontend-env** | npm install + verificación .env. | `prepare-frontend-env/Prepare-FrontendEnv.bat` |
 
-Cada herramienta reside en una **cápsula** **paths.toolCapsules[&lt;tool-id&gt;]** con `manifest.json`, script `.ps1`, config, documentación y opcionalmente `bin/` con el ejecutable Rust.
+Cada herramienta reside en una **cápsula** **paths.toolCapsules[&lt;tool-id&gt;]** con `manifest.json`, scripts, config y documentación.
 
 ## Uso del índice
 

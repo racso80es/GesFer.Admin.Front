@@ -6,6 +6,11 @@
   "status": "spec",
   "context_path": "docs/features/audit-inicial-admin-front/",
   "origin": "objectives.md (OBJ-01 a OBJ-06)",
+  "repository_constraints": {
+    "src_role": "src/ contiene el codigo funcional especifico de GesFer.Admin.Front",
+    "scripts_role": "scripts/ contiene implementaciones ejecutables usadas por skills, tools y automatizaciones de SddIA",
+    "sddia_role": "SddIA/ mantiene definicion, contratos y documentacion"
+  },
   "scope": {
     "in_scope": [
       {
@@ -74,8 +79,9 @@
           "scripts/cerrar-procesos-servicios.ps1",
           "scripts/run-service-with-log.ps1",
           "scripts/README-E2E.md",
-          "SddIA/skills/pr-skill.sh",
-          "SddIA/skills/commit-skill.sh"
+          "scripts/skills/pr-skill.sh",
+          "scripts/skills/pr-skill.md",
+          "scripts/skills/commit-skill.sh"
         ],
         "objective_refs": ["OBJ-02"]
       },
@@ -138,7 +144,7 @@
         "title": "Tools SddIA",
         "priority": "P2",
         "phase": 2,
-        "description": "Marcar tools .NET como no aplicables; crear tools frontend equivalentes.",
+        "description": "Marcar tools .NET como no aplicables; crear tools frontend equivalentes manteniendo implementacion en scripts/tools/ y definicion en SddIA/tools/.",
         "affected_files": [
           "scripts/tools/start-api/",
           "scripts/tools/run-tests-local/",

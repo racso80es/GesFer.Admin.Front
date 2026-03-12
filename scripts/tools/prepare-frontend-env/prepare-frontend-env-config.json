@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "description": "Configuracion para prepare-frontend-env.",
+  "frontendDir": "src",
+  "installCommand": "npm install",
+  "envExampleFile": ".env.example",
+  "envFile": ".env.local"
+}

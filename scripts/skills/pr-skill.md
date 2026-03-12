@@ -1,8 +1,8 @@
 # PR Skill – Documentación
 
-> **Herramienta:** `pr-skill.sh`  
-> **Ubicación:** `scripts/skills/pr-skill.sh`  
-> **Entorno:** Bash (Linux/macOS/Git Bash en Windows). No existe versión PowerShell (`pr-skill.ps1`); el flujo oficial es el script Bash.
+> **Herramienta:** `pr-skill.sh`
+> **Ubicación:** `scripts/skills/pr-skill.sh`
+> **Entorno:** Bash (Linux/macOS/Git Bash en Windows).
 
 ---
 
@@ -11,9 +11,9 @@
 El **PR Skill** es la barrera de calidad y seguridad antes de cada **push** (local) y en cada **Pull Request** (CI). Garantiza:
 
 1. **Token de proceso** válido (solo local; en CI se omite).
-2. **Compilación** correcta del proyecto (.NET), con reintentos.
+2. **Build** correcto del frontend (`npm run build` en `src/`), con reintentos.
 3. **Documentación de rama** presente para ramas que no sean `master`/`main`.
-4. **Suite completa de tests** (dotnet test del proyecto de IntegrationTests) ejecutada con éxito.
+4. **Suite completa de tests** (`npm run test` en `src/`) ejecutada con éxito.
 
 Si cualquier paso falla, el push/PR se **bloquea** y se registra en el log de auditoría.
 
@@ -24,9 +24,9 @@ Si cualquier paso falla, el push/PR se **bloquea** y se registra en el log de au
 | Contexto | Disparador | Archivo |
 |----------|------------|---------|
 | **Local (pre-push)** | Hook Husky `pre-push` | `.husky/pre-push` → invoca `scripts/skills/pr-skill.sh` |
-| **CI (GitHub Actions)** | Push/PR a `master` o `main` | `.github/workflows/pr-skill.yml` → ejecuta `pr-skill.sh` |
+| **CI (GitHub Actions)** | Push/PR a `master` o `main` | `.github/workflows/pr-validation.yml` |
 
-La ejecución debe hacerse **siempre desde la raíz del repositorio** (pre-push y workflow hacen checkout en la raíz).
+La ejecución debe hacerse **siempre desde la raíz del repositorio**.
 
 ---
 
@@ -34,11 +34,11 @@ La ejecución debe hacerse **siempre desde la raíz del repositorio** (pre-push 
 
 ```
 1. Detección de entorno (CI vs local)
-2. [Solo local] Bypass opcional (BY PASS_AUDIT=1 + security-validation-skill.sh)
+2. [Solo local] Bypass opcional (BYPASS_AUDIT=1 + security-validation-skill.sh)
 3. [Solo local] Validación de Token de Proceso (process-token-manager.sh Validate)
-4. Escudo de compilación (dotnet build, máx. 7 intentos)
-5. Certificación documentación de rama (obligatoria si rama ≠ master/main)
-6. Suite completa de tests (dotnet test, proyecto IntegrationTests)
+4. Build check (npm run build en src/, máx. 3 intentos)
+5. Certificación documentación de rama (obligatoria si rama != master/main)
+6. Suite completa de tests (npm run test en src/)
 7. Registro en docs/audits/ACCESS_LOG.md y salida (éxito/fallo)
 ```
 
@@ -49,7 +49,7 @@ La ejecución debe hacerse **siempre desde la raíz del repositorio** (pre-push 
 ### 4.1 Ejecutables / entorno
 
 - **Bash** (script con shebang `#!/bin/bash`).
-- **`dotnet`** (SDK .NET 8.0) en PATH.
+- **Node.js 20+** y **npm** en PATH.
 - **`git`** para nombre de rama y usuario (local).
 
 ### 4.2 Scripts del repositorio
@@ -61,78 +61,45 @@ La ejecución debe hacerse **siempre desde la raíz del repositorio** (pre-push 
 
 ### 4.3 Ejecución de tests
 
-- **Tests:** `dotnet test` sobre el proyecto de IntegrationTests (paths según solución).
-- El script ejecuta:  
-  `dotnet test src/GesFer.Admin.Back.IntegrationTests/GesFer.Admin.Back.IntegrationTests.csproj --no-build -v q`  
-  Estándares: skills invoke-command y dotnet-development (paths.skillCapsules, paths.skillsDefinitionPath).
+- **Build:** `npm run build` en `src/`.
+- **Tests:** `npm run test` en `src/`.
+
 ### 4.4 Estructura de documentación
 
 - **Log de acceso:** `docs/audits/ACCESS_LOG.md` (se crea si no existe).
 - **Documentación de rama:** para rama distinta de `master`/`main` debe existir al menos uno de:
   - `docs/branches/<slug>.md`
-  - `docs/branches/<slug>/OBJETIVO.md`  
-  donde `<slug>` es el nombre de la rama con `/` y `\` sustituidos por `-`.  
-  También se admite un “slug limpio” (sin sufijo numérico final) para ramas de CI.
+  - `docs/branches/<slug>/OBJETIVO.md`
+  donde `<slug>` es el nombre de la rama con `/` y `\` sustituidos por `-`.
 
 ### 4.5 Variables de entorno
 
 | Variable | Efecto |
 |----------|--------|
-| `GITHUB_ACTIONS=true` | Modo CI: se omite token y se usa rama del evento (HEAD_REF o REF). |
-| `BYPASS_AUDIT=1` | Solo local: intenta bypass vía `security-validation-skill.sh`; si falla, se bloquea. |
+| `GITHUB_ACTIONS=true` | Modo CI: se omite token y se usa rama del evento. |
+| `BYPASS_AUDIT=1` | Solo local: intenta bypass vía `security-validation-skill.sh`. |
 
 ---
 
 ## 5. Salidas y códigos de retorno
 
 - **0:** Todas las comprobaciones pasaron; push/PR permitido.
-- **1:** Fallo en token, compilación, documentación de rama o tests; push/PR bloqueado.
+- **1:** Fallo en token, build, documentación de rama o tests; push/PR bloqueado.
 
-Cada ejecución (local o CI) se registra en `docs/audits/ACCESS_LOG.md` con timestamp, usuario, rama, acción (PUSH/PR) y estado (SUCCESS, FAILED, BLOCKED, WARNING).
-
----
-
-## 6. Escudo de compilación
-
-- Se ejecuta **`dotnet build -nologo -v q`** hasta **7 veces** con 2 segundos entre intentos.
-- Si tras 7 intentos sigue fallando:
-  - Se escribe un log en `docs/diagnostics/<rama>/build_error_final.log`.
-  - Se registra FAILED en `ACCESS_LOG.md` y el script sale con código 1.
+Cada ejecución se registra en `docs/audits/ACCESS_LOG.md`.
 
 ---
 
-## 7. Documentación de rama (certificación)
+## 6. Build check
 
-- **Ramas exentas:** `master`, `main`, y rama vacía/detached.
-- **Resto de ramas:** debe existir documentación por **slug exacto** o por **slug limpio** (sin sufijo numérico final):
-  - Ejemplo slug exacto: `feature-mi-rama` → `docs/branches/feature-mi-rama.md` o `docs/branches/feature-mi-rama/OBJETIVO.md`.
-  - Ejemplo slug limpio: rama `jules-12345-abc` puede usar `docs/branches/jules-12345.md` o equivalente sin el sufijo numérico final, según la lógica del script.
-
-Si no se encuentra ningún documento válido, el script imprime las rutas esperadas, registra BLOCKED en el log y sale con 1.
+- Se ejecuta `npm run build` en `src/` hasta **3 veces** con 3 segundos entre intentos.
+- Si tras 3 intentos sigue fallando, se escribe un log en `docs/diagnostics/<rama>/build_error_final.log`.
 
 ---
 
-## 8. Uso en Windows
+## 7. Uso en Windows
 
 El script es **Bash**; no hay `pr-skill.ps1`. En Windows:
 
-- **Pre-push (Husky):** el hook llama a `bash scripts/skills/pr-skill.sh`, por lo que hace falta **Bash** (p. ej. **Git for Windows** / Git Bash).
+- **Pre-push (Husky):** el hook llama a `bash scripts/skills/pr-skill.sh` (requiere **Git Bash**).
 - **CI:** se ejecuta en `ubuntu-latest`, sin cambios.
-
-Para desarrollo local en Windows, mantener Git Bash instalado y asegurarse de que el hook tenga permisos de ejecución si el entorno lo requiere.
-
----
-
-## 9. Resumen de validación (análisis del script)
-
-| Aspecto | Estado |
-|---------|--------|
-| Ruta del script | Correcta: `scripts/skills/pr-skill.sh` (no existe `pr-skill.ps1`). |
-| Dependencias (process-token-manager, security-validation-skill) | Presentes y utilizadas según modo local/CI. |
-| Compilación | Reintentos y log de diagnóstico coherentes. |
-| Documentación de rama | Comprueba slug exacto y slug limpio; coherente con `docs/branches/`. |
-| Suite de tests | Ejecuta dotnet test sobre el proyecto de IntegrationTests. |
-| Log de auditoría | Crea/actualiza `docs/audits/ACCESS_LOG.md` con formato esperado. |
-| CI (pr-skill.yml) | Ejecuta el script desde la raíz con .NET 8.0; no valida token. |
-
-El script está alineado con el flujo definido (Token → Compilación → Doc rama → Tests) y con las referencias en `openspecs`, documentación de ramas y auditorías.

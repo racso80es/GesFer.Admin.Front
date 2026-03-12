@@ -19,6 +19,8 @@ El proyecto arrastra **dos ejes de deuda técnica**:
 
 **Fuente de migración disponible:** `src/TmpMigration/Shared/Front/` (21 archivos, cobertura 100% de los `@shared/` usados).
 
+**Restricción operativa confirmada:** En este repositorio, `src/` contiene el código funcional del frontend Admin, mientras que las implementaciones ejecutables usadas por SddIA deben mantenerse en `scripts/`. `SddIA/` conserva definición, contratos y documentación.
+
 ---
 
 ## 2. Alcance (Scope)
@@ -190,8 +192,9 @@ Los componentes en TmpMigration usan rutas relativas internas (ej. `../../lib/ut
 | `scripts/tools/invoke-mysql-seeds/` | Eliminar (no aplica) |
 | `scripts/tools/postman-mcp-validation/` | Eliminar (no aplica) |
 | `scripts/Propuesta/` | Evaluar relevancia |
-| `SddIA/skills/pr-skill.sh` | Adaptar: dotnet → npm |
-| `SddIA/skills/commit-skill.sh` | Adaptar: dotnet → npm |
+| `scripts/skills/pr-skill.sh` | Adaptar: dotnet → npm |
+| `scripts/skills/pr-skill.md` | Adaptar documentación/uso a frontend |
+| `scripts/skills/commit-skill.sh` | Adaptar: dotnet → npm |
 
 **Criterio:** Ningún script referencia a .sln, .csproj, dotnet, GesFer.Admin.Back, `../../Product/`, `../../Admin/`.
 
@@ -252,7 +255,7 @@ Los componentes en TmpMigration usan rutas relativas internas (ej. `../../lib/ut
 
 ### SPEC-08 — Tools SddIA
 
-**Objetivo:** Adecuar el catálogo de tools al contexto frontend.
+**Objetivo:** Adecuar el catálogo de tools al contexto frontend manteniendo la separación entre definición (`SddIA/tools/`) e implementación (`scripts/tools/`).
 
 | Tool actual | Acción | Tool destino |
 |-------------|--------|-------------|

@@ -2,9 +2,38 @@
   "action_id": "planning",
   "feature_id": "audit-inicial-admin-front",
   "date": "2026-03-12",
-  "status": "planning",
+  "status": "planning-phase-1-2-applied",
   "spec_ref": "spec.md",
   "clarify_ref": "clarify.md (confirmed)",
+  "phase_execution_status": [
+    {
+      "phase": 1,
+      "label": "P0 — Contexto IA",
+      "status": "applied",
+      "source": "user-confirmed",
+      "notes": [
+        "La Fase 1 ya ha sido aplicada en la rama actual.",
+        "La Fase 2 debe ejecutarse asumiendo esta precondicion satisfecha."
+      ]
+    },
+    {
+      "phase": 2,
+      "label": "P1 — CI/CD",
+      "status": "applied",
+      "source": "execution-verified",
+      "notes": ["Verificacion CHECK-F2.1 a CHECK-F2.8 completada"]
+    },
+    {
+      "phase": 3,
+      "label": "P2 — Codigo fuente",
+      "status": "pending"
+    }
+  ],
+  "repository_constraints": {
+    "src_role": "src/ contiene codigo funcional del Admin Front",
+    "scripts_role": "scripts/ contiene implementaciones ejecutables de skills, tools y automatizaciones SddIA",
+    "sddia_role": "SddIA/ mantiene definicion y documentacion"
+  },
   "summary": {
     "total_phases": 3,
     "total_tasks": 27,
@@ -16,6 +45,7 @@
       "phase": 1,
       "label": "P0 — Contexto IA",
       "specs": ["SPEC-05", "SPEC-06", "SPEC-09"],
+      "status": "applied",
       "objective": "Agentes, constituciones, manifesto y documentación reflejan GesFer.Admin.Front",
       "tasks": [
         {
@@ -90,7 +120,12 @@
       "phase": 2,
       "label": "P1 — CI/CD",
       "specs": ["SPEC-04", "SPEC-08", "SPEC-03"],
+      "status": "applied",
       "objective": "Scripts, tools y workflow funcionan para frontend Next.js",
+      "preconditions": [
+        "Fase 1 aplicada",
+        "Mantener implementaciones ejecutables en scripts/ y definiciones en SddIA/"
+      ],
       "tasks": [
         {
           "id": "2.1",
@@ -105,9 +140,9 @@
             "scripts/cerrar-procesos-servicios.ps1",
             "scripts/run-service-with-log.ps1",
             "scripts/README-E2E.md",
-            "SddIA/skills/pr-skill.sh",
-            "SddIA/skills/commit-skill.sh",
-            "SddIA/skills/pr-skill.md"
+            "scripts/skills/pr-skill.sh",
+            "scripts/skills/commit-skill.sh",
+            "scripts/skills/pr-skill.md"
           ]
         },
         {
@@ -149,13 +184,16 @@
         "scripts/tools/ solo contiene: start-frontend/, run-tests-frontend/, prepare-frontend-env/",
         "SddIA/tools/ solo contiene definiciones vigentes",
         ".github/workflows/pr-validation.yml usa Node.js",
-        "cumulo.paths.json → toolCapsules apuntan a carpetas existentes"
+        "cumulo.paths.json → toolCapsules apuntan a carpetas existentes",
+        "scripts/skills/ mantiene las implementaciones ejecutables de skill afectadas",
+        "Estado documental de fases actualizado al cierre de Fase 2"
       ]
     },
     {
       "phase": 3,
       "label": "P2 — Código fuente",
       "specs": ["SPEC-01", "SPEC-02", "SPEC-07"],
+      "status": "pending",
       "objective": "Proyecto compila, tests pasan, contenedor se construye independientemente",
       "tasks": [
         { "id": "3.1", "title": "Internalizar componentes UI desde TmpMigration", "spec_ref": "SPEC-01", "subtasks": 12 },

@@ -13,16 +13,16 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
       with:
-        dotnet-version: 8.0.x
+        node-version: 20
+        cache: npm
+        cache-dependency-path: src/package-lock.json
 
-    - name: Setup Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        override: true
+    - name: Install dependencies
+      working-directory: src
+      run: npm ci
 
     - name: Validate Nomenclature
       shell: pwsh
@@ -30,12 +30,14 @@ jobs:
         GITHUB_HEAD_REF: ${{ github.head_ref }}
       run: ./scripts/validate-nomenclatura.ps1 -BaseBranch origin/${{ github.base_ref }}
 
-    - name: Build Protocol Skill
-      run: |
-        cargo build --release --manifest-path scripts/skills-rs/Cargo.toml --bin verify_pr_protocol
+    - name: Lint
+      working-directory: src
+      run: npm run lint
 
-    - name: Execute Protocol Check
-      env:
-        GITHUB_HEAD_REF: ${{ github.head_ref }}
-      run: |
-        cargo run --release --manifest-path scripts/skills-rs/Cargo.toml --bin verify_pr_protocol
+    - name: Build
+      working-directory: src
+      run: npm run build
+
+    - name: Test
+      working-directory: src
+      run: npm run test

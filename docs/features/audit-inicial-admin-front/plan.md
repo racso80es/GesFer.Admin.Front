@@ -3,7 +3,7 @@
 > **Acción:** planning  
 > **Fecha:** 2026-03-12  
 > **Spec:** spec.md | **Clarify:** clarify.md (confirmado)  
-> **Estado:** planning
+> **Estado:** planning (Fase 1 aplicada; Fase 2 aplicada; Fase 3 pendiente)
 
 ---
 
@@ -13,11 +13,22 @@ Este plan convierte la especificación (9 SPECs) y las clarificaciones confirmad
 
 **Estimación global:** 3 fases secuenciales. Cada fase puede ejecutarse en una o varias sesiones.
 
+## 1.1 Estado de ejecución de fases
+
+| Fase | Estado | Fuente |
+|------|--------|--------|
+| **Fase 1 — P0 Contexto IA** | **Aplicada en la rama actual** | Confirmación de usuario + clarificación `CL-PRIO-STATE` |
+| **Fase 2 — P1 Infraestructura CI/CD** | **Aplicada en la rama actual** | Ejecución verificada (CHECK-F2.1 a CHECK-F2.8) |
+| **Fase 3 — P2 Código fuente** | **Pendiente / siguiente fase a ejecutar** | Este plan |
+
+**Implicación operativa para Fase 2:** Se ejecuta con la precondición de contexto IA ya saneado. La validación de Fase 2 debe evitar reintroducir referencias de backend o mover implementaciones ejecutables fuera de `scripts/`.
+
 ---
 
 ## 2. Fase 1 — P0: Contexto IA (SPEC-05, SPEC-06, SPEC-09)
 
 > **Objetivo:** Que todos los agentes, constituciones y documentación reflejen GesFer.Admin.Front como proyecto frontend Next.js.
+> **Estado actual:** Aplicada.
 
 ### TAREA 1.1 — Actualizar agentes SddIA [SPEC-05]
 
@@ -114,6 +125,8 @@ Este plan convierte la especificación (9 SPECs) y las clarificaciones confirmad
 ## 3. Fase 2 — P1: Infraestructura CI/CD (SPEC-04, SPEC-08, SPEC-03)
 
 > **Objetivo:** Scripts, tools y workflow funcionan para un proyecto frontend Next.js.
+> **Precondición satisfecha:** Fase 1 aplicada.
+> **Restricción adicional confirmada:** `scripts/` contiene implementaciones ejecutables de skills/tools; `SddIA/` mantiene definición y documentación; `src/` solo contiene código funcional del Admin Front.
 
 ### TAREA 2.1 — Adaptar scripts [SPEC-04]
 
@@ -126,13 +139,13 @@ Este plan convierte la especificación (9 SPECs) y las clarificaciones confirmad
 | 2.1.5 | `scripts/cerrar-procesos-servicios.ps1` | Adaptar | Solo puertos frontend (3001). Eliminar refs a 5000, 5010. |
 | 2.1.6 | `scripts/run-service-with-log.ps1` | Adaptar | Ejemplos: `npm run dev` en lugar de ProductApi, AdminApi. |
 | 2.1.7 | `scripts/README-E2E.md` | Reescribir | Contexto frontend: Playwright, npm scripts, puerto 3001. Eliminar refs a GesFer.Admin.Back y rutas absolutas. |
-| 2.1.8 | `SddIA/skills/pr-skill.sh` | Adaptar | `dotnet build` → `npm run build`. `dotnet test` → `npm run test`. |
-| 2.1.9 | `SddIA/skills/commit-skill.sh` | Adaptar | `*UnitTests.csproj` → `npm run test`. |
-| 2.1.10 | `SddIA/skills/pr-skill.md` | Adaptar | Documentación: refs a dotnet → npm. |
+| 2.1.8 | `scripts/skills/pr-skill.sh` | Adaptar | `dotnet build` → `npm run build`. `dotnet test` → `npm run test`. Mantener `.sh` en esta iteración. |
+| 2.1.9 | `scripts/skills/commit-skill.sh` | Adaptar | `*UnitTests.csproj` → `npm run test`. Mantener `.sh` en esta iteración. |
+| 2.1.10 | `scripts/skills/pr-skill.md` | Adaptar | Documentación: refs a dotnet → npm. |
 
 **Verificación:**
 - Grep en `scripts/`: cero matches de `dotnet`, `.sln`, `.csproj`, `GesFer.Admin.Back`, `src/Product/`, `src/Admin/`.
-- Grep en `SddIA/skills/pr-skill.*` y `commit-skill.*`: cero refs a dotnet.
+- Grep en `scripts/skills/pr-skill.*` y `commit-skill.sh`: cero refs a dotnet.
 
 ---
 
@@ -153,6 +166,8 @@ Este plan convierte la especificación (9 SPECs) y las clarificaciones confirmad
 
 **Verificación:**
 - Carpetas eliminadas no existen.
+- Las implementaciones ejecutables residen en `scripts/tools/`.
+- Las definiciones en `SddIA/tools/` quedan sincronizadas con la implementación.
 - Nuevas tools ejecutan correctamente (dry-run).
 
 ---
@@ -192,6 +207,8 @@ Este plan convierte la especificación (9 SPECs) y las clarificaciones confirmad
 [CHECK-F2.4] SddIA/tools/ solo contiene definiciones de tools vigentes
 [CHECK-F2.5] .github/workflows/pr-validation.yml usa Node.js, no .NET
 [CHECK-F2.6] cumulo.paths.json → toolCapsules apuntan a carpetas existentes
+[CHECK-F2.7] scripts/skills/ mantiene las implementaciones ejecutables de skill afectadas
+[CHECK-F2.8] El estado documental de fases queda actualizado al cierre (F1 aplicada, F2 aplicada/validada si procede, F3 pendiente)
 ```
 
 ---

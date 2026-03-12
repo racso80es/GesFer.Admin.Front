@@ -1,0 +1,13 @@
+{
+  "toolId": "run-tests-frontend",
+  "version": "1.0.0",
+  "description": "Ejecuta tests del frontend (jest, playwright, build) en condiciones de validacion local.",
+  "contract_ref": "SddIA/tools/tools-contract.json",
+  "components": {
+    "launcher_bat": "Run-Tests-Frontend.bat",
+    "launcher_ps1": "Run-Tests-Frontend.ps1",
+    "config": "run-tests-frontend-config.json",
+    "doc": "run-tests-frontend.md"
+  },
+  "env": ["Windows 11", "PowerShell 7+", "Node.js 20+"]
+}
