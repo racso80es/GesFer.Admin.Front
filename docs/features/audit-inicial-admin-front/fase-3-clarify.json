@@ -1,0 +1,44 @@
+{
+  "action_id": "clarify",
+  "feature_id": "audit-inicial-admin-front",
+  "phase": 3,
+  "date": "2026-03-12",
+  "status": "clarify-with-defaults",
+  "closed_decisions": [
+    {
+      "id": "CL-F3-01",
+      "topic": "cn.ts",
+      "decision": "Mantener src/lib/utils/cn.ts sin cambios",
+      "evidence": "Archivo identico al de TmpMigration"
+    },
+    {
+      "id": "CL-F3-02",
+      "topic": "Alias @shared en configuracion",
+      "decision": "Eliminar alias y rutas ../../Shared/Front de tsconfig/tailwind/jest"
+    },
+    {
+      "id": "CL-F3-03",
+      "topic": "URL canonic dev",
+      "decision": "Usar https://localhost:5011 como referencia de API"
+    },
+    {
+      "id": "CL-F3-04",
+      "topic": "Referencia Product API en dashboard",
+      "decision": "Eliminar localhost:5000 y reemplazar por endpoint Admin o placeholder seguro"
+    }
+  ],
+  "questions_for_user": [
+    {
+      "id": "Q-F3-01",
+      "question": "¿Endpoint Admin concreto para dashboard o placeholder temporal?",
+      "blocking": false,
+      "default_if_no_answer": "Placeholder seguro"
+    },
+    {
+      "id": "Q-F3-02",
+      "question": "¿Copiamos lib/types/api.ts (Country/City) en esta fase?",
+      "blocking": false,
+      "default_if_no_answer": "No copiar hasta detectar uso real"
+    }
+  ]
+}

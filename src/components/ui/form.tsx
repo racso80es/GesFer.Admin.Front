@@ -9,7 +9,7 @@ import {
   FormProvider,
   useFormContext,
 } from "react-hook-form";
-import { cn } from "../../lib/utils/cn";
+import { cn } from "@/lib/utils/cn";
 
 const Form = FormProvider;
 
@@ -101,7 +101,7 @@ const FormControl = React.forwardRef<
       : `${formDescriptionId} ${formMessageId}`,
     "aria-invalid": !!error,
     className: cn(child.props.className, className),
-    ...props
+    ...props,
   });
 });
 FormControl.displayName = "FormControl";
@@ -111,9 +111,10 @@ const FormMessage = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField();
-  const body = (error?.message && typeof error.message === "string"
-    ? error.message
-    : null) ?? children;
+  const body =
+    (error?.message && typeof error.message === "string"
+      ? error.message
+      : null) ?? children;
 
   if (!body) return null;
 

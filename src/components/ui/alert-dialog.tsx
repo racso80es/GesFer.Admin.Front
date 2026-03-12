@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "./dialog";
 import { Button } from "./button";
-import { cn } from "../../lib/utils/cn";
+import { cn } from "@/lib/utils/cn";
 
 const AlertDialog = Dialog;
 const AlertDialogContent = React.forwardRef<

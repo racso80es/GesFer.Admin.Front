@@ -5,7 +5,7 @@ function normalizeAdminApiBaseUrl(url: string): string {
 
 export const getAdminApi = () => {
   const baseUrl = normalizeAdminApiBaseUrl(
-    process.env.NEXT_PUBLIC_ADMIN_API_URL || process.env.ADMIN_API_URL || "http://localhost:5010"
+    process.env.NEXT_PUBLIC_ADMIN_API_URL || process.env.ADMIN_API_URL || "https://localhost:5011"
   );
 
   const request = async <T>(path: string, options: RequestInit = {}): Promise<T> => {

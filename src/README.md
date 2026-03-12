@@ -7,18 +7,19 @@ Frontend administrativo para GesFer, desarrollado con Next.js 14 (App Router), T
 - `app/`: Rutas y páginas (App Router)
 - `components/`: Componentes React reutilizables
 - `lib/`: Utilidades y helpers
-- `@shared/*`: Componentes compartidos desde `src/Shared/Front`
+- `components/ui/`: Primitivos de interfaz (Button, Input, Card, Dialog, etc.)
+- `components/shared/`: Componentes con lógica compartida (Button con testid, DataTable, etc.)
 
 ## Configuración
 
 ### Variables de Entorno
 
-- `NEXT_PUBLIC_API_URL`: URL de la API Admin (por defecto: `http://localhost:5001`)
+- `ADMIN_API_URL`: URL de la API Admin (por defecto en desarrollo: `https://localhost:5011`)
+- `NEXT_PUBLIC_ADMIN_API_URL`: Alternativa pública para Client Components
 
 ### Alias de Importación
 
-- `@/*`: Apunta a la raíz del proyecto Admin/Front
-- `@shared/*`: Apunta a `src/Shared/Front/*`
+- `@/*`: Apunta a la raíz del proyecto
 
 ## Desarrollo
 

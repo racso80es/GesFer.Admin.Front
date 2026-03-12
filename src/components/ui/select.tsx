@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../lib/utils/cn";
+import { cn } from "@/lib/utils/cn";
 
 interface SelectContextValue {
   value: string;
@@ -128,7 +128,10 @@ SelectContent.displayName = "SelectContent";
 
 const SelectItem = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { value: string; children?: React.ReactNode }
+  React.HTMLAttributes<HTMLDivElement> & {
+    value: string;
+    children?: React.ReactNode;
+  }
 >(({ className, value, children, ...props }, ref) => {
   const ctx = React.useContext(SelectContext);
   if (!ctx) return null;

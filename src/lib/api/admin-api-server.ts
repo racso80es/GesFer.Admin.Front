@@ -9,12 +9,12 @@ function normalizeAdminApiBaseUrl(url: string): string {
   return trimmed.endsWith("/api") ? trimmed : `${trimmed}/api`;
 }
 
-/** En servidor Node, HTTPS a localhost falla por certificado autofirmado; usar HTTP 5010. */
+/** En servidor Node, HTTPS a localhost falla por certificado autofirmado; usar HTTP 5011. */
 function serverSafeAdminApiUrl(url: string): string {
   try {
     const u = new URL(url);
     if (u.protocol === "https:" && (u.hostname === "localhost" || u.hostname === "127.0.0.1")) {
-      return normalizeAdminApiBaseUrl(`http://${u.hostname}:5010`);
+      return normalizeAdminApiBaseUrl(`http://${u.hostname}:5011`);
     }
   } catch {
     /* ignore */
@@ -26,7 +26,7 @@ export function getAdminApiWithToken(accessToken: string | undefined) {
   const configured =
     process.env.NEXT_PUBLIC_ADMIN_API_URL ||
     process.env.ADMIN_API_URL ||
-    "http://localhost:5010";
+    "https://localhost:5011";
   const baseUrl = serverSafeAdminApiUrl(configured);
 
   const headers: Record<string, string> = {

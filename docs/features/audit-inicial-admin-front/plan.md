@@ -19,7 +19,7 @@ Este plan convierte la especificación (9 SPECs) y las clarificaciones confirmad
 |------|--------|--------|
 | **Fase 1 — P0 Contexto IA** | **Aplicada en la rama actual** | Confirmación de usuario + clarificación `CL-PRIO-STATE` |
 | **Fase 2 — P1 Infraestructura CI/CD** | **Aplicada en la rama actual** | Ejecución verificada (CHECK-F2.1 a CHECK-F2.8) |
-| **Fase 3 — P2 Código fuente** | **Pendiente / siguiente fase a ejecutar** | Este plan |
+| **Fase 3 — P2 Código fuente** | **Aplicada en la rama actual** | Ejecución verificada (CHECK-F3.1 a CHECK-F3.7) |
 
 **Implicación operativa para Fase 2:** Se ejecuta con la precondición de contexto IA ya saneado. La validación de Fase 2 debe evitar reintroducir referencias de backend o mover implementaciones ejecutables fuera de `scripts/`.
 

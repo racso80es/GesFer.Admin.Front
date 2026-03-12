@@ -8,10 +8,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import { Button } from "./Button";
 import { Input } from "./Input";
-import { Label } from "../ui/label";
 import { AlertTriangle, Loader2 } from "lucide-react";
 
 interface DestructiveActionConfirmProps {
@@ -26,11 +26,6 @@ interface DestructiveActionConfirmProps {
   isLoading?: boolean;
 }
 
-/**
- * Componente Vision Zero para confirmación de acciones destructivas.
- * Requiere que el usuario escriba una palabra clave (por defecto "ELIMINAR") 
- * antes de habilitar el botón de ejecución.
- */
 export function DestructiveActionConfirm({
   open,
   onOpenChange,
@@ -45,7 +40,8 @@ export function DestructiveActionConfirm({
   const [inputValue, setInputValue] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
 
-  const isKeywordCorrect = inputValue.trim().toUpperCase() === confirmationKeyword.toUpperCase();
+  const isKeywordCorrect =
+    inputValue.trim().toUpperCase() === confirmationKeyword.toUpperCase();
   const isButtonEnabled = isKeywordCorrect && !isExecuting && !isLoading;
 
   const handleConfirm = async () => {
@@ -54,11 +50,9 @@ export function DestructiveActionConfirm({
     try {
       setIsExecuting(true);
       await onConfirm();
-      // Cerrar el diálogo después de ejecutar la acción
       setInputValue("");
       onOpenChange(false);
     } catch (error) {
-      // El error debe ser manejado por el componente padre
       console.error("Error al ejecutar acción destructiva:", error);
     } finally {
       setIsExecuting(false);
@@ -78,14 +72,16 @@ export function DestructiveActionConfirm({
             <AlertTriangle className="h-5 w-5 text-destructive" />
             <DialogTitle>{title}</DialogTitle>
           </div>
-          <DialogDescription className="pt-2">
-            {description}
-          </DialogDescription>
+          <DialogDescription className="pt-2">{description}</DialogDescription>
         </DialogHeader>
 
         <div className="py-4">
           <Label htmlFor="confirmation-input" className="text-sm font-medium">
-            Escribe <strong className="font-bold text-destructive">{confirmationKeyword}</strong> para confirmar:
+            Escribe{" "}
+            <strong className="font-bold text-destructive">
+              {confirmationKeyword}
+            </strong>{" "}
+            para confirmar:
           </Label>
           <Input
             id="confirmation-input"
@@ -105,7 +101,8 @@ export function DestructiveActionConfirm({
           />
           {inputValue && !isKeywordCorrect && (
             <p className="mt-2 text-sm text-muted-foreground">
-              La palabra clave no coincide. Debes escribir exactamente: <strong>{confirmationKeyword}</strong>
+              La palabra clave no coincide. Debes escribir exactamente:{" "}
+              <strong>{confirmationKeyword}</strong>
             </p>
           )}
         </div>

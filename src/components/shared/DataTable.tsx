@@ -1,80 +1,26 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "../../lib/utils/cn";
+import { cn } from "@/lib/utils/cn";
 import { Button } from "./Button";
 
 export interface DataTableColumn<T> {
-  /**
-   * Clave única de la columna
-   */
   key: string;
-  
-  /**
-   * Título de la columna
-   */
   title: string;
-  
-  /**
-   * Función para renderizar el contenido de la celda
-   */
   render: (item: T, index: number) => React.ReactNode;
-  
-  /**
-   * Clase CSS adicional para la columna
-   */
   className?: string;
-  
-  /**
-   * Si la columna es ordenable
-   */
   sortable?: boolean;
 }
 
 export interface DataTableProps<T> {
-  /**
-   * Datos a mostrar en la tabla
-   */
   data: T[];
-  
-  /**
-   * Configuración de columnas
-   */
   columns: DataTableColumn<T>[];
-  
-  /**
-   * Función para obtener la clave única de cada fila
-   */
   getRowKey: (item: T, index: number) => string | number;
-  
-  /**
-   * Si la tabla está cargando
-   */
   loading?: boolean;
-  
-  /**
-   * Mensaje cuando no hay datos
-   */
   emptyMessage?: string;
-  
-  /**
-   * Clase CSS adicional para la tabla
-   */
   className?: string;
-  
-  /**
-   * Clase CSS adicional para el contenedor
-   */
   containerClassName?: string;
-  
-  /**
-   * Si se muestra el encabezado
-   */
   showHeader?: boolean;
-  
-  /**
-   * Configuración de paginación
-   */
   pagination?: {
     currentPage: number;
     totalPages: number;
@@ -85,33 +31,11 @@ export interface DataTableProps<T> {
     nextText?: string;
     pageText?: string;
   };
-  
-  /**
-   * Función para renderizar filas expandibles (opcional)
-   */
   renderExpandedRow?: (item: T) => React.ReactNode;
-  
-  /**
-   * Función para obtener el estado de expansión de una fila
-   */
   isRowExpanded?: (item: T) => boolean;
-  
-  /**
-   * Identificador para tests (data-testid)
-   * Nomenclatura: shared-datatable-[acción]
-   * Ejemplo: shared-datatable-logs, shared-datatable-users
-   */
   "data-testid"?: string;
 }
 
-/**
- * Componente DataTable compartido
- * 
- * Componente puro e inmutable para mostrar datos en formato tabla
- * con soporte para data-testid para tests automatizados.
- * 
- * Cualquier variación de comportamiento o estilo debe pasarse mediante props.
- */
 export function DataTable<T>({
   data,
   columns,
@@ -142,7 +66,10 @@ export function DataTable<T>({
   if (data.length === 0) {
     return (
       <div
-        className={cn("flex flex-col items-center justify-center py-12", containerClassName)}
+        className={cn(
+          "flex flex-col items-center justify-center py-12",
+          containerClassName
+        )}
         data-testid={`${testId}-empty`}
       >
         <p className="text-muted-foreground">{emptyMessage}</p>
@@ -176,7 +103,7 @@ export function DataTable<T>({
             {data.map((item, index) => {
               const rowKey = getRowKey(item, index);
               const isExpanded = isRowExpanded ? isRowExpanded(item) : false;
-              
+
               return (
                 <React.Fragment key={rowKey}>
                   <tr
@@ -209,7 +136,7 @@ export function DataTable<T>({
           </tbody>
         </table>
       </div>
-      
+
       {pagination && pagination.totalPages > 1 && (
         <div
           className="flex items-center justify-between mt-4"
@@ -224,7 +151,8 @@ export function DataTable<T>({
             {pagination.previousText || "Anterior"}
           </Button>
           <span className="text-sm text-muted-foreground">
-            {pagination.pageText || "Página"} {pagination.currentPage} de {pagination.totalPages}
+            {pagination.pageText || "Página"} {pagination.currentPage} de{" "}
+            {pagination.totalPages}
           </span>
           <Button
             variant="outline"
