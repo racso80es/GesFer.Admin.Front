@@ -1,3 +1,17 @@
+---
+category: Domain-Driven Design
+contract_ref: paths.principlesPath/principles-contract.json
+id: c1f7a01b-9a8c-4d3b-8f2e-1e3d4a5b6c79
+metadata:
+  difficulty: Intermediate
+  status: Published
+principle_id: value-objects
+tags:
+  - DDD
+  - Inmutabilidad
+  - Validación
+  - Diseño de Tipos
+---
 # Value Objects
 
 **principle_id:** `value-objects`

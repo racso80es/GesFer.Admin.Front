@@ -1,3 +1,33 @@
+---
+contract_ref: SddIA/tools/tools-contract.json
+cumulo_ref: SddIA/agents/cumulo.json
+depends_on_tools: []
+env:
+  - Windows 11
+  - PowerShell 7+
+  - Node.js 20+
+implementation_path_ref: paths.toolCapsules.run-tests-frontend
+inputs:
+  BaseUrl: string (opcional). URL base frontend para E2E; por defecto http://localhost:3001.
+  OnlyTests: boolean (opcional). Solo ejecutar tests (sin npm install).
+  OutputJson: boolean (opcional). Emitir resultado JSON por stdout.
+  OutputPath: string (opcional). Fichero donde escribir el resultado JSON.
+  TestScope: string (opcional). unit | e2e | build | lint | all. Por defecto all.
+output:
+  data_fields: tests_summary (scope, exit codes), duration_ms
+  phases_feedback:
+    - init
+    - install
+    - lint
+    - build
+    - unit
+    - e2e
+    - done
+    - error
+  schema_ref: tools-contract.json output.required_fields y optional_fields
+toolId: run-tests-frontend
+version: 1.0.0
+---
 # Especificación: run-tests-frontend
 
 **toolId:** `run-tests-frontend`

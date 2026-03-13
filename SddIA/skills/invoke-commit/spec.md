@@ -1,3 +1,45 @@
+---
+contract_ref: SddIA/skills/skills-contract.json
+implementation_path_ref: paths.skillCapsules.invoke-commit
+name: Operaciones de Commit
+parameters:
+  all:
+    aliases:
+      - '-a'
+    description: git add -A.
+    required: false
+    type: flag
+  contexto:
+    default: GesFer.Admin.Front
+    required: false
+  fase:
+    default: Accion
+    required: false
+  files:
+    description: Rutas separadas por coma.
+    required: false
+  message:
+    aliases:
+      - '-m'
+    description: Mensaje del commit.
+    required: true
+  scope:
+    description: Scope Conventional Commits.
+    required: false
+  type:
+    default: feat
+    enum:
+      - feat
+      - fix
+      - chore
+      - docs
+      - refactor
+    required: false
+rules:
+  - Para commits, invocar invoke-commit directamente; no es necesario invoke-command.
+  - Registro en docs/diagnostics/{branch}/execution_history.json.
+skill_id: invoke-commit
+---
 # Skill: Invoke Commit
 
 **skill_id:** invoke-commit

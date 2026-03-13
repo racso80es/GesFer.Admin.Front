@@ -1,3 +1,25 @@
+---
+action_id: validate
+blocking_principles:
+  - nomenclatura
+contract_ref: actions-contract.json
+flow_steps:
+  - Validación git (siempre)
+  - Contexto
+  - Checks obligatorios (incl. nomenclatura)
+  - Opcionales
+  - Informe
+  - Auditoría
+inputs:
+  - Carpeta tarea (Cúmulo)
+  - Rama actual
+name: Validate
+optional_checks:
+  sddia_md_json_parity: 'Si el diff toca SddIA/skills o SddIA/process, comprobar existencia y coherencia spec.md ↔ spec.json. Ref: refactorization-sincronidad-md-json.'
+outputs:
+  - validacion.json en carpeta tarea o paths.auditsPath
+principles_ref: paths.principlesPath
+---
 # Action: Validate
 
 ## Propósito

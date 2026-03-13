@@ -1,3 +1,31 @@
+---
+contract_ref: paths.processPath/process-contract.json
+inputs:
+  description: Descripción breve del fin concreto. Obligatorio.
+  process_ref: Proceso que orquesta (feature, correccion-auditorias, etc.). Obligatorio.
+  template_id: kebab-case. Obligatorio.
+name: Create Template
+paths:
+  featurePath_ref: paths.featurePath (Cúmulo)
+  processPath_ref: paths.processPath (Cúmulo)
+  templatesPath_ref: paths.templatesPath (Cúmulo)
+persist_ref: paths.featurePath/create-template-<template-id>
+process_doc_ref: paths.processPath/create-template/
+process_id: create-template
+process_interface_compliance: 'Genera en carpeta de la tarea al menos un .md y un .json; entregable: carpeta en paths.templatesPath/<template-id>/ con spec.md y spec.json.'
+related_actions:
+  - spec
+  - validate
+  - finalize
+related_skills:
+  - iniciar-rama
+  - documentation
+spec_version: 1.0.0
+templates_contract_ref: SddIA/templates/templates-contract.json
+triggers:
+  - Crear nueva plantilla en paths.templatesPath
+  - Solicitud de creación de plantilla con template-id
+---
 # Proceso: Creación de plantillas (create-template)
 
 Este documento define el **proceso de tarea** para crear una nueva plantilla (template) en el proyecto. Está ubicado en paths.processPath/create-template/ (Cúmulo). Las rutas de plantillas se obtienen de **Cúmulo** (paths.templatesPath).

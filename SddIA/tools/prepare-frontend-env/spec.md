@@ -1,3 +1,26 @@
+---
+contract_ref: SddIA/tools/tools-contract.json
+cumulo_ref: SddIA/agents/cumulo.json
+depends_on_tools: []
+env:
+  - Windows 11
+  - PowerShell 7+
+  - Node.js 20+
+implementation_path_ref: paths.toolCapsules.prepare-frontend-env
+inputs:
+  OutputJson: boolean (opcional). Emitir resultado JSON por stdout.
+  OutputPath: string (opcional). Fichero donde escribir el resultado JSON.
+output:
+  phases_feedback:
+    - init
+    - install
+    - env-check
+    - done
+    - error
+  schema_ref: tools-contract.json output.required_fields y optional_fields
+toolId: prepare-frontend-env
+version: 1.0.0
+---
 # Especificación: prepare-frontend-env
 
 **toolId:** `prepare-frontend-env`
