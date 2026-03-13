@@ -38,6 +38,7 @@ Desde la raíz del repositorio:
 
 - exitCode 0 si commit exitoso
 - Registro en docs/diagnostics/{branch}/execution_history.json
+- **Inclusión en PR:** El execution_history se añade al mismo commit mediante `--amend` para que no quede fuera del PR
 
 ## Implementación
 

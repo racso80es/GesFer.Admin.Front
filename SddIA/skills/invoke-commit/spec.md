@@ -29,6 +29,7 @@ Centralizar las operaciones de **commit** en Git con parámetros directos, consu
 
 - exitCode 0 si commit exitoso.
 - Registro en docs/diagnostics/{branch}/execution_history.json.
+- **Inclusión en commit:** Tras escribir el log, se hace `git add` del execution_history y `git commit --amend --no-edit` para que el fichero quede en el mismo commit (evitar que quede fuera del PR).
 
 ### Relación con invoke-command
 
