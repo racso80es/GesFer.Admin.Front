@@ -1,0 +1,22 @@
+{
+  "toolId": "audit-funcional-frontend",
+  "version": "1.0.0",
+  "description": "Proceso documental para auditoría funcional del frontend: validar funcionalidades actuando como usuario administrativo. Repetible en el futuro.",
+  "implementation_type": "process",
+  "implementation_path_ref": null,
+  "contract_ref": "SddIA/tools/tools-contract.json",
+  "cumulo_ref": "SddIA/agents/cumulo.json",
+  "inputs": {
+    "api_admin_active": "Requisito: API Admin en puerto 5011.",
+    "credentials": "Requisito: Usuario admin válido.",
+    "env_vars": "Requisito: ADMIN_API_URL, AUTH_SECRET."
+  },
+  "output": {
+    "report_path": "paths.auditsPath (AUDITORIA_FUNCIONAL_FRONTEND_YYYY_MM_DD.md)",
+    "success_criterion": "Checklist completada, resultado global documentado.",
+    "phases": ["preparacion", "validacion_manual", "registro_hallazgos", "kaizen"]
+  },
+  "depends_on_tools": ["start-frontend"],
+  "kaizen_action": "Tras la auditoría: corregir hallazgos, registrar mejoras, actualizar proceso si procede.",
+  "env": ["Windows 11", "PowerShell 7+", "Node.js 20+", "API Admin activa"]
+}
