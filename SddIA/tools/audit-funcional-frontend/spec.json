@@ -25,5 +25,9 @@
   },
   "depends_on_tools": ["start-frontend"],
   "kaizen_action": "Tras la auditoría: corregir hallazgos, registrar mejoras, actualizar proceso si procede.",
-  "env": ["Windows 11", "PowerShell 7+", "Node.js 20+", "API Admin activa"]
+  "env": ["Windows 11", "PowerShell 7+", "Node.js 20+", "API Admin activa"],
+  "provider_refs": {
+    "iota-wallet": "docs/architecture/providers/iota-wallet/",
+    "description": "Proveedores de billetera documentados como soporte para implementaciones futuras (integración dApps, autenticación wallet)."
+  }
 }

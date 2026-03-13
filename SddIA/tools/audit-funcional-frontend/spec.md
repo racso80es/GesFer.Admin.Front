@@ -74,3 +74,11 @@ Tras la auditoría, aplicar mejoras:
 - paths.toolCapsules.start-frontend: scripts/tools/start-frontend/
 - Contrato: SddIA/tools/tools-contract.json (referencia para formato de reporte).
 - Rol Auditor: SddIA/agents/auditor/auditor.json.
+
+## Soporte para implementaciones futuras (proveedores)
+
+Cuando futuras features incluyan integración con billeteras o proveedores externos, consultar las especificaciones de proveedores documentados:
+
+| providerId | Descripción | Ruta |
+|------------|-------------|------|
+| **iota-wallet** | IOTA Wallet — extensión Chrome, self-custody, dApps, Ledger | docs/architecture/providers/iota-wallet/ |
