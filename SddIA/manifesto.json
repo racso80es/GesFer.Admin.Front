@@ -1,9 +1,9 @@
 {
   "meta": {
-    "version": "2.0",
-    "last_updated": "2026-02-04",
+    "version": "3.0",
+    "last_updated": "2026-03-12",
     "status": "Active",
-    "title": "Values Manifesto & Architectural Standard"
+    "title": "Values Manifesto & Architectural Standard — GesFer.Admin.Front"
   },
   "principles": [
     {
@@ -16,60 +16,54 @@
     },
     {
       "name": "Technical Rigor",
-      "description": "Compilation is mandatory. Logs are evidence. Zero broken windows."
+      "description": "Build must pass. Lint must pass. Tests must pass. Zero broken windows."
     },
     {
       "name": "Sector Pragmatism",
       "description": "Built for traditional sector reality (scrap yards). Utility in plant > Abstract perfection."
     },
     {
-      "name": "Domain Architecture (S+)",
-      "description": "Strict separation of responsibilities: Shared, Product, Admin, Utils."
+      "name": "Frontend Architecture",
+      "description": "Strict separation of responsibilities: App (routing/pages), Components (UI/Shared/Layout), Lib (API clients/utils), Contexts (state)."
     }
   ],
   "architecture_pillars": {
-    "Shared": {
-      "purpose": "Common DNA. Transversal components.",
-      "path": "src/Shared/",
-      "rules": ["Must NOT depend on Product or Admin.", "Contains only genuinely transversal code (Geography, UI Base)."]
+    "App": {
+      "purpose": "Routing, pages, layouts (Next.js App Router).",
+      "path": "src/app/",
+      "rules": ["Server Components by default.", "Pages orchestrate components; no business logic in page files."]
     },
-    "Product": {
-      "purpose": "Main Operational App (Multi-tenant).",
-      "path": "src/Product/",
-      "rules": ["Can consume Shared.", "Must NOT consume Admin.", "Multi-tenant (CompanyId required)."]
+    "Components": {
+      "purpose": "Reusable UI primitives, shared composites, and layout structures.",
+      "path": "src/components/",
+      "rules": ["ui/ contains primitives (no business logic).", "shared/ contains composed components.", "layout/ contains page structure components.", "Must NOT import from src/app/."]
     },
-    "Admin": {
-      "purpose": "Global Management System (Single-tenant).",
-      "path": "src/Admin/",
-      "rules": ["Can consume Shared.", "Must NOT consume Product.", "Global scope (No CompanyId)."]
+    "Lib": {
+      "purpose": "API clients, configuration, utilities.",
+      "path": "src/lib/",
+      "rules": ["api/ centralizes all HTTP calls to external APIs.", "config.ts is the single source of environment-based configuration.", "utils/ contains pure utility functions."]
     },
-    "Utils": {
-      "purpose": "Orchestration & Master Data.",
-      "path": "src/Utils/",
-      "rules": ["Can consume Shared, Product, Admin.", "Contains Seeds, Migrations."]
+    "Contexts": {
+      "purpose": "Global client-side state management.",
+      "path": "src/contexts/",
+      "rules": ["React Context for cross-component state.", "React Query for server-state cache."]
+    },
+    "Types": {
+      "purpose": "Shared TypeScript type definitions.",
+      "path": "src/types/",
+      "rules": ["Centralized types for API responses, domain models, and component props."]
     }
   },
   "dependency_rules": {
-    "backend": [
-      { "from": "src/Shared/Back/", "to": "GesFer.Product.Back.*", "allowed": false },
-      { "from": "src/Shared/Back/", "to": "GesFer.Admin.Back.*", "allowed": false },
-      { "from": "src/Product/Back/", "to": "GesFer.Admin.Back.*", "allowed": false },
-      { "from": "src/Admin/Back/", "to": "GesFer.Product.Back.*", "allowed": false },
-      { "from": "src/Product/Back/", "to": "GesFer.Shared.Back.*", "allowed": true },
-      { "from": "src/Admin/Back/", "to": "GesFer.Shared.Back.*", "allowed": true }
-    ],
     "frontend": [
-      { "from": "src/Shared/Front/", "import": "@product", "allowed": false },
-      { "from": "src/Shared/Front/", "import": "@admin", "allowed": false },
-      { "from": "src/Product/Front/", "import": "@admin", "allowed": false },
-      { "from": "src/Admin/Front/", "import": "@product", "allowed": false },
-      { "from": "src/Product/Front/", "import": "@shared", "allowed": true },
-      { "from": "src/Admin/Front/", "import": "@shared", "allowed": true }
+      { "from": "src/components/", "to": "src/app/", "allowed": false, "reason": "Components cannot depend on pages." },
+      { "from": "src/lib/", "to": "src/app/", "allowed": false, "reason": "Lib cannot depend on pages." },
+      { "from": "src/lib/", "to": "src/components/", "allowed": false, "reason": "Lib is lower-level than components." },
+      { "from": "src/app/", "to": "src/components/", "allowed": true },
+      { "from": "src/app/", "to": "src/lib/", "allowed": true },
+      { "from": "src/components/", "to": "src/lib/", "allowed": true },
+      { "from": "**/*", "import": "@shared/", "allowed": false, "reason": "Legacy monorepo alias. Use @/ instead." },
+      { "from": "**/*", "import": "../../Shared/", "allowed": false, "reason": "Legacy monorepo path. All shared code is internal now." }
     ]
-  },
-  "seed_taxonomy": {
-    "structure": "src/Utils/Data/Seeds/{level}/{scope}-data.json",
-    "levels": ["master", "demo", "test"],
-    "scopes": ["Shared", "Admin", "Product"]
   }
 }

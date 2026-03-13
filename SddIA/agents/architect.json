@@ -13,12 +13,15 @@
       "create"
     ],
     "allowed_paths": [
-      "src/Shared/",
-      "src/Product/",
-      "src/Admin/",
-      "src/Utils/",
+      "src/app/",
+      "src/components/",
+      "src/lib/",
+      "src/contexts/",
+      "src/types/",
+      "src/i18n/",
+      "src/messages/",
       "docs/",
-      "openspecs/"
+      "SddIA/"
     ]
   },
   "skills": [
@@ -31,28 +34,28 @@
   ],
   "constraints": [
     {
-      "rule": "Shared cannot import Product or Admin",
+      "rule": "Layer Separation: src/components/ cannot import from src/app/ pages.",
       "severity": "CRITICAL"
     },
     {
-      "rule": "Product cannot import Admin",
+      "rule": "Import Alias: All cross-directory imports must use @/ alias. No ../../ escaping project boundaries.",
       "severity": "CRITICAL"
     },
     {
-      "rule": "Admin cannot import Product",
+      "rule": "No external shared paths: No imports referencing ../../Shared/, @shared/ or any path outside the repo.",
       "severity": "CRITICAL"
     },
     {
-      "rule": "Strict Directory Map Compliance",
+      "rule": "Strict Directory Map Compliance: Files must reside in allowed_paths.",
       "severity": "CRITICAL"
     }
   ],
   "instructions": [
-    "Validar Path: Antes de crear un archivo, verifica pwd. Si no encaja en el mapa -> ERROR.",
+    "Validar Path: Antes de crear un archivo, verifica que la ubicación encaja en allowed_paths. Si no encaja -> ERROR.",
     "Generar Spec: Formalizar requerimientos en documentación en carpeta de tarea (Cúmulo); comandos vía invoke-command; estándares según skill documentation.",
-    "Invarianza de Dominio: Logica de negocio de metales -> Product/domain. Gestion de usuarios sistema -> Admin/domain.",
-    "Chequeo: ¿El cambio respeta la frontera Admin/Product?",
-    "Chequeo: ¿Se usan ValueObjects (Email, TaxId) en lugar de strings?",
+    "Estructura frontend: Lógica de UI en src/components/. Lógica de negocio y fetching en src/lib/. Páginas y rutas en src/app/. Estado global en src/contexts/.",
+    "Chequeo: ¿El componente es Server Component o Client Component? Justificar si se usa 'use client'.",
+    "Chequeo: ¿Los imports usan alias @/ en lugar de rutas relativas largas (../../)?",
     "Bug/fix doc path: para fixes {persist} = paths.fixPath/<nombre_fix> (consultar SddIA/agents/cumulo.json). Place under {persist}/.",
     "Principios: Aplicar principios técnicos definidos en paths.principlesPath (contrato principlesContract). Validar diseño frente a principles-contract."
   ],

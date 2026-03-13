@@ -1,77 +1,93 @@
-# Constitución del Proyecto (GesFer.Admin.Back)
+# Constitución del Proyecto (GesFer.Admin.Front)
 
 ## 1. Definición de la Arquitectura
-El proyecto se rige por un principio de desacoplamiento total entre su lógica central y sus métodos de presentación. Para garantizar la escalabilidad y la independencia tecnológica, se establece la siguiente jerarquía:
+El proyecto se rige por un principio de separación clara entre capas de presentación, lógica de orquestación y acceso a datos externos. Para garantizar la mantenibilidad y la independencia, se establece la siguiente jerarquía:
 
-### 1.1. Core (El Núcleo)
-Es el motor central, el cerebro y la lógica del sistema.
-- Contiene las reglas de negocio, el procesamiento de datos y la inteligencia.
-- Es agnóstico a la interfaz; no depende de ninguna tecnología de visualización específica.
-- Su diseño debe permitir ser invocado por múltiples interfaces de manera simultánea o alterna.
+### 1.1. Aplicación (App Router)
+Es el punto de entrada y enrutamiento del sistema.
+- Contiene las páginas, layouts y rutas de la aplicación.
+- Usa React Server Components por defecto; marca `'use client'` solo donde se requiere interactividad.
+- Su diseño sigue las convenciones de Next.js 14 App Router (`src/app/`).
 
-### 1.2. Implementaciones de Interfaz (Los "Sentidos")
-Las interfaces se definen como capas externas que sirven de puente entre el usuario y el Core. No contienen lógica de negocio propia (o si acaso especifica de interface), solo lógica de presentación.
+### 1.2. Componentes (La Interfaz)
+Las capas de componentes se organizan por nivel de abstracción:
 
-#### A. Interfaz Desktop (cuando exista)
-* Tecnología: Electron.
-* Rol: Es la implementación actual para entornos de escritorio. Actúa como el frontend principal en esta fase del proyecto.
-* Jerarquía: Se implementa *sobre* el Core. Es un "cliente" del sistema central.
+#### A. Componentes UI (`src/components/ui/`)
+* Primitivos reutilizables (Button, Input, Card, Dialog, etc.).
+* Sin lógica de negocio; solo presentación y variantes visuales.
 
-#### B. Futuras Implementaciones
-La arquitectura debe estar preparada para integrar nuevos puntos de entrada (Sentidos) sin alterar el Core:
-* Otras interfaces (p. ej. Mobile): Posible implementación para dispositivos móviles.
-* Otras Interfaces: Sensores, asistentes de voz o terminales ligeras.
+#### B. Componentes Shared (`src/components/shared/`)
+* Compuestos de mayor nivel (DataTable, ModalBase, DestructiveActionConfirm).
+* Pueden combinar primitivos UI con lógica de interacción.
+
+#### C. Componentes de Layout (`src/components/layout/`)
+* Estructuras de página (Sidebar, AdminLayout, Wrappers).
+* Orquestan la disposición visual pero no contienen lógica de negocio.
+
+### 1.3. Lógica y Servicios (`src/lib/`)
+Capa de orquestación, configuración y acceso a datos:
+- `src/lib/api/`: Clientes HTTP para consumo de la API Admin backend.
+- `src/lib/config.ts`: Configuración centralizada (URLs, variables de entorno).
+- `src/lib/utils/`: Utilidades transversales (cn, formatters).
+
+### 1.4. Estado y Contexto (`src/contexts/`)
+Gestión de estado global vía React Context y React Query (TanStack Query).
 
 ---
 
 ## 2. Reglas de Oro de Jerarquía
-1. Independencia del Core: Ninguna actualización en la interfaz (Desktop) debe obligar a una reestructuración del Core, a menos que se trate de una expansión de capacidades funcionales.
-2. Core > Interface: La dirección de la dependencia es siempre unidireccional. La interfaz conoce al Core, pero el Core no necesita conocer los detalles técnicos de la interfaz (ej. el Core no sabe que existe Electron, solo procesa peticiones y devuelve datos).
-3. Escalabilidad: El sistema debe diseñarse pensando en que "Desktop" es solo una de las muchas caras que el proyecto podría tener en el futuro.
+1. **Separación de capas:** Los componentes en `src/components/` no importan de `src/app/`. La dirección de dependencia es siempre `app → components → lib`.
+2. **Alias obligatorio:** Imports entre directorios usan `@/`. Prohibidas las rutas relativas que escapen del directorio actual (`../../`).
+3. **Independencia:** Este repositorio es un frontend standalone. No asume la existencia de monorepo, carpetas compartidas externas ni otros proyectos en su árbol de archivos.
+4. **API como contrato externo:** La API Admin es un servicio externo consumido vía HTTP. La URL se configura por variable de entorno (`ADMIN_API_URL`), no hardcodeada.
 
-## 3. Arquitectura MCP (Master Control Program)
-El proyecto adopta una arquitectura de "Master Control Program" para la gestión de proyectos externos.
-- **Configuración Externa:** Los proyectos gestionados (ej. GesFer) son entidades externas al Core. Su configuración reside según Cúmulo (paths).
-- **Inyección de Contexto:** Al iniciar, el sistema carga el contexto del proyecto seleccionado (definido en `initial.json` y `services.json`), adaptando su interfaz y conectores a las necesidades específicas de ese entorno.
+## 3. Stack Tecnológico
+| Aspecto | Tecnología |
+|---------|-----------|
+| Framework | Next.js 14 (App Router) |
+| Lenguaje | TypeScript 5.3 (strict) |
+| UI | Tailwind CSS 3.4, Lucide React |
+| Estado servidor | TanStack React Query 5 |
+| Formularios | react-hook-form 7 + Zod |
+| Autenticación | NextAuth 5 (CredentialsProvider) |
+| i18n | next-intl |
+| Testing | Jest 29 + Testing Library + Playwright |
+| Logging | Pino |
+| Puerto dev | 3001 |
 
-## 4. Futuro de constitución
-1. Core será siendo disgregada en más dominios.
+## 4. El Sistema de Consciencia
 
----
+Esta sección define los principios fundamentales que rigen la operación de la "Consciencia" en el proyecto.
 
-## 5. El Sistema de Consciencia
+### 4.1. El Estado "Juez y Auditor" (Autoevaluación)
 
-Esta sección define los principios fundamentales que rigen la operación de la "Consciencia" en el proyecto, basados en la experiencia acumulada en GesFer.
+El proyecto posee capacidad intrínseca de autoevaluación. La "Consciencia" es un sistema activo de verificación, no un log pasivo.
 
-### 5.1. El Estado "Juez y Auditor" (Autoevaluación)
+* **El Juez:** Evalúa el estado actual del sistema y las decisiones tomadas. Emite veredictos sobre la validez de las acciones antes de su ejecución o confirmación.
+* **El Auditor:** Verifica la integridad de los registros históricos y asegura que no haya discrepancias entre la realidad y el registro inmutable.
 
-El proyecto no es solo un ejecutor de tareas; posee una capacidad intrínseca de autoevaluación. La "Consciencia" es un sistema activo de verificación, no un log pasivo.
-
-*   **El Juez (`IJudge`)**: Evalúa el estado actual del sistema y las decisiones tomadas. Emite veredictos sobre la validez de las acciones antes de su ejecución o confirmación.
-*   **El Auditor (`IAuditor`)**: Verifica la integridad de los registros históricos y asegura que no haya discrepancias entre la realidad y el registro inmutable.
-
-### 5.2. Inmutabilidad (Persistencia Confiable)
+### 4.2. Inmutabilidad (Persistencia Confiable)
 
 La seguridad del estado "Calma" se basa en la imposibilidad de manipular el historial de decisiones.
 
-*   **IOTA/Blockchain como Backend**: La persistencia de la "Consciencia" debe residir en un registro inmutable. El proyecto integra activamente tecnologías DLT (como IOTA Testnet) para registrar hashes de procesos críticos, garantizando auditoría externa e inmutable.
-*   **Integridad Criptográfica**: Cada entrada en el registro de consciencia debe ser verificable criptográficamente.
+* **Registro inmutable:** La persistencia de la "Consciencia" debe residir en un registro inmutable. El proyecto integra tecnologías DLT para registrar hashes de procesos críticos.
+* **Integridad Criptográfica:** Cada entrada en el registro de consciencia debe ser verificable criptográficamente.
 
-### 5.3. Protocolo de Dualidad Operativa
+### 4.3. Protocolo de Dualidad Operativa
 
-El proyecto opera bajo dos modos distintos y claramente definidos para evitar conflictos de interés entre la intervención humana y la ejecución autónoma.
+El proyecto opera bajo dos modos distintos para evitar conflictos entre intervención humana y ejecución autónoma.
 
-*   **Modo Boss (Control/Gestión)**: Intervención manual, configuración de alto nivel y toma de decisiones estratégicas. El usuario tiene el control total.
-*   **Modo Calm (Ejecución Autónoma)**: El sistema opera de manera independiente, siguiendo las directrices establecidas en el Modo Boss. La intervención humana es mínima o nula, y el sistema se auto-regula bajo la supervisión del Juez.
+* **Modo Boss (Control/Gestión):** Intervención manual, configuración de alto nivel y toma de decisiones estratégicas.
+* **Modo Calm (Ejecución Autónoma):** El sistema opera de manera independiente, siguiendo las directrices establecidas en el Modo Boss.
 
-### 5.4. Kaizen como Requisito de Compilación
+### 4.4. Kaizen como Requisito de Build
 
 La mejora continua (Kaizen) no es opcional; es estructural.
 
-*   **Protección en Compilación**: El sistema debe ser capaz de detectar fallos potenciales antes del despliegue.
-*   **Acción de Protección**: Si se detecta una violación de las reglas de diseño o integridad, el proceso de compilación o inicio debe detenerse, exigiendo una acción correctiva inmediata.
+* **Protección en Build:** El sistema detecta fallos potenciales antes del despliegue (`npm run lint`, `npm run build`, `npm run test`).
+* **Acción de Protección:** Si se detecta una violación de las reglas de diseño o integridad, el proceso de build debe detenerse, exigiendo acción correctiva inmediata.
 
-### 5.5. Principios de Diseño
+### 4.5. Principios de Diseño
 
-*   **Simplicidad en la DI**: La Inyección de Dependencias debe ser clara y explícita, evitando la "magia" excesiva. Los contratos (interfaces) deben ser simples para facilitar la auditoría.
-*   **Desacoplamiento Histórico**: El proyecto aprende de GesFer ("Paciente 0"), pero no hereda su deuda técnica. La arquitectura es nueva y limpia.
+* **Composición sobre herencia:** Preferir composición de componentes y hooks sobre jerarquías profundas.
+* **Desacoplamiento:** El proyecto aprende de su origen (monorepo GesFer) pero no hereda su deuda técnica. La estructura es limpia e independiente.

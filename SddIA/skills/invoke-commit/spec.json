@@ -11,7 +11,7 @@
     "type": { "required": false, "default": "feat", "enum": ["feat", "fix", "chore", "docs", "refactor"] },
     "scope": { "required": false, "description": "Scope Conventional Commits." },
     "fase": { "required": false, "default": "Accion" },
-    "contexto": { "required": false, "default": "GesFer" }
+    "contexto": { "required": false, "default": "GesFer.Admin.Front" }
   },
   "rules": [
     "Para commits, invocar invoke-commit directamente; no es necesario invoke-command.",

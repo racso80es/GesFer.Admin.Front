@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "description": "Configuracion run-tests-frontend. Rutas relativas a la raiz del repositorio.",
+  "repoRootRef": "Desde la capsula: ..\\..\\..",
+  "frontendDir": "src",
+  "scripts": {
+    "unit": "npm run test",
+    "e2e": "npm run test:e2e",
+    "build": "npm run build",
+    "lint": "npm run lint"
+  },
+  "e2eBaseUrl": "http://localhost:3001"
+}

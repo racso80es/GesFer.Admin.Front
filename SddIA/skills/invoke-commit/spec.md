@@ -23,7 +23,7 @@ Centralizar las operaciones de **commit** en Git con parámetros directos, consu
 | --type | string | No | feat, fix, chore, docs, refactor (default: feat). |
 | --scope | string | No | Scope Conventional Commits. |
 | --fase | string | No | Fase para telemetría (default: Accion). |
-| --contexto | string | No | Contexto para registro (default: GesFer). |
+| --contexto | string | No | Contexto para registro (default: GesFer.Admin.Front). |
 
 ### Salidas
 

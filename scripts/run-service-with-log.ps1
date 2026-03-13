@@ -11,7 +11,7 @@
 .PARAMETER WorkingDir
     Directorio de trabajo (raíz del proyecto del servicio).
 .PARAMETER Command
-    Comando a ejecutar (ej: "dotnet run", "npm run dev").
+    Comando a ejecutar (ej: "npm run dev", "npm start").
 #>
 [CmdletBinding()]
 param(

@@ -1,0 +1,95 @@
+{
+  "action_id": "spec",
+  "feature_id": "audit-inicial-admin-front",
+  "phase": 3,
+  "date": "2026-03-12",
+  "status": "ready-for-execution",
+  "scope": {
+    "in_scope": ["SPEC-01", "SPEC-02", "SPEC-07"],
+    "out_of_scope": [
+      "Nuevas funcionalidades de negocio",
+      "Reescritura arquitectonica de auth/API",
+      "Upgrade de dependencias"
+    ]
+  },
+  "specs": {
+    "SPEC-01": {
+      "title": "Internalizacion Shared",
+      "actions": {
+        "migrate_ui": [
+          "card",
+          "loading",
+          "button",
+          "input",
+          "label",
+          "error-message",
+          "dialog",
+          "alert-dialog",
+          "form",
+          "select",
+          "table",
+          "overlay-fix"
+        ],
+        "migrate_shared": [
+          "Button",
+          "Button.spec",
+          "DataTable",
+          "DestructiveActionConfirm",
+          "Input",
+          "Input.spec",
+          "ModalBase"
+        ],
+        "update_consumers": [
+          "src/app/login/page.tsx",
+          "src/app/dashboard/page.tsx",
+          "src/components/layout/Sidebar.tsx",
+          "src/components/layout/admin-layout.tsx",
+          "src/components/layout/admin-app-wrapper.tsx",
+          "src/__tests__/components/shared/Button.test.tsx"
+        ],
+        "update_config": [
+          "src/tsconfig.json",
+          "src/tailwind.config.ts",
+          "src/jest.config.js"
+        ],
+        "cleanup": ["src/TmpMigration/"]
+      }
+    },
+    "SPEC-02": {
+      "title": "Dockerfile standalone",
+      "file": "src/Dockerfile",
+      "required_changes": [
+        "Eliminar rutas src/Admin/Front y src/Shared/Front",
+        "Instalar dependencias desde src/package*.json",
+        "Build de Next standalone",
+        "No copiar public/ si no existe"
+      ]
+    },
+    "SPEC-07": {
+      "title": "Unificacion URLs/Puertos",
+      "canonical_dev_api_url": "https://localhost:5011",
+      "required_changes": [
+        "Eliminar fallback http://localhost:5010",
+        "Eliminar referencia localhost:5000 (Product API)",
+        "Alinear README y configuracion de API"
+      ],
+      "affected_files": [
+        "src/auth.ts",
+        "src/lib/api/admin-api.ts",
+        "src/lib/api/admin-api-server.ts",
+        "src/app/dashboard/page.tsx",
+        "src/lib/config.ts",
+        "src/README.md"
+      ]
+    }
+  },
+  "acceptance_criteria": [
+    "npm run lint exitoso",
+    "npm run build exitoso",
+    "npm run test exitoso",
+    "Cero referencias a @shared/ en src/",
+    "Cero referencias a ../../Shared/ en src/",
+    "Cero referencias a localhost:5000 en src/",
+    "src/TmpMigration/ eliminado"
+  ]
+}

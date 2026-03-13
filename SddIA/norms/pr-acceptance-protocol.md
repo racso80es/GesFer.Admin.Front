@@ -1,7 +1,7 @@
 # Protocolo de Aceptación de Pull Requests
 
 Este documento define las **condiciones obligatorias** que deben cumplirse antes de que cualquier Pull Request (PR) sea creado o aceptado. Este protocolo es aplicable a:
-- Agentes de IA (Jules) durante la acción `finalize`.
+- Agentes de IA durante la acción `finalize`.
 - Desarrolladores locales (Cursor) antes de hacer `push`.
 - Sistemas de CI/CD (GitHub Actions) como condición de bloqueo.
 
@@ -12,16 +12,21 @@ Este documento define las **condiciones obligatorias** que deben cumplirse antes
     - Ramas: `feat/<kebab-case>`, `fix/<kebab-case>`, `feat/refactorization-<kebab-case>`.
     - Commits: Formato convencional (opcional pero recomendado).
 
-2.  **Compilación (.NET):**
-    - La solución completa `src/GesFer.Admin.Back.sln` debe compilar sin errores.
-    - Comando: `dotnet build src/GesFer.Admin.Back.sln`.
+2.  **Lint:**
+    - El proyecto debe pasar el linter sin errores.
+    - Comando: `npm run lint` (working-directory: `src/`).
 
-3.  **Pruebas (Tests):**
-    - Todos los tests de la solución deben pasar.
-    - Comando: `dotnet test src/GesFer.Admin.Back.sln`.
+3.  **Build:**
+    - El proyecto debe compilar sin errores.
+    - Comando: `npm run build` (working-directory: `src/`).
 
-4.  **Ejecución:**
-    - Se debe utilizar la skill `verify-pr-protocol` (Rust) para garantizar la ejecución uniforme de estos chequeos.
+4.  **Pruebas (Tests):**
+    - Todos los tests deben pasar.
+    - Comando: `npm run test` (working-directory: `src/`).
+
+5.  **Ejecución:**
+    - Los checks anteriores se ejecutan en el workflow de GitHub Actions (`pr-validation.yml`).
+    - Opcionalmente, puede usarse una skill o herramienta SddIA para ejecutar estos checks de forma local y trazada.
 
 ## Violaciones
 Cualquier intento de eludir este protocolo resultará en:

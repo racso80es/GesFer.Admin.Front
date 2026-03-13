@@ -1,0 +1,216 @@
+{
+  "feature_id": "audit-inicial-admin-front",
+  "type": "audit",
+  "date": "2026-03-12",
+  "status": "objectives",
+  "role": "Auditor",
+  "context": {
+    "project": "GesFer.Admin.Front",
+    "origin_src": "GesFer (monorepo) → src/Admin/Front/",
+    "origin_sddia": "GesFer.Admin.Back",
+    "tmp_migration": {
+      "path": "src/TmpMigration/Shared/Front/",
+      "description": "Copia temporal del contenido Shared del monorepo original. Debe eliminarse tras completar la migración.",
+      "total_files": 21
+    },
+    "stack": {
+      "framework": "Next.js 14 (App Router)",
+      "language": "TypeScript 5.3",
+      "ui": "Tailwind CSS 3.4",
+      "state": "TanStack React Query 5.28",
+      "forms": "react-hook-form 7.53 + Zod 4.3",
+      "auth": "NextAuth 5.0 beta",
+      "i18n": "next-intl 4.8",
+      "testing": "Jest 29 + Testing Library + Playwright 1.57",
+      "port": 3001
+    }
+  },
+  "general_objective": "Análisis/auditoría en profundidad de la situación actual para sanear, adecuar y adaptar la solución a su nueva realidad como repositorio frontend independiente.",
+  "objectives": [
+    {
+      "id": "OBJ-01",
+      "title": "Inventario de acoplamiento con monorepo GesFer",
+      "severity": "critical",
+      "findings_count": 14,
+      "summary": "6 archivos con imports @shared/, 3 configs (tsconfig, jest, tailwind), Dockerfile con rutas monorepo, 5+ scripts con rutas Product/Admin/Shared.",
+      "affected_files": [
+        "src/tsconfig.json",
+        "src/tailwind.config.ts",
+        "src/jest.config.js",
+        "src/Dockerfile",
+        "src/app/login/page.tsx",
+        "src/app/dashboard/page.tsx",
+        "src/components/layout/Sidebar.tsx",
+        "src/components/layout/admin-layout.tsx",
+        "src/components/layout/admin-app-wrapper.tsx",
+        "src/__tests__/components/shared/Button.test.tsx"
+      ]
+    },
+    {
+      "id": "OBJ-02",
+      "title": "Inventario de acoplamiento con GesFer.Admin.Back",
+      "severity": "high",
+      "findings_count": 25,
+      "summary": "10+ scripts con rutas .NET, 5 tools SddIA para backend, 5 agentes con refs C#/DbContext, 4 constituciones referenciando Admin.Back, 1 workflow GitHub con .NET.",
+      "tools_not_applicable": [
+        "start-api",
+        "run-tests-local",
+        "invoke-mysql-seeds",
+        "postman-mcp-validation",
+        "prepare-full-env"
+      ],
+      "agents_with_backend_refs": [
+        "tekton-developer",
+        "qa-judge",
+        "auditor",
+        "performance-engineer",
+        "security-engineer"
+      ]
+    },
+    {
+      "id": "OBJ-03",
+      "title": "Inconsistencias de configuración",
+      "severity": "medium",
+      "findings_count": 5,
+      "summary": "Puertos inconsistentes (5000/5001/5010/5011), API Product en dashboard, fallback HTTP vs HTTPS, carpeta public/ ausente, script bash en proyecto Windows.",
+      "findings": [
+        {
+          "issue": "Puertos inconsistentes",
+          "locations": ["src/README.md", "src/lib/config.ts", "src/auth.ts", "src/next.config.js"]
+        },
+        {
+          "issue": "API Product referenciada en Admin",
+          "locations": ["src/app/dashboard/page.tsx"]
+        },
+        {
+          "issue": "HTTP vs HTTPS fallback",
+          "locations": ["src/auth.ts", "src/lib/api/admin-api.ts", "src/lib/api/admin-api-server.ts"]
+        },
+        {
+          "issue": "public/ ausente pero referenciada en Dockerfile",
+          "locations": ["src/Dockerfile"]
+        },
+        {
+          "issue": "Script bash en entorno PowerShell",
+          "locations": ["src/tests/run-e2e-mock.sh"]
+        }
+      ]
+    },
+    {
+      "id": "OBJ-04",
+      "title": "Estado de la infraestructura SddIA",
+      "severity": "medium",
+      "summary": "Skills genéricas OK, tools todas de backend, agentes mixtos, constituciones de backend.",
+      "classification": {
+        "valid": [
+          "skills/iniciar-rama",
+          "skills/finalizar-git",
+          "skills/invoke-command",
+          "skills/invoke-commit",
+          "agents/frontend-architect",
+          "agents/cumulo",
+          "agents/infrastructure-architect",
+          "agents/clarifier",
+          "constitution.json"
+        ],
+        "needs_adaptation": [
+          "pr-skill.sh",
+          "commit-skill.sh",
+          "verify_pr_protocol (Rust)",
+          ".github/pr-validation.yml",
+          "agents/tekton-developer",
+          "agents/qa-judge",
+          "agents/auditor",
+          "agents/performance-engineer",
+          "agents/security-engineer",
+          "manifesto.json",
+          "CONSTITUTION.md",
+          "constitution/*.md",
+          "constitution/*.json"
+        ],
+        "not_applicable": [
+          "tools/invoke-mysql-seeds",
+          "tools/postman-mcp-validation",
+          "tools/prepare-full-env",
+          "tools/start-api (dotnet)",
+          "tools/run-tests-local (dotnet)"
+        ]
+      }
+    },
+    {
+      "id": "OBJ-05",
+      "title": "Dependencias del proyecto compartido (Shared) y TmpMigration",
+      "severity": "critical",
+      "summary": "7 componentes @shared/ usados; 100% disponibles en TmpMigration. 4 duplicados locales (2 inferiores, 2 idénticos). 14 componentes adicionales disponibles para uso futuro. Dependencias externas ya instaladas.",
+      "tmp_migration_path": "src/TmpMigration/Shared/Front/",
+      "tmp_migration_total_files": 21,
+      "shared_components_used": [
+        { "component": "@shared/components/ui/card", "used_in": ["login", "dashboard"], "in_tmp_migration": true },
+        { "component": "@shared/components/ui/input", "used_in": ["login"], "in_tmp_migration": true },
+        { "component": "@shared/components/ui/label", "used_in": ["login"], "in_tmp_migration": true },
+        { "component": "@shared/components/ui/button", "used_in": ["login"], "in_tmp_migration": true },
+        { "component": "@shared/components/ui/error-message", "used_in": ["login", "dashboard"], "in_tmp_migration": true },
+        { "component": "@shared/components/ui/loading", "used_in": ["dashboard", "admin-app-wrapper"], "in_tmp_migration": true },
+        { "component": "@shared/components/shared/Button", "used_in": ["Sidebar", "admin-layout", "test"], "in_tmp_migration": true }
+      ],
+      "coverage": "100%",
+      "local_duplicates_analysis": [
+        { "file": "button.tsx", "local_vs_shared": "Shared superior (CVA, 6 variantes, asChild, buttonVariants)", "action": "replace_with_shared" },
+        { "file": "input.tsx", "local_vs_shared": "Funcionalmente idénticos", "action": "replace_with_shared_for_consistency" },
+        { "file": "label.tsx", "local_vs_shared": "Funcionalmente idénticos", "action": "replace_with_shared_for_consistency" },
+        { "file": "error-message.tsx", "local_vs_shared": "Shared superior (icono, className, data-testid)", "action": "replace_with_shared" }
+      ],
+      "additional_components_available": [
+        { "component": "ui/dialog", "potential_use": "Modales" },
+        { "component": "ui/alert-dialog", "potential_use": "Alertas" },
+        { "component": "ui/form", "potential_use": "Integración react-hook-form" },
+        { "component": "ui/select", "potential_use": "Selects" },
+        { "component": "ui/table", "potential_use": "Tablas" },
+        { "component": "ui/overlay-fix", "potential_use": "Fix overlays" },
+        { "component": "shared/DataTable", "potential_use": "Tabla genérica con paginación" },
+        { "component": "shared/DestructiveActionConfirm", "potential_use": "Vision Zero" },
+        { "component": "shared/Input", "potential_use": "Wrapper con data-testid" },
+        { "component": "shared/ModalBase", "potential_use": "Modal reutilizable" }
+      ],
+      "external_deps_status": "all_installed",
+      "internalization_strategy": [
+        "Move TmpMigration ui/ components to src/components/ui/ (replace inferior locals)",
+        "Move TmpMigration shared/ components to src/components/shared/",
+        "Verify/merge lib/utils/cn.ts",
+        "Evaluate lib/types/api.ts relevance for Admin",
+        "Update @shared/ imports to @/ in 6 source files",
+        "Update configs: tsconfig.json, jest.config.js, tailwind.config.ts",
+        "Delete src/TmpMigration/ after migration complete"
+      ]
+    },
+    {
+      "id": "OBJ-06",
+      "title": "Documentación de referencia desactualizada",
+      "severity": "low",
+      "findings_count": 6,
+      "summary": "Objetivos.md, CONSTITUTION.md, constituciones, pr-acceptance-protocol y README-E2E describen el backend.",
+      "affected_files": [
+        "Objetivos.md",
+        "SddIA/CONSTITUTION.md",
+        "SddIA/constitution/constitution.architect.md",
+        "SddIA/constitution/constitution.audity.md",
+        "SddIA/constitution/constitution.cognitive.md",
+        "SddIA/constitution/constitution.duality.md",
+        "SddIA/norms/pr-acceptance-protocol.md",
+        "scripts/README-E2E.md"
+      ]
+    }
+  ],
+  "action_plan": [
+    { "priority": "P0", "label": "Crítica", "action": "Internalizar componentes @shared/ desde TmpMigration (cobertura 100%, reemplazar 4 locales inferiores)", "objective_refs": ["OBJ-01", "OBJ-05"] },
+    { "priority": "P0", "label": "Crítica", "action": "Adaptar Dockerfile", "objective_refs": ["OBJ-01"] },
+    { "priority": "P1", "label": "Alta", "action": "Adaptar GitHub workflow (pr-validation.yml)", "objective_refs": ["OBJ-02", "OBJ-04"] },
+    { "priority": "P1", "label": "Alta", "action": "Adaptar verify_pr_protocol (Rust)", "objective_refs": ["OBJ-02", "OBJ-04"] },
+    { "priority": "P1", "label": "Alta", "action": "Limpiar/adaptar scripts backend", "objective_refs": ["OBJ-02"] },
+    { "priority": "P2", "label": "Media", "action": "Actualizar agentes SddIA", "objective_refs": ["OBJ-04"] },
+    { "priority": "P2", "label": "Media", "action": "Actualizar constituciones y manifesto", "objective_refs": ["OBJ-04", "OBJ-06"] },
+    { "priority": "P2", "label": "Media", "action": "Unificar configuración URLs/puertos", "objective_refs": ["OBJ-03"] },
+    { "priority": "P3", "label": "Baja", "action": "Actualizar documentación (Objetivos.md, READMEs)", "objective_refs": ["OBJ-06"] },
+    { "priority": "P3", "label": "Baja", "action": "Crear tools SddIA para frontend", "objective_refs": ["OBJ-04"] }
+  ]
+}

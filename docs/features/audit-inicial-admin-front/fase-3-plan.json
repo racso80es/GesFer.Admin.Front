@@ -1,0 +1,66 @@
+{
+  "action_id": "planning",
+  "feature_id": "audit-inicial-admin-front",
+  "phase": 3,
+  "date": "2026-03-12",
+  "status": "ready",
+  "preconditions": [
+    "Fase 1 aplicada",
+    "Fase 2 aplicada"
+  ],
+  "execution_order": ["SPEC-01", "SPEC-02", "SPEC-07", "cleanup-validate"],
+  "tasks": [
+    {
+      "id": "F3-01",
+      "title": "Migrar UI desde TmpMigration",
+      "spec_ref": "SPEC-01",
+      "priority": "high"
+    },
+    {
+      "id": "F3-02",
+      "title": "Migrar componentes shared",
+      "spec_ref": "SPEC-01",
+      "priority": "high"
+    },
+    {
+      "id": "F3-03",
+      "title": "Actualizar consumidores @shared -> @/",
+      "spec_ref": "SPEC-01",
+      "priority": "high"
+    },
+    {
+      "id": "F3-04",
+      "title": "Actualizar tsconfig/tailwind/jest",
+      "spec_ref": "SPEC-01",
+      "priority": "medium"
+    },
+    {
+      "id": "F3-05",
+      "title": "Reescribir Dockerfile standalone",
+      "spec_ref": "SPEC-02",
+      "priority": "medium"
+    },
+    {
+      "id": "F3-06",
+      "title": "Unificar API URL y puertos",
+      "spec_ref": "SPEC-07",
+      "priority": "medium"
+    },
+    {
+      "id": "F3-07",
+      "title": "Validar y eliminar TmpMigration",
+      "spec_ref": "SPEC-01",
+      "priority": "high"
+    }
+  ],
+  "verification_checklist": [
+    "No existe @shared/ en src/",
+    "No existe ../../Shared/ en src/",
+    "No existe localhost:5000 en src/",
+    "npm run lint OK",
+    "npm run build OK",
+    "npm run test OK",
+    "src/TmpMigration/ eliminado"
+  ],
+  "critical_path": ["F3-01", "F3-03", "F3-04", "F3-07"]
+}

@@ -4,17 +4,13 @@ import re
 
 # Configuration
 TARGET_DIRECTORIES = [
-    "src/Shared/Front",
-    "src/Product/Front",
-    "src/Admin/Front"
+    "src"
 ]
 
 FORBIDDEN_TERMS = ["empresa"]
 ALLOWED_EXTENSIONS = [".ts", ".tsx", ".js", ".jsx", ".json", ".md", ".html", ".css", ".scss"]
 EXCLUDED_DIRS = ["node_modules", ".git", "dist", "build", ".next", "coverage"]
-EXCLUDED_FILES = [
-    "src/Product/Front/lib/legacy-constants.ts"
-]
+EXCLUDED_FILES = []
 
 REPORT_DIR = "docs/audits"
 EVOLUTION_LOG = "docs/EVOLUTION_LOG.md"
@@ -63,25 +59,21 @@ def scan_file(filepath):
                     if 'alt=' not in tag:
                         findings["missing_alt"] += 1
 
-            # Check for Shared Leakage (only in src/Shared/Front)
-            if "src/Shared/Front" in filepath.replace("\\", "/"):
-                # Regex for import paths
-                patterns = [
-                    r'from\s+[\'"]([^\'"]+)[\'"]',          # from "..." (covers import/export ... from)
-                    r'import\s+[\'"]([^\'"]+)[\'"]',        # import "..." (side-effect)
-                    r'require\s*\(\s*[\'"]([^\'"]+)[\'"]',  # require("...")
-                    r'import\s*\(\s*[\'"]([^\'"]+)[\'"]'    # import("...")
-                ]
+            # Check for legacy Shared Leakage (@shared/ alias or ../../Shared/ paths)
+            patterns = [
+                r'from\s+[\'"]([^\'"]+)[\'"]',
+                r'import\s+[\'"]([^\'"]+)[\'"]',
+                r'require\s*\(\s*[\'"]([^\'"]+)[\'"]',
+                r'import\s*\(\s*[\'"]([^\'"]+)[\'"]'
+            ]
 
-                imports = []
-                for pattern in patterns:
-                    imports.extend(re.findall(pattern, content))
+            imports = []
+            for pattern in patterns:
+                imports.extend(re.findall(pattern, content))
 
-                for imp in imports:
-                    if any(x in imp for x in ["/Product/", "/Admin/", "@product/", "@admin/"]) or \
-                       imp.startswith("src/Product") or imp.startswith("src/Admin") or \
-                       (imp.startswith("..") and ("Product" in imp or "Admin" in imp)):
-                        findings["shared_leakage"].append(imp)
+            for imp in imports:
+                if "@shared/" in imp or "../../Shared/" in imp:
+                    findings["shared_leakage"].append(imp)
 
 
     except Exception as e:
@@ -104,12 +96,11 @@ def audit_directories():
     }
 
     # 1. Dependency Integrity Check
-    for directory in ["src/Product/Front", "src/Admin/Front"]:
-        lockfile = os.path.join(directory, "package-lock.json")
-        if os.path.exists(lockfile):
-            report_data["dependency_integrity"][directory] = "PRESENTE"
-        else:
-            report_data["dependency_integrity"][directory] = "AUSENTE"
+    lockfile = os.path.join("src", "package-lock.json")
+    if os.path.exists(lockfile):
+        report_data["dependency_integrity"]["src"] = "PRESENTE"
+    else:
+        report_data["dependency_integrity"]["src"] = "AUSENTE"
 
     # 2. File Scan
     for root_dir in TARGET_DIRECTORIES:
@@ -220,7 +211,7 @@ Estado Global: **{status}**
 """
     for dir, status in data["dependency_integrity"].items():
         content += f"- `{dir}/package-lock.json`: {status}\n"
-    content += "- `src/Shared/Front`: N/A (Librería compartida)\n"
+    content += ""
 
     content += f"""
 ### 3.3 Calidad de Código
@@ -232,7 +223,7 @@ Estado Global: **{status}**
 ### 3.4 Shared Leakage
 """
     if data["shared_leakage_details"]:
-        content += "Violaciones de arquitectura detectadas en `src/Shared/Front` (importando Product/Admin):\n"
+        content += "Violaciones de arquitectura detectadas (imports legacy @shared/ o ../../Shared/):\n"
         for item in data["shared_leakage_details"]:
             content += f"- **{item['file']}**: Importa `{item['leak']}`\n"
     else:

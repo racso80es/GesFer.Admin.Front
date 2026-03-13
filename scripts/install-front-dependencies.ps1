@@ -1,36 +1,30 @@
 <#
 .SYNOPSIS
-    Instala dependencias npm en los proyectos Front (Product y Admin).
+    Instala dependencias npm del proyecto GesFer.Admin.Front.
 .DESCRIPTION
-    Ejecuta npm install en src/Product/Front y src/Admin/Front.
-    Usar antes de la primera ejecución o si faltan node_modules (p. ej. next).
-    Referencia: docs/operations/FIX_PROCEDURE_SERVICES_OBJECTIVES.md
+    Ejecuta npm install en src/.
+    Usar antes de la primera ejecucion o si faltan node_modules.
 #>
 [CmdletBinding()]
 param()
 
 $ErrorActionPreference = "Stop"
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+$srcPath = Join-Path $projectRoot "src"
 
-$fronts = @(
-    @{ Name = "ProductFront"; Path = Join-Path $projectRoot "src\Product\Front" },
-    @{ Name = "AdminFront";  Path = Join-Path $projectRoot "src\Admin\Front" }
-)
-
-foreach ($front in $fronts) {
-    if (-not (Test-Path (Join-Path $front.Path "package.json"))) {
-        Write-Warning "No se encontró package.json en $($front.Path). Se omite."
-        continue
-    }
-    Write-Host "[$($front.Name)] npm install en $($front.Path)" -ForegroundColor Cyan
-    Push-Location $front.Path
-    try {
-        npm install
-        if ($LASTEXITCODE -ne 0) { throw "npm install falló con código $LASTEXITCODE" }
-        Write-Host "[$($front.Name)] OK" -ForegroundColor Green
-    } finally {
-        Pop-Location
-    }
+if (-not (Test-Path (Join-Path $srcPath "package.json"))) {
+    Write-Error "No se encontro package.json en $srcPath"
+    exit 1
 }
 
-Write-Host "Dependencias de fronts instaladas." -ForegroundColor Green
+Write-Host "[AdminFront] npm install en $srcPath" -ForegroundColor Cyan
+Push-Location $srcPath
+try {
+    npm install
+    if ($LASTEXITCODE -ne 0) { throw "npm install fallo con codigo $LASTEXITCODE" }
+    Write-Host "[AdminFront] OK" -ForegroundColor Green
+} finally {
+    Pop-Location
+}
+
+Write-Host "Dependencias del frontend instaladas." -ForegroundColor Green
