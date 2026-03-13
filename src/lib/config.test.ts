@@ -40,3 +40,10 @@ export const TEST_DATABASE_CONNECTION_STRING = testConfig.database.connectionStr
   `Server=${testConfig.database.server};Port=${testConfig.database.port};Database=${testConfig.database.database};User=${testConfig.database.user};Password=${testConfig.database.password};CharSet=utf8mb4;AllowUserVariables=True;AllowLoadLocalInfile=True;`;
 export const TEST_CACHE_CONFIG = testConfig.cache;
 export const TEST_CACHE_URL = `${testConfig.cache.server}:${testConfig.cache.port}`;
+
+// Basic dummy test to prevent "Your test suite must contain at least one test."
+describe('testConfig', () => {
+  it('should have a test environment', () => {
+    expect(testConfig.environment).toBe('test');
+  });
+});
