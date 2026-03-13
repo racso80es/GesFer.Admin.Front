@@ -5,7 +5,7 @@ REM Capsula: paths.skillCapsules.finalizar-git (scripts/skills/finalizar-git/)
 REM Uso: Merge-To-Master-Cleanup.bat  o  Merge-To-Master-Cleanup.ps1 -BranchName "feat/xxx" -DeleteRemote
 
 set "SCRIPT_DIR=%~dp0"
-set "REPO_ROOT=%SCRIPT_DIR%..\..\"
+set "REPO_ROOT=%SCRIPT_DIR%..\..\..\"
 cd /d "%REPO_ROOT%"
 
 set "RUST_EXE=%SCRIPT_DIR%bin\merge_to_master_cleanup.exe"
