@@ -11,11 +11,12 @@ Este directorio es **paths.toolsDefinitionPath** (Cúmulo, `SddIA/agents/cumulo.
 
 ## Herramientas definidas
 
-| toolId | Descripción |
-|--------|-------------|
-| **start-frontend** | Levanta el dev server Next.js (npm run dev, puerto 3001). |
-| **run-tests-frontend** | Ejecuta tests del frontend (unit, e2e, build, lint). |
-| **prepare-frontend-env** | Prepara entorno: npm install + verificación .env. |
+| toolId | Descripción | Tipo |
+|--------|-------------|------|
+| **start-frontend** | Levanta el dev server Next.js (npm run dev, puerto 3001). | Ejecutable |
+| **run-tests-frontend** | Ejecuta tests del frontend (unit, e2e, build, lint). | Ejecutable |
+| **prepare-frontend-env** | Prepara entorno: npm install + verificación .env. | Ejecutable |
+| **audit-funcional-frontend** | Proceso documental para auditoría funcional: validar front actuando como usuario. Repetible. | Proceso (sin script) |
 
 ## Definición por herramienta (SddIA/tools/&lt;tool-id&gt;/)
 
