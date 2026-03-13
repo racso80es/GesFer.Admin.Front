@@ -4,13 +4,31 @@
 > **Fecha:** 2026-03-13  
 > **Contexto:** paths.auditsPath (Cúmulo)  
 > **Proceso:** SddIA/tools/audit-funcional-frontend/ (tool de proceso, repetible)  
-> **Estado:** Inicio
+> **Estado:** Ejecutada (validación HTTP + spec E2E)
 
 ---
 
 ## 1. Objetivo
 
 Realizar las funciones propias de usuario y validar el correcto funcionamiento del frontend GesFer.Admin.Front, actuando como usuario administrativo.
+
+**Objetivo máximo:** Reproducir las acciones del usuario lo máximo posible (simulación real de interacción).
+
+---
+
+## 1.1 Clarificación — Ejecución en cliente visual
+
+**¿Es posible ejecutar la prueba directamente en un cliente visual, simulando acciones del ratón, etc.?**
+
+Sí. Playwright permite ejecutar los tests en un **navegador visible** (modo headed) y simula acciones reales del usuario:
+
+| Modo | Comando | Descripción |
+|------|---------|-------------|
+| **Headed** | `npm run test:e2e:headed -- tests/audit-funcional.spec.ts` | Navegador visible; se ven clics, tecleo, navegación en tiempo real |
+| **UI mode** | `npm run test:e2e:ui -- tests/audit-funcional.spec.ts` | Interfaz interactiva: pausar, inspeccionar, ejecutar paso a paso |
+| **Debug** | `npm run test:e2e:debug -- tests/audit-funcional.spec.ts` | Inspector de Playwright; depuración paso a paso |
+
+**Simulación real:** Playwright emula eventos reales del DOM (click, fill, press, hover) y ejecuta JavaScript en el contexto del navegador, reproduciendo el comportamiento de un usuario real frente a la pantalla.
 
 ---
 
@@ -80,18 +98,28 @@ Realizar las funciones propias de usuario y validar el correcto funcionamiento d
 - Desde `src/`: `npm run dev` (puerto 3001).
 - Verificar que la app responde en `http://localhost:3001`.
 
-### Paso 2 — Validación manual (reemplazando a usuario)
+### Paso 2 — Validación (manual o E2E automatizada)
+
+**Validación HTTP (2026-03-13):**
+- `/login` → HTTP 200 ✓
+- `/dashboard` sin sesión → 307 Redirect a `/login` ✓ (protección de rutas)
+- Frontend activo en `http://localhost:3001` ✓
+
+**Validación E2E automatizada:** `src/tests/audit-funcional.spec.ts`  
+Requisito previo: `npx playwright install` (desde `src/`).  
+Ejecución: `npm run test:e2e -- tests/audit-funcional.spec.ts`  
+**Cliente visual (headed):** `npm run test:e2e:headed -- tests/audit-funcional.spec.ts` — navegador visible, simulación real de ratón/teclado
 
 | # | Acción | Resultado esperado | ✓/✗ |
 |---|--------|--------------------|-----|
-| 1 | Abrir `/login` | Formulario de login visible | |
-| 2 | Login con credenciales válidas | Redirect a `/dashboard` | |
-| 3 | Dashboard carga resumen | Cards con datos, sin error | |
-| 4 | Navegar a `/companies` | Listado de organizaciones | |
-| 5 | Crear nueva organización | Formulario → guardar → listado actualizado | |
-| 6 | Editar organización existente | Formulario pre-rellenado → guardar → listado | |
-| 7 | Cerrar sesión | Redirect a `/login` | |
-| 8 | Acceso a `/dashboard` sin sesión | Redirect a `/login` | |
+| 1 | Abrir `/login` | Formulario de login visible | ✓ |
+| 2 | Login con credenciales válidas | Redirect a `/dashboard` | ✗ (API no conectada) |
+| 3 | Dashboard carga resumen | Cards con datos, sin error | ✗ |
+| 4 | Navegar a `/companies` | Listado de organizaciones | ✗ |
+| 5 | Crear nueva organización | Formulario → guardar → listado actualizado | ✗ |
+| 6 | Editar organización existente | Formulario pre-rellenado → guardar → listado | ✗ |
+| 7 | Cerrar sesión | Redirect a `/login` | ✗ |
+| 8 | Acceso a `/dashboard` sin sesión | Redirect a `/login` | ✓ |
 
 ### Paso 3 — Registro de hallazgos
 
@@ -121,12 +149,13 @@ Tras la auditoría, aplicar mejoras continuas:
 
 ## 7. Resultado de auditoría
 
-*(A rellenar tras la ejecución)*
-
-- **Fecha ejecución:** _______________
-- **Ejecutado por:** _______________
-- **Resultado global:** ☐ Aprobado ☐ Con observaciones ☐ No aprobado
-- **Observaciones:** _______________
+- **Fecha ejecución:** 2026-03-13
+- **Ejecutado por:** Auditor (rol SddIA)
+- **Resultado global:** ☑ Con observaciones
+- **Observaciones:**
+  - **Ejecución visual (headed):** Completada. Navegador visible con acciones simuladas (clic, tecleo, navegación).
+  - **Resultado E2E (2026-03-13):** 2 pasaron, 6 fallaron. Tests 1 y 8 OK (formulario login visible, protección /dashboard). Fallos 2–7: login no redirige a dashboard (API Admin no conectada o credenciales incorrectas).
+  - **Comando para repetir:** `npm run audit:visual` desde `src/` (requiere API Admin activa en 5011).
 
 ---
 

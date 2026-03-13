@@ -17,6 +17,7 @@
     "test:e2e:mock": "bash tests/run-e2e-mock.sh",
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:headed": "playwright test --headed",
+    "audit:visual": "playwright test --headed tests/audit-funcional.spec.ts --project=chromium",
     "test:e2e:report": "playwright show-report",
     "prepare": "husky"
   },
