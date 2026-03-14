@@ -11,7 +11,7 @@ paths:
 persist_ref: paths.fixPath/<nombre_fix>
 principles_ref: paths.principlesPath
 process_id: bug-fix
-process_interface_compliance: Solicita/genera en carpeta de la tarea al menos un .md (objectives.md, spec.md, clarify.md) y al menos un .json (spec.json, clarify.json, validacion.json).
+process_interface_compliance: Solicita/genera en carpeta de la tarea un .md por acción con YAML Frontmatter (objectives.md, spec.md, clarify.md, validacion.md); no ficheros .json separados. Norma: features-documentation-frontmatter.md.
 related_actions:
   - spec
   - clarify
@@ -36,7 +36,7 @@ triggers:
 
 Este documento define el **proceso de tarea** para la corrección de un bug. Está ubicado en paths.processPath/bug-fix/ (Cúmulo). La ruta de persistencia se obtiene de **Cúmulo** (paths.fixPath/<nombre_fix>).
 
-**Interfaz de proceso:** Cumple la interfaz en Cúmulo (`process_interface`): solicita/genera en la carpeta de la tarea (Cúmulo) al menos un **`.md`** (objectives.md, spec.md, clarify.md) y al menos un **`.json`** (spec.json, clarify.json, validacion.json).
+**Interfaz de proceso:** Cumple la interfaz en Cúmulo (`process_interface`): solicita/genera en la carpeta de la tarea (Cúmulo) un **`.md` por acción** con **YAML Frontmatter** (objectives.md, spec.md, clarify.md, validacion.md). No ficheros .json separados. Norma: SddIA/norms/features-documentation-frontmatter.md.
 
 ## Propósito
 
@@ -45,7 +45,7 @@ El proceso **bug-fix** orquesta el ciclo de vida del bug: triaje, documentación
 ## Alcance
 
 - **Rama:** fix/<nombre_fix> (nunca master).
-- **Documentación:** Carpeta paths.fixPath/<nombre_fix>/ con objectives.md (objetivo, pasos de reproducción, causa raíz o hipótesis), spec.md/spec.json, clarify.md/clarify.json si aplica, implementation, validacion.json.
+- **Documentación:** Carpeta paths.fixPath/<nombre_fix>/ con objectives.md, spec.md, clarify.md si aplica, implementation.md, validacion.md (todos con YAML Frontmatter; no ficheros .json separados).
 - **Skills:** iniciar-rama, documentation, filesystem-ops, dotnet-development.
 - **Restricciones:** Alcance mínimo (solo causa raíz); no refactorizar ni ampliar funcionalidad en la misma rama.
 

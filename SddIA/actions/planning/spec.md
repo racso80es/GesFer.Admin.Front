@@ -12,7 +12,7 @@ inputs:
   - '--spec'
 name: Plan
 outputs:
-  - '{SpecName}_PLAN.md en carpeta de la spec'
+  - plan.md en carpeta de tarea (Cúmulo) con YAML Frontmatter; no plan.json separado
 patterns_ref: paths.patternsPath
 principles_ref: paths.principlesPath
 ---
@@ -34,8 +34,7 @@ Esta acción se implementa mediante documentación manual (plan en carpeta de ta
     *   Se lee el archivo de especificación (`SPEC-*.md`).
     *   Se busca automáticamente un archivo de clarificaciones (`SPEC-*_CLARIFICATIONS.md`) en la misma carpeta.
 3.  **Análisis de Requisitos:** Se combinan ambos documentos para extraer Objetivos, Restricciones y Decisiones Técnicas.
-4.  **Generación de Plan:** Se crea un archivo `{SpecName}_PLAN.md` en la misma carpeta que la especificación original.
-    *   Incluye secciones predefinidas: Fases, Tareas Técnicas, Verificación y Seguridad.
+4.  **Generación de Plan:** Se crea un archivo `plan.md` en la carpeta de la tarea (Cúmulo) con YAML Frontmatter integrando metadatos (phases, tasks, etc.); no fichero plan.json separado. Incluye secciones predefinidas: Fases, Tareas Técnicas, Verificación y Seguridad. Norma: SddIA/norms/features-documentation-frontmatter.md.
 5.  **Auditoría:** El evento de generación y la ruta de los archivos resultantes se registran en paths.auditsPath + paths.accessLogFile (Cúmulo).
 
 ## Integración con Agentes

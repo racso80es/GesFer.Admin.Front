@@ -72,7 +72,7 @@ Las rutas concretas se resuelven desde **Cúmulo** (paths.actionsPath, paths.pro
 - [ ] Los listados en .cursor/rules (process, action, skill) coinciden con SddIA/norms e interaction-triggers.
 - [ ] Las reglas de Cursor no usan rutas literales que contradigan paths-via-cumulo (preferir paths.featurePath, paths.skillCapsules, etc.).
 - [ ] Queda documentado cómo mantener alineados .github y otros gestores (Jules) con SddIA (SddIA/norms/touchpoints-ia.md).
-- [ ] **Paridad MD/JSON:** Las definiciones en paths.skillsDefinitionPath y paths.processPath que se difunden (listados, contratos) tienen spec.md y spec.json coherentes; al actualizar un .md de skill o process, se actualiza el .json correspondiente. Ref: refactorization-sincronidad-md-json. // TODO: [REF-SddIA] sddia-difusion — acción refactorization-sincronidad-md-json.
+- [ ] **Frontmatter:** Las definiciones en paths.skillsDefinitionPath y paths.processPath usan spec.md con YAML Frontmatter. La documentación de tarea (paths.featurePath, paths.fixPath) sigue el mismo patrón: un .md por acción con frontmatter; no ficheros .json separados. Norma: SddIA/norms/features-documentation-frontmatter.md.
 
 ---
 *Acción de soporte al ciclo: asegura que los gestores de IA respeten las normas indicadas en AGENTS y SddIA.*

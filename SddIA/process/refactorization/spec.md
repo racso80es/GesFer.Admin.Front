@@ -48,7 +48,7 @@ spec_version: 1.0.0
 
 Este documento define el **proceso de tarea** para una refactorización. Está ubicado en paths.processPath/refactorization/ (Cúmulo). Las acciones que orquesta están en paths.actionsPath (Cúmulo). La ruta de persistencia se obtiene de **Cúmulo** (paths.featurePath/refactorization-<nombre_refactor>; mismo espacio que features hasta que se defina paths.refactorPath).
 
-**Interfaz de proceso:** Cumple la interfaz en Cúmulo (`process_interface`): solicita/genera en la carpeta de la tarea (Cúmulo) al menos un **`.md`** (objectives.md, spec.md, clarify.md, plan, etc.) y al menos un **`.json`** (spec.json, clarify.json, implementation.json, validacion.json, etc.).
+**Interfaz de proceso:** Cumple la interfaz en Cúmulo (`process_interface`): solicita/genera en la carpeta de la tarea (Cúmulo) un **`.md` por acción** con **YAML Frontmatter** (objectives.md, spec.md, clarify.md, plan.md, implementation.md, execution.md, validacion.md). No ficheros .json separados. Norma: SddIA/norms/features-documentation-frontmatter.md.
 
 ## Propósito
 
@@ -64,12 +64,12 @@ Ruta de la tarea: Cúmulo (paths.featurePath/refactorization-<nombre_refactor>).
 | :--- | :--- | :--- |
 | **0** | Preparar entorno | Crear rama feat/refactorization-<nombre_refactor> desde `master` actualizado. **Skill:** iniciar-rama (paths.skillCapsules[\"iniciar-rama\"]). |
 | **1** | Documentación con objetivos | objectives.md en carpeta de la tarea (Cúmulo). |
-| **2** | Especificación | Acción spec. Salida: spec.md, spec.json. |
-| **3** | Clarificación | Acción clarify. Salida: clarify.md, clarify.json. |
+| **2** | Especificación | Acción spec. Salida: spec.md (YAML Frontmatter). |
+| **3** | Clarificación | Acción clarify. Salida: clarify.md (YAML Frontmatter). |
 | **4** | Planificación | Acción planning. Salida: plan. |
-| **5** | Implementación (doc) | Acción implementation. Salida: implementation.md, implementation.json. |
-| **6** | Ejecución | Acción execution. Salida: execution.json. |
-| **7** | Validar | Acción validate. Salida: validacion.json. |
+| **5** | Implementación (doc) | Acción implementation. Salida: implementation.md (YAML Frontmatter). |
+| **6** | Ejecución | Acción execution. Salida: execution.md (YAML Frontmatter). |
+| **7** | Validar | Acción validate. Salida: validacion.md (YAML Frontmatter). |
 | **8** | Finalizar | Acción finalize. Evolution Logs y PR. |
 
 ## Contenido mínimo de la carpeta de la tarea (Cúmulo)
@@ -77,10 +77,10 @@ Ruta de la tarea: Cúmulo (paths.featurePath/refactorization-<nombre_refactor>).
 | Documento | Contenido |
 | :--- | :--- |
 | **objectives.md** | Objetivo, alcance, análisis de situación actual, ley aplicada. |
-| **spec.md** / **spec.json** | Especificación técnica de la refactorización. |
-| **clarify.md** / **clarify.json** | Clarificaciones (si aplica). |
-| **implementation.md** / **implementation.json** | Touchpoints y plan de implementación. |
-| **validacion.json** | Resultado de la validación pre-PR. |
+| **spec.md** | Especificación técnica (YAML Frontmatter). |
+| **clarify.md** | Clarificaciones (YAML Frontmatter, si aplica). |
+| **implementation.md** | Touchpoints y plan de implementación (YAML Frontmatter). |
+| **validacion.md** | Resultado de la validación pre-PR (YAML Frontmatter). |
 
 ## Actualización de Evolution Logs
 

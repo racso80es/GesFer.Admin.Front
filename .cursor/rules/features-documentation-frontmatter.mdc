@@ -1,0 +1,46 @@
+---
+description: Documentación de tarea (paths.featurePath, paths.fixPath): un .md por acción con YAML Frontmatter; no ficheros .json separados
+alwaysApply: false
+---
+
+# Documentación de features: patrón Frontmatter
+
+**Fuente canónica:** SddIA/norms/features-documentation-frontmatter.md. Esta regla es difusión para Cursor.
+
+## Comportamiento
+
+Toda **nueva documentación de tarea** en paths.featurePath o paths.fixPath (Cúmulo) debe seguir el patrón de **un solo fichero .md por acción** con **YAML Frontmatter** integrando metadatos. No se generan ficheros .json separados.
+
+### Artefactos por acción
+
+| Acción | Fichero |
+| :--- | :--- |
+| objectives | objectives.md |
+| spec | spec.md |
+| clarify | clarify.md |
+| planning | plan.md |
+| implementation | implementation.md |
+| execution | execution.md |
+| validate | validacion.md |
+| finalize | finalize.md |
+
+### Formato
+
+```markdown
+---
+id: "<feature_id>-<action_id>"
+action_id: spec
+feature_id: nombre-feature
+title: "Título"
+date: "YYYY-MM-DD"
+status: draft | in_progress | done
+# ... metadatos según acción
+---
+# Contenido legible en Markdown
+...
+```
+
+Mismo patrón que skills, tools y demás entidades SddIA (spec.md con YAML Frontmatter).
+
+---
+*Difusión de SddIA. Mantener alineado con SddIA/norms/features-documentation-frontmatter.md.*

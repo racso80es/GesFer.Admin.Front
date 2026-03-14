@@ -15,7 +15,7 @@ inputs:
   - '--input o --context'
 name: Clarify
 outputs:
-  - '{SpecName}_CLARIFICATIONS.md en carpeta de la spec'
+  - clarify.md en carpeta de tarea (Cúmulo) con YAML Frontmatter; no clarify.json separado
 ---
 # Action: Clarify
 
@@ -36,7 +36,7 @@ Esta acción se implementa mediante documentación manual en la carpeta de la ta
 3.  **Determinación de Contexto:**
     *   Si la especificación pertenece a una Feature, se asegura que exista una carpeta dedicada en paths.featurePath (Cúmulo), e.g. paths.featurePath/<nombre_feature>/ (p. ej. docs/features/<nombre_feature>/ en este repo).
     *   Si no existe, se crea y se mueve el archivo original allí (migración automática); carpeta en paths.featurePath/<nombre_feature>/.
-4.  **Generación de Clarificaciones:** Se crea un archivo `{SpecName}_CLARIFICATIONS.md` en la misma carpeta que la especificación original.
+4.  **Generación de Clarificaciones:** Se crea un archivo `clarify.md` en la carpeta de la tarea (Cúmulo) con YAML Frontmatter integrando metadatos (decisions, clarify_pending, etc.); no fichero clarify.json separado. Norma: SddIA/norms/features-documentation-frontmatter.md.
 5.  **Escaneo de Seguridad:** Cada entrada del usuario es analizada por el `SecurityScanner` para prevenir inyecciones o fugas de datos sensibles.
 6.  **Persistencia:** El contenido de la clarificación se añade al archivo generado.
 7.  **Auditoría:** Todas las interacciones se registran en paths.auditsPath + paths.accessLogFile (Cúmulo).
@@ -47,4 +47,4 @@ El agente **Clarification Specialist** (agente Clarifier; definición en SddIA/a
 ## Estándares de Calidad
 *   **Grado S+:** Requiere persistencia auditada y validación de seguridad en tiempo real.
 *   **Knowledge-Arch:** Los resultados alimentan directamente la "consciencia" del proyecto, evitando re-trabajo.
-*   **Estructura de Directorios:** En Features, cada especificación debe residir en su propia carpeta, indicada por sub agente de coumentacion: `./Feature/{SpecName}/{SpecName}.md` y `./Feature/{SpecName}/{SpecName}_CLARIFICATIONS.md`.
+*   **Estructura de Directorios:** En Features, cada especificación debe residir en su propia carpeta (paths.featurePath/<nombre_feature>/): spec.md, clarify.md, etc., cada uno con YAML Frontmatter.
