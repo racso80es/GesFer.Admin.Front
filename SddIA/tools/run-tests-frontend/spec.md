@@ -10,8 +10,8 @@ implementation_path_ref: paths.toolCapsules.run-tests-frontend
 inputs:
   BaseUrl: string (opcional). URL base frontend para E2E; por defecto http://localhost:3001.
   OnlyTests: boolean (opcional). Solo ejecutar tests (sin npm install).
-  OutputJson: boolean (opcional). Emitir resultado JSON por stdout.
   OutputPath: string (opcional). Fichero donde escribir el resultado JSON.
+  Quiet: boolean (opcional). Suprimir salida JSON por stdout (por defecto: se emite).
   TestScope: string (opcional). unit | e2e | build | lint | all. Por defecto all.
 output:
   data_fields: tests_summary (scope, exit codes), duration_ms
@@ -46,17 +46,28 @@ Ejecutar tests del frontend (unitarios, E2E, build, lint) en condiciones de vali
 | OnlyTests | switch | Solo ejecutar tests (sin npm install previo). |
 | BaseUrl | string | URL base del frontend para E2E (por defecto http://localhost:3001). |
 | OutputPath | string | Fichero donde escribir el resultado JSON. |
-| OutputJson | switch | Emitir resultado JSON por stdout. |
+| Quiet | switch | Suprimir salida JSON por stdout (por defecto: se emite). |
 
 ## Salida
 
-Cumple `SddIA/tools/tools-contract.json`: toolId, exitCode, success, timestamp, message, feedback[], data (tests_summary, duration_ms).
+Cumple `SddIA/tools/tools-contract.json`: toolId, exitCode, success, timestamp, message, feedback[], data (scope, lint_exit, build_exit, unit_exit, e2e_exit, duration_ms). **JSON por stdout por defecto.**
+
+**Tabla codificada (tools-contract.output.output_codes_table):** [output-salida-json.md](./output-salida-json.md)
+
+| exitCode | success | message_resumen | data_presente | descripción |
+|----------|---------|-----------------|---------------|-------------|
+| 0 | true | "Tests completados correctamente" | Sí | Éxito |
+| 1 | false | "npm install fallo" | Sí | npm install falló |
+| * | false | "Tests con fallos" | Sí | Algún test falló |
+| 1 | false | "Error: &lt;excepción&gt;" | Sí | Excepción no controlada |
 
 ## Fases (feedback)
 
 init → install (opcional) → lint → build → unit → e2e → done (o error).
 
-## Estado de Implementación
+## Estado de implementación
 
-**Formato actual:** Script PowerShell (`.ps1`)
-**Ubicación:** `scripts/tools/run-tests-frontend/Run-Tests-Frontend.ps1`
+**Formato principal:** Ejecutable Rust (`.exe`)
+**Ubicación:** `scripts/tools/run-tests-frontend/run_tests_frontend.exe`
+**Fuente:** `scripts/tools-rs/src/bin/run_tests_frontend.rs`
+**Fallback:** `Run-Tests-Frontend.ps1` cuando no existe el .exe

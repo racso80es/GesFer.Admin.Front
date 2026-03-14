@@ -18,3 +18,11 @@ anyhow = "1.0"
 [[bin]]
 name = "start_frontend"
 path = "src/bin/start_frontend.rs"
+
+[[bin]]
+name = "prepare_frontend_env"
+path = "src/bin/prepare_frontend_env.rs"
+
+[[bin]]
+name = "run_tests_frontend"
+path = "src/bin/run_tests_frontend.rs"

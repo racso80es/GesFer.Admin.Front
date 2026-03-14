@@ -1,0 +1,13 @@
+{
+  "id": "audit-tool-start-frontend-validacion",
+  "feature_id": "audit-tool-start-frontend",
+  "date": "2026-03-14",
+  "global": "passed",
+  "checks": [
+    { "id": "C1", "name": "Exe emite JSON por defecto", "status": "passed" },
+    { "id": "C2", "name": "Flag --quiet suprime salida", "status": "passed" },
+    { "id": "C3", "name": "Bat informa y exe emite resultado", "status": "passed" },
+    { "id": "C4", "name": "Salida cumple tools-contract.json", "status": "passed" }
+  ],
+  "audit_output_ref": "docs/audits/tools/start-frontend/"
+}

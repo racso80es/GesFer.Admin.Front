@@ -6,7 +6,8 @@
   "components": {
     "launcher_bat": "Start-Frontend.bat",
     "config": "start-frontend-config.json",
-    "doc": "start-frontend.md"
+    "doc": "start-frontend.md",
+    "output_spec": "SddIA/tools/start-frontend/output-salida-json.md"
   },
   "env": ["Windows 11", "PowerShell 7+", "Node.js 20+"]
 }

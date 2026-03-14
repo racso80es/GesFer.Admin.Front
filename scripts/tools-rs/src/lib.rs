@@ -38,6 +38,16 @@ impl FeedbackEntry {
             duration_ms: None,
         }
     }
+    pub fn info_with_duration(phase: &str, message: &str, duration_ms: u64) -> Self {
+        Self {
+            phase: phase.to_string(),
+            level: FeedbackLevel::Info,
+            message: message.to_string(),
+            timestamp: Utc::now().to_rfc3339(),
+            detail: None,
+            duration_ms: Some(duration_ms),
+        }
+    }
     pub fn warning(phase: &str, message: &str, detail: Option<&str>) -> Self {
         Self {
             phase: phase.to_string(),

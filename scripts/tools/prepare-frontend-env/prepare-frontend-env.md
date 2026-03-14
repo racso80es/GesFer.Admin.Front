@@ -15,6 +15,10 @@ Desde la **raiz del repositorio**:
 .\scripts\tools\prepare-frontend-env\Prepare-FrontendEnv.bat
 ```
 
+## Implementación
+
+Ejecutable Rust `prepare_frontend_env.exe` en la ruta de la tool. Launcher `.bat` invoca el .exe; fallback a `.ps1` si no existe. Compilación: `scripts/tools-rs/install.ps1`.
+
 ## Que hace
 
 1. Ejecuta `npm install` en `src/`.
@@ -23,4 +27,4 @@ Desde la **raiz del repositorio**:
 
 ## Salida JSON (contrato tools)
 
-Cumple `SddIA/tools/tools-contract.json`: toolId, exitCode, success, timestamp, message, feedback[], data, duration_ms.
+JSON por stdout por defecto. Cumple `SddIA/tools/tools-contract.json`: toolId, exitCode, success, timestamp, message, feedback[], data (env_local_exists, env_created), duration_ms. Use `-Quiet` para suprimir; `-OutputPath` para fichero. Especificación: `SddIA/tools/prepare-frontend-env/output-salida-json.md`.

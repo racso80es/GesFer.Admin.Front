@@ -21,6 +21,6 @@ JSON según SddIA/tools/tools-contract.json: toolId, exitCode, success, timestam
 
 ## Implementación
 
-Ejecutable Rust `start_frontend.exe` en la ruta de la tool. Launcher `.bat` invoca el .exe. El binario ejecuta `npm run dev` en `src/`, comprueba puerto y realiza healthcheck en `http://localhost:3001`. Salida JSON según tools-contract.json.
+Ejecutable Rust `start_frontend.exe` en la ruta de la tool. Launcher `.bat` invoca el .exe. El binario ejecuta `npm run dev` en `src/`, comprueba puerto y realiza healthcheck en `http://localhost:3001`. **Salida:** JSON por stdout por defecto (según tools-contract.json). Use `--quiet` para suprimir salida; `--output-path` para escribir a fichero. Especificación detallada: `SddIA/tools/start-frontend/output-salida-json.md`.
 
 **Compilación:** Ejecutar `install.ps1` en `scripts/tools-rs/` para compilar y copiar el .exe a la cápsula.

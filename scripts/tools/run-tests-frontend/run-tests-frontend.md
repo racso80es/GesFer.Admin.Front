@@ -16,11 +16,15 @@ Parametros (via .ps1 o cuando se invoque la capsula):
 - **OnlyTests** — Solo ejecutar tests (sin npm install previo).
 - **BaseUrl** — URL base del frontend para E2E (por defecto http://localhost:3001).
 - **OutputPath** — Fichero donde escribir el resultado JSON.
-- **OutputJson** — Emitir resultado JSON por stdout.
+- **Quiet** — Suprimir salida JSON por stdout (por defecto: se emite).
+
+## Implementación
+
+Ejecutable Rust `run_tests_frontend.exe` en la ruta de la tool. Launcher `.bat` invoca el .exe; fallback a `.ps1` si no existe. Compilación: `scripts/tools-rs/install.ps1`.
 
 ## Salida
 
-Cumple SddIA/tools/tools-contract.json: JSON con toolId, exitCode, success, timestamp, message, feedback[], data (tests_summary, duration_ms).
+JSON por stdout por defecto. Cumple SddIA/tools/tools-contract.json: toolId, exitCode, success, timestamp, message, feedback[], data (scope, lint_exit, build_exit, unit_exit, e2e_exit), duration_ms. Especificación: `SddIA/tools/run-tests-frontend/output-salida-json.md`.
 
 ## Definicion
 

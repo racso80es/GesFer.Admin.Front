@@ -25,8 +25,13 @@ Toda herramienta debe producir un **resultado final en JSON** que cumpla al meno
 
 **Formas de entrega del JSON:**
 
-- **Fichero:** si la herramienta recibe un parámetro de salida (p. ej. `-OutputPath`), escribe el JSON en esa ruta.
-- **Stdout:** si se indica `-OutputJson` o `TOOLS_OUTPUT_JSON=1`, emitir el JSON por stdout al final (para piping o integración).
+- **Por defecto:** el ejecutable (.exe) emite el JSON por stdout al finalizar. Los consumidores (bat, CI/CD, otras tools) reciben el resultado sin flags adicionales.
+- **Opcional --quiet:** suprimir salida por stdout (útil solo con `-OutputPath`).
+- **Fichero:** si la herramienta recibe `-OutputPath`, escribe el JSON en esa ruta (además de o en lugar de stdout según implementación).
+
+**Tabla de salidas codificadas:**
+
+Cada herramienta debe documentar en su especificación (SddIA/tools/&lt;tool-id&gt;/) una **tabla codificada** de posibles salidas. La tabla debe incluir al menos: `exitCode`, `success`, `message` (resumen típico), `data` (presente o no) y descripción. Puede estar en `spec.md` o en un fichero dedicado `output-salida-json.md`.
 
 ---
 
@@ -75,6 +80,7 @@ Cada herramienta reside en una **cápsula** **paths.toolCapsules[&lt;tool-id&gt;
 - **manifest.json:** toolId, components (launcher_bat, launcher_ps1, config, doc, bin), contract_ref.
 - **Configuración:** cuando sea parametrizable, un `.json` de configuración en la cápsula.
 - **Documentación:** un `.md` en la cápsula que describa uso, parámetros y formato de la salida JSON. Idioma: es-ES.
+- **Tabla de salidas codificadas:** en la definición (SddIA/tools/&lt;tool-id&gt;/) una tabla con columnas exitCode, success, message_resumen, data_presente, descripción. Puede estar en spec.md o en output-salida-json.md.
 
 ---
 

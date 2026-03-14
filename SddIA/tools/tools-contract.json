@@ -1,5 +1,5 @@
 {
-  "contract_version": "1.3.0",
+  "contract_version": "1.4.0",
   "scope": "paths.toolsPath (Cúmulo)",
   "description": "Contrato que toda herramienta (tool) en paths.toolsPath (Cúmulo) debe cumplir: salida JSON adecuada al fin de la herramienta y feedback estructurado.",
   "default_implementation": {
@@ -25,6 +25,7 @@
   },
   "output": {
     "description": "Toda herramienta debe producir al finalizar un resultado en formato JSON, adecuado a su propósito.",
+    "default_behavior": "El ejecutable (.exe) emite el JSON por stdout por defecto. Los consumidores (bat, CI/CD, otras tools) reciben el resultado sin flags adicionales.",
     "required_fields": {
       "toolId": "Identificador de la herramienta (kebab-case, ej. start-frontend).",
       "exitCode": "Código de salida numérico (0 = éxito, distinto de 0 = fallo).",
@@ -38,10 +39,19 @@
       "duration_ms": "Duración total de la ejecución en milisegundos."
     },
     "output_modes": [
-      "Escribir el JSON en un fichero si se indica -OutputPath (o equivalente).",
-      "Emitir el JSON por stdout si se indica -OutputJson o variable de entorno TOOLS_OUTPUT_JSON=1.",
+      "Por defecto: emitir el JSON por stdout al finalizar (para humanos, CI/CD y otras tools).",
+      "Opcional --quiet: suprimir salida por stdout (útil solo con --output-path).",
+      "Opcional --output-path: escribir el JSON en un fichero (además de o en lugar de stdout según implementación).",
       "En cualquier caso, el resultado interno debe poder serializarse según este esquema."
-    ]
+    ],
+    "output_codes_table": {
+      "description": "Cada herramienta debe documentar en su especificación (SddIA/tools/<tool-id>/) una tabla codificada de posibles salidas.",
+      "required_in_spec": true,
+      "table_schema": {
+        "columns": ["exitCode", "success", "message_resumen", "data_presente", "descripcion"],
+        "description": "Tabla que mapea cada exitCode posible a success, mensaje típico, presencia de data y descripción. Obligatoria en spec.md o output-salida-json.md de cada tool."
+      }
+    }
   },
   "feedback": {
     "description": "Las herramientas deben mantener un feedback adecuado: trazabilidad de fases, niveles y mensajes.",
@@ -90,6 +100,12 @@
       "ext": ".md",
       "naming": "<tool-id>.md",
       "purpose": "Documentación. Idioma: es-ES."
+    },
+    {
+      "ext": ".md",
+      "naming": "output-salida-json | sección en spec.md",
+      "path": "paths.toolsDefinitionPath (Cúmulo)/<tool-id>/",
+      "purpose": "Tabla codificada de posibles salidas (exitCode, success, message, data, descripción). Obligatoria según output.output_codes_table."
     }
   ],
   "security_model": {

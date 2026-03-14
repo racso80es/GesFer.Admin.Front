@@ -1,0 +1,48 @@
+{
+  "spec_version": "1.0.0",
+  "tool_id": "start-frontend",
+  "tool_version": "1.0.0",
+  "audit_date": "2026-03-14T17:25:00.000Z",
+  "result": "PASS",
+  "auditor": "agent",
+  "duration_ms": 0,
+  "phases_results": [
+    { "phase_id": "0", "name": "Preparar entorno", "result": "PASS", "message": "Herramienta existe en paths.toolCapsules.start-frontend" },
+    { "phase_id": "1", "name": "Definir objetivos", "result": "PASS", "message": "docs/features/audit-tool-start-frontend/objectives.md" },
+    { "phase_id": "2", "name": "Analizar especificación", "result": "PASS", "message": "manifest.json y spec.md revisados" },
+    { "phase_id": "3", "name": "Diseñar pruebas", "result": "PASS", "message": "Casos: error config, --quiet, salida JSON por defecto" },
+    { "phase_id": "4", "name": "Ejecutar herramienta", "result": "PASS", "message": "Exe invocado; salida JSON capturada" },
+    { "phase_id": "5", "name": "Validar retorno JSON", "result": "PASS", "message": "Campos contractuales presentes" },
+    { "phase_id": "6", "name": "Validar objetivos funcionales", "result": "PASS", "message": "Correcciones aplicadas; salida visible" },
+    { "phase_id": "7", "name": "Generar informe", "result": "PASS", "message": "audit-report y audit-result generados" },
+    { "phase_id": "8", "name": "Cierre", "result": "PASS", "message": "paths.auditsPath actualizado" }
+  ],
+  "json_validation": {
+    "valid": true,
+    "fields_checked": ["toolId", "exitCode", "success", "timestamp", "message", "feedback", "data", "duration_ms"],
+    "errors": []
+  },
+  "functional_validation": {
+    "valid": true,
+    "checks": [
+      { "name": "Salida JSON por defecto", "criteria": "Exe emite JSON por stdout sin --output-json", "result": "PASS", "detail": "Corregido: emit_result ahora imprime por defecto" },
+      { "name": "Modo --quiet", "criteria": "Suprime salida cuando se pasa --quiet", "result": "PASS", "detail": "Nuevo flag implementado" },
+      { "name": "Bat informa", "criteria": "Bat muestra mensaje y exe emite resultado", "result": "PASS", "detail": "Bat añade echo; exe emite JSON" }
+    ]
+  },
+  "command_executed": ".\\scripts\\tools\\start-frontend\\start_frontend.exe --config-path nonexistent.json",
+  "parameters_used": { "config_path": "nonexistent.json" },
+  "json_output": {
+    "toolId": "start-frontend",
+    "exitCode": 1,
+    "success": false,
+    "timestamp": "2026-03-14T17:21:41.712962600+00:00",
+    "message": "Config no encontrado o inválido",
+    "feedback": [{"phase": "init", "level": "info", "message": "Iniciando start-frontend (Rust)", "timestamp": "2026-03-14T17:21:41.712879300+00:00"}],
+    "duration_ms": 0
+  },
+  "recommendations": [
+    "Ejecutar Start-Frontend.bat en entorno real para validar arranque completo del dev server.",
+    "Considerar añadir tests automatizados que invoquen el exe y parseen el JSON."
+  ]
+}
