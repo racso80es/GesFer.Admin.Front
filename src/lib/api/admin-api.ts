@@ -1,12 +1,12 @@
+import { getAdminApiUrl } from "@/lib/env";
+
 function normalizeAdminApiBaseUrl(url: string): string {
   const trimmed = url.replace(/\/+$/, "");
   return trimmed.endsWith("/api") ? trimmed : `${trimmed}/api`;
 }
 
 export const getAdminApi = () => {
-  const baseUrl = normalizeAdminApiBaseUrl(
-    process.env.NEXT_PUBLIC_ADMIN_API_URL || process.env.ADMIN_API_URL || "https://localhost:5011"
-  );
+  const baseUrl = normalizeAdminApiBaseUrl(getAdminApiUrl());
 
   const request = async <T>(path: string, options: RequestInit = {}): Promise<T> => {
     const url = `${baseUrl}${path}`;

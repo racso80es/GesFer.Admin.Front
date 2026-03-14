@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
+import { getNextAuthUrl } from "@/lib/env";
 import { Button } from "../../components/ui/button";
 import { Plus, Pencil } from "lucide-react";
 import { Company } from "@/lib/types/api";
@@ -16,9 +17,7 @@ export default async function CompaniesPage() {
   let loadError: string | null = null;
 
   try {
-    const baseUrl =
-      process.env.NEXTAUTH_URL ??
-      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3001");
+    const baseUrl = getNextAuthUrl();
     const cookie = (await headers()).get("cookie") ?? "";
     const res = await fetch(`${baseUrl}/api/companies`, {
       cache: "no-store",
@@ -37,14 +36,14 @@ export default async function CompaniesPage() {
       loadError =
         res.status === 401
           ? "Sesión no válida o expirada. Cierra sesión e inicia de nuevo."
-          : `Error al cargar organizaciones (${res.status})${detail}. Comprueba que la API Admin esté en ejecución en el puerto 5010.`;
+          : `Error al cargar organizaciones (${res.status})${detail}. Comprueba que la API Admin esté en ejecución (ADMIN_API_URL).`;
     } else {
       companies = await res.json();
     }
   } catch (error) {
     console.error("Error fetching companies:", error);
     loadError =
-      "No se pudo conectar con el servidor. Comprueba que la API Admin esté en ejecución (puerto 5010) y vuelve a iniciar sesión si es necesario.";
+      "No se pudo conectar con el servidor. Comprueba que la API Admin esté en ejecución (ADMIN_API_URL) y vuelve a iniciar sesión si es necesario.";
   }
 
   return (

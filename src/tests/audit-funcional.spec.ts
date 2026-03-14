@@ -6,8 +6,8 @@
  */
 import { test, expect } from '@playwright/test';
 
-const USER = process.env.AUDIT_USER || process.env.NEXT_PUBLIC_ADMIN_DEFAULT_USERNAME || 'admin';
-const PASS = process.env.AUDIT_PASS || process.env.NEXT_PUBLIC_ADMIN_DEFAULT_PASSWORD || 'admin123';
+const USER = process.env.AUDIT_USER ?? process.env.NEXT_PUBLIC_ADMIN_DEFAULT_USERNAME ?? "";
+const PASS = process.env.AUDIT_PASS ?? process.env.NEXT_PUBLIC_ADMIN_DEFAULT_PASSWORD ?? "";
 
 test.describe('Auditoría funcional — reemplazando a usuario', () => {
 

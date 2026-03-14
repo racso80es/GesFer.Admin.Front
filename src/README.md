@@ -14,8 +14,10 @@ Frontend administrativo para GesFer, desarrollado con Next.js 14 (App Router), T
 
 ### Variables de Entorno
 
-- `ADMIN_API_URL`: URL de la API Admin (por defecto en desarrollo: `https://localhost:5011`)
+- `ADMIN_API_URL`: URL de la API Admin (requerida; ver .env.example)
 - `NEXT_PUBLIC_ADMIN_API_URL`: Alternativa pública para Client Components
+- `NEXTAUTH_URL`: URL de la aplicación (requerida)
+- `AUTH_SECRET`: Secret para NextAuth (requerido)
 
 ### Alias de Importación
 

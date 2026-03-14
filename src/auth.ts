@@ -1,23 +1,10 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { serverPostJson } from "@/lib/api/server-fetch";
+import { getAdminApiUrl, getAuthSecret } from "@/lib/env";
 
-/**
- * En desarrollo, HTTPS a localhost falla por certificado autofirmado.
- * El backend expone http://localhost:5010 (perfil https: 5011+5010).
- * Usar HTTP 5010 para evitar rechazo de Node.
- */
 function loginApiBaseUrl(): string {
-  const configured = (process.env.ADMIN_API_URL || "https://localhost:5011").replace(/\/+$/, "");
-  try {
-    const u = new URL(configured);
-    if (u.protocol === "https:" && (u.hostname === "localhost" || u.hostname === "127.0.0.1")) {
-      return `http://${u.hostname}:5010`;
-    }
-  } catch {
-    /* ignore */
-  }
-  return configured;
+  return getAdminApiUrl();
 }
 
 /**
@@ -117,7 +104,7 @@ export const authConfig: NextAuthConfig = {
     strategy: "jwt",
     maxAge: 60 * 60,
   },
-  secret: process.env.AUTH_SECRET || "your-secret-key-change-in-production",
+  secret: getAuthSecret(),
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);

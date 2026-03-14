@@ -4,6 +4,7 @@
   "frontendWorkingDir": "src",
   "command": "npm run dev",
   "defaultPort": 3001,
+  "protocol": "http",
   "healthUrl": "http://localhost:3001",
   "healthCheckTimeoutSeconds": 30
 }

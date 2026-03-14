@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { getDefaultAdminUsername, getDefaultAdminPassword } from "@/lib/env";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,11 +16,10 @@ export default function AdminLoginPage() {
 
   // Contexto ADMIN: Autocompletado para login administrativo en desarrollo
   const [formData, setFormData] = useState<{ username: string; password: string }>(() => {
-    // Verificar si estamos en desarrollo y hay variables de entorno definidas
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       return {
-        username: process.env.NEXT_PUBLIC_ADMIN_DEFAULT_USERNAME || "",
-        password: process.env.NEXT_PUBLIC_ADMIN_DEFAULT_PASSWORD || ""
+        username: getDefaultAdminUsername(),
+        password: getDefaultAdminPassword(),
       };
     }
     return { username: "", password: "" };
@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
       const isNetworkError = err instanceof TypeError && (err.message === "Failed to fetch" || err.message.includes("fetch"));
       setError(
         isNetworkError
-          ? "No se pudo conectar con el servidor. Comprueba que la API Admin esté en ejecución (HTTPS puerto 5011)."
+          ? "No se pudo conectar con el servidor. Comprueba que la API Admin esté en ejecución (ADMIN_API_URL)."
           : "Error al iniciar sesión. Por favor, intenta de nuevo."
       );
       setIsLoading(false);

@@ -1,33 +1,17 @@
 /**
  * Cliente API Admin para uso en Server Components.
  * Requiere el token JWT de la sesión para autorizar las peticiones.
- * En desarrollo, si la URL es HTTPS a localhost (ej. https://localhost:5011), se usa
- * HTTP en 5010 para evitar que Node rechace el certificado autofirmado (fetch failed).
+ * URL desde ADMIN_API_URL o NEXT_PUBLIC_ADMIN_API_URL (sin fallbacks).
  */
+import { getAdminApiUrl } from "@/lib/env";
+
 function normalizeAdminApiBaseUrl(url: string): string {
   const trimmed = url.replace(/\/+$/, "");
   return trimmed.endsWith("/api") ? trimmed : `${trimmed}/api`;
 }
 
-/** En servidor Node, HTTPS a localhost falla por certificado autofirmado; usar HTTP 5011. */
-function serverSafeAdminApiUrl(url: string): string {
-  try {
-    const u = new URL(url);
-    if (u.protocol === "https:" && (u.hostname === "localhost" || u.hostname === "127.0.0.1")) {
-      return normalizeAdminApiBaseUrl(`http://${u.hostname}:5011`);
-    }
-  } catch {
-    /* ignore */
-  }
-  return normalizeAdminApiBaseUrl(url);
-}
-
 export function getAdminApiWithToken(accessToken: string | undefined) {
-  const configured =
-    process.env.NEXT_PUBLIC_ADMIN_API_URL ||
-    process.env.ADMIN_API_URL ||
-    "https://localhost:5011";
-  const baseUrl = serverSafeAdminApiUrl(configured);
+  const baseUrl = normalizeAdminApiBaseUrl(getAdminApiUrl());
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",

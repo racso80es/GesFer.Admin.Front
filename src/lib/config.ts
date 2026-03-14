@@ -1,12 +1,11 @@
 /**
  * Sistema de configuración centralizado para GesFer Admin
  *
- * Soporta múltiples entornos:
- * - local: Desarrollo local (127.0.0.1)
- * - development: Desarrollo (localhost)
- * - production: Producción
- * - test: Tests (mismo que local)
+ * Todas las configuraciones se obtienen de variables de entorno (process.env).
+ * Sin valores hardcodeados. Ver .env.example para la lista de variables.
  */
+
+import { getAdminApiUrl, getClientUrl, getEnv } from "./env";
 
 export interface AppConfig {
   api: {
@@ -98,85 +97,94 @@ function loadConfig(): AppConfig {
   }
 }
 
+/** Lee valor numérico de env; si no está definido, devuelve 0 (config no usada). */
+function envNum(key: string): number {
+  const v = getEnv(key);
+  if (!v) return 0;
+  const n = parseInt(v, 10);
+  return Number.isNaN(n) ? 0 : n;
+}
+
 /**
- * Obtiene configuración por defecto según el entorno
+ * Obtiene configuración desde variables de entorno (sin fallbacks hardcodeados).
  */
 function getDefaultConfig(env: Environment): AppConfig {
   const configs: Record<Environment, AppConfig> = {
     local: {
-      api: { url: process.env.ADMIN_API_URL || 'https://127.0.0.1:5011' },
-      client: { url: 'http://localhost:3001' },
+      api: { url: getAdminApiUrl() },
+      client: { url: getClientUrl() },
       database: {
-        server: process.env.DB_SERVER || 'localhost',
-        port: parseInt(process.env.DB_PORT || '3306', 10),
-        database: process.env.DB_DATABASE || 'ScrapDb',
-        user: process.env.DB_USER || 'scrapuser',
-        password: process.env.DB_PASSWORD || 'scrappassword',
+        server: getEnv("DB_SERVER") ?? getEnv("DB_HOST") ?? "",
+        port: envNum("DB_PORT"),
+        database: getEnv("DB_DATABASE") ?? "",
+        user: getEnv("DB_USER") ?? "",
+        password: getEnv("DB_PASSWORD") ?? "",
       },
       cache: {
-        server: process.env.CACHE_SERVER || 'localhost',
-        port: parseInt(process.env.CACHE_PORT || '11211', 10),
-        enabled: process.env.CACHE_ENABLED !== 'false',
+        server: getEnv("CACHE_SERVER") ?? "",
+        port: envNum("CACHE_PORT"),
+        enabled: getEnv("CACHE_ENABLED") !== "false",
       },
-      environment: 'local',
+      environment: "local",
     },
     development: {
-      api: { url: process.env.ADMIN_API_URL || 'https://localhost:5011' },
-      client: { url: 'http://localhost:3001' },
+      api: { url: getAdminApiUrl() },
+      client: { url: getClientUrl() },
       database: {
-        server: process.env.DB_SERVER || 'localhost',
-        port: parseInt(process.env.DB_PORT || '3306', 10),
-        database: process.env.DB_DATABASE || 'ScrapDb',
-        user: process.env.DB_USER || 'scrapuser',
-        password: process.env.DB_PASSWORD || 'scrappassword',
+        server: getEnv("DB_SERVER") ?? getEnv("DB_HOST") ?? "",
+        port: envNum("DB_PORT"),
+        database: getEnv("DB_DATABASE") ?? "",
+        user: getEnv("DB_USER") ?? "",
+        password: getEnv("DB_PASSWORD") ?? "",
       },
       cache: {
-        server: process.env.CACHE_SERVER || 'localhost',
-        port: parseInt(process.env.CACHE_PORT || '11211', 10),
-        enabled: process.env.CACHE_ENABLED !== 'false',
+        server: getEnv("CACHE_SERVER") ?? "",
+        port: envNum("CACHE_PORT"),
+        enabled: getEnv("CACHE_ENABLED") !== "false",
       },
-      environment: 'development',
+      environment: "development",
     },
     production: {
-      api: { url: process.env.ADMIN_API_URL || 'https://admin-api.gesfer.com' },
-      client: { url: process.env.NEXT_PUBLIC_CLIENT_URL || 'https://admin.gesfer.com' },
+      api: { url: getAdminApiUrl() },
+      client: { url: getClientUrl() },
       database: {
-        server: process.env.DB_SERVER || 'localhost',
-        port: parseInt(process.env.DB_PORT || '3306', 10),
-        database: process.env.DB_DATABASE || 'ScrapDb',
-        user: process.env.DB_USER || 'scrapuser',
-        password: process.env.DB_PASSWORD || 'scrappassword',
+        server: getEnv("DB_SERVER") ?? getEnv("DB_HOST") ?? "",
+        port: envNum("DB_PORT"),
+        database: getEnv("DB_DATABASE") ?? "",
+        user: getEnv("DB_USER") ?? "",
+        password: getEnv("DB_PASSWORD") ?? "",
       },
       cache: {
-        server: process.env.CACHE_SERVER || 'localhost',
-        port: parseInt(process.env.CACHE_PORT || '11211', 10),
-        enabled: process.env.CACHE_ENABLED !== 'false',
+        server: getEnv("CACHE_SERVER") ?? "",
+        port: envNum("CACHE_PORT"),
+        enabled: getEnv("CACHE_ENABLED") !== "false",
       },
-      environment: 'production',
+      environment: "production",
     },
     test: {
-      api: { url: process.env.ADMIN_API_URL || 'https://127.0.0.1:5011' },
-      client: { url: process.env.CLIENT_URL || 'http://127.0.0.1:3001' },
+      api: { url: getAdminApiUrl() },
+      client: { url: getClientUrl() },
       database: {
-        server: process.env.DB_SERVER || '127.0.0.1',
-        port: parseInt(process.env.DB_PORT || '3306', 10),
-        database: process.env.DB_DATABASE || 'ScrapDb',
-        user: process.env.DB_USER || 'scrapuser',
-        password: process.env.DB_PASSWORD || 'scrappassword',
+        server: getEnv("DB_SERVER") ?? getEnv("DB_HOST") ?? "",
+        port: envNum("DB_PORT"),
+        database: getEnv("DB_DATABASE") ?? "",
+        user: getEnv("DB_USER") ?? "",
+        password: getEnv("DB_PASSWORD") ?? "",
       },
       cache: {
-        server: process.env.CACHE_SERVER || '127.0.0.1',
-        port: parseInt(process.env.CACHE_PORT || '11211', 10),
-        enabled: process.env.CACHE_ENABLED !== 'false',
+        server: getEnv("CACHE_SERVER") ?? "",
+        port: envNum("CACHE_PORT"),
+        enabled: getEnv("CACHE_ENABLED") !== "false",
       },
-      environment: 'test',
+      environment: "test",
     },
   };
 
-  // Generar connectionString si no está definido
-  configs[env].database.connectionString =
-    configs[env].database.connectionString ||
-    `Server=${configs[env].database.server};Port=${configs[env].database.port};Database=${configs[env].database.database};User=${configs[env].database.user};Password=${configs[env].database.password};CharSet=utf8mb4;AllowUserVariables=True;AllowLoadLocalInfile=True;`;
+  const db = configs[env].database;
+  if (db.server && db.database && db.user) {
+    db.connectionString =
+      `Server=${db.server};Port=${db.port};Database=${db.database};User=${db.user};Password=${db.password};CharSet=utf8mb4;AllowUserVariables=True;AllowLoadLocalInfile=True;`;
+  }
 
   return configs[env];
 }
@@ -212,8 +220,11 @@ export const DATABASE_CONFIG = appConfig.database;
 /**
  * Connection string de base de datos
  */
-export const DATABASE_CONNECTION_STRING = appConfig.database.connectionString ||
-  `Server=${appConfig.database.server};Port=${appConfig.database.port};Database=${appConfig.database.database};User=${appConfig.database.user};Password=${appConfig.database.password};CharSet=utf8mb4;AllowUserVariables=True;AllowLoadLocalInfile=True;`;
+export const DATABASE_CONNECTION_STRING =
+  appConfig.database.connectionString ??
+  (appConfig.database.server && appConfig.database.database
+    ? `Server=${appConfig.database.server};Port=${appConfig.database.port};Database=${appConfig.database.database};User=${appConfig.database.user};Password=${appConfig.database.password};CharSet=utf8mb4;AllowUserVariables=True;AllowLoadLocalInfile=True;`
+    : "");
 
 /**
  * Configuración de caché

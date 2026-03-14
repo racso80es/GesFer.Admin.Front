@@ -41,7 +41,7 @@ export default defineConfig({
   /* Configuración compartida para todos los proyectos */
   use: {
     /* URL base para usar en navegación, por ejemplo, await page.goto('/') */
-    baseURL: process.env.CLIENT_URL || TEST_CLIENT_URL,
+    baseURL: process.env.CLIENT_URL ?? process.env.NEXTAUTH_URL ?? TEST_CLIENT_URL,
 
     /* Recopilar trace cuando se reintenta el test fallido */
     trace: 'on-first-retry',

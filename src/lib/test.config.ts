@@ -1,42 +1,52 @@
 /**
  * Configuración específica para tests
  *
- * Este archivo se usa cuando NODE_ENV=test o TEST_ENV=true
- * Carga la configuración desde config/test.json
+ * Todas las configuraciones desde variables de entorno.
+ * En tests: API_URL, CLIENT_URL, DB_*, CACHE_* deben estar definidas.
  */
 
-import type { AppConfig } from './config';
+import type { AppConfig } from "./config";
+import { getEnv } from "./env";
+
+function envNum(key: string): number {
+  const v = getEnv(key);
+  if (!v) return 0;
+  const n = parseInt(v, 10);
+  return Number.isNaN(n) ? 0 : n;
+}
 
 export const testConfig: AppConfig = {
   api: {
-    // Admin API HTTPS port 5011
-    url: process.env.API_URL || 'https://127.0.0.1:5011',
+    url: getEnv("API_URL") ?? getEnv("ADMIN_API_URL") ?? "",
   },
   client: {
-    // Admin Front port 3001
-    url: process.env.CLIENT_URL || 'http://127.0.0.1:3001',
+    url: getEnv("CLIENT_URL") ?? getEnv("NEXTAUTH_URL") ?? "",
   },
   database: {
-    server: process.env.DB_SERVER || '127.0.0.1',
-    port: parseInt(process.env.DB_PORT || '3306', 10),
-    database: process.env.DB_DATABASE || 'ScrapDb',
-    user: process.env.DB_USER || 'scrapuser',
-    password: process.env.DB_PASSWORD || 'scrappassword',
-    connectionString: process.env.DB_CONNECTION_STRING ||
-      `Server=${process.env.DB_SERVER || '127.0.0.1'};Port=${process.env.DB_PORT || '3306'};Database=${process.env.DB_DATABASE || 'ScrapDb'};User=${process.env.DB_USER || 'scrapuser'};Password=${process.env.DB_PASSWORD || 'scrappassword'};CharSet=utf8mb4;AllowUserVariables=True;AllowLoadLocalInfile=True;`,
+    server: getEnv("DB_SERVER") ?? getEnv("DB_HOST") ?? "",
+    port: envNum("DB_PORT"),
+    database: getEnv("DB_DATABASE") ?? "",
+    user: getEnv("DB_USER") ?? "",
+    password: getEnv("DB_PASSWORD") ?? "",
+    connectionString: getEnv("DB_CONNECTION_STRING") ?? undefined,
   },
   cache: {
-    server: process.env.CACHE_SERVER || '127.0.0.1',
-    port: parseInt(process.env.CACHE_PORT || '11211', 10),
-    enabled: process.env.CACHE_ENABLED !== 'false',
+    server: getEnv("CACHE_SERVER") ?? "",
+    port: envNum("CACHE_PORT"),
+    enabled: getEnv("CACHE_ENABLED") !== "false",
   },
-  environment: 'test',
+  environment: "test",
 };
+
+if (testConfig.database.server && testConfig.database.database && !testConfig.database.connectionString) {
+  testConfig.database.connectionString =
+    `Server=${testConfig.database.server};Port=${testConfig.database.port};Database=${testConfig.database.database};User=${testConfig.database.user};Password=${testConfig.database.password};CharSet=utf8mb4;AllowUserVariables=True;AllowLoadLocalInfile=True;`;
+}
 
 export const TEST_API_URL = testConfig.api.url;
 export const TEST_CLIENT_URL = testConfig.client.url;
 export const TEST_DATABASE_CONFIG = testConfig.database;
-export const TEST_DATABASE_CONNECTION_STRING = testConfig.database.connectionString ||
-  `Server=${testConfig.database.server};Port=${testConfig.database.port};Database=${testConfig.database.database};User=${testConfig.database.user};Password=${testConfig.database.password};CharSet=utf8mb4;AllowUserVariables=True;AllowLoadLocalInfile=True;`;
+export const TEST_DATABASE_CONNECTION_STRING =
+  testConfig.database.connectionString ?? "";
 export const TEST_CACHE_CONFIG = testConfig.cache;
 export const TEST_CACHE_URL = `${testConfig.cache.server}:${testConfig.cache.port}`;

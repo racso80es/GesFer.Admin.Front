@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getAdminApiUrl } from "@/lib/env";
 import { useSession } from "next-auth/react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loading } from "@/components/ui/loading";
@@ -29,7 +30,7 @@ export default function AdminDashboardPage() {
         setIsLoading(true);
         setError(null);
 
-        const apiUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL || process.env.ADMIN_API_URL || "https://localhost:5011";
+        const apiUrl = getAdminApiUrl();
         const token = session?.accessToken;
 
         if (!token) {
