@@ -1,0 +1,58 @@
+{
+  "providerId": "iota-wallet",
+  "version": "1.0.0",
+  "type": "wallet_provider",
+  "description": "Proveedor de billetera IOTA Wallet para implementaciones futuras. Open-source self-custody wallet, extensión Chrome.",
+  "source_date": "2026-02-23",
+  "general": {
+    "nombre": "IOTA Wallet",
+    "tipo": "open-source self-custody wallet",
+    "plataforma": "extension_chrome",
+    "version": "1.5.5",
+    "version_hash": "7db43a8",
+    "ultima_actualizacion": "2026-02-23",
+    "tamano_paquete_mib": 10.47,
+    "usuarios_activos": 30000
+  },
+  "desarrollador": {
+    "organizacion": "IOTA Ecosystem DLT Foundation",
+    "direccion": "Pappelallee 78, Berlin 10437, DE",
+    "email_contacto": "info@iota.org"
+  },
+  "caracteristicas_tecnicas": [
+    {
+      "id": "dapps",
+      "nombre": "Interacción con dApps",
+      "descripcion": "Conexión segura a aplicaciones descentralizadas, aprobación de transacciones con transparencia y gestión de permisos."
+    },
+    {
+      "id": "cuentas",
+      "nombre": "Gestión de cuentas",
+      "descripcion": "Creación o importación segura mediante mnemotécnicos (mnemonics), claves privadas y semillas (seeds)."
+    },
+    {
+      "id": "hardware",
+      "nombre": "Integración de hardware",
+      "descripcion": "Soporte e integración con Ledger para mayor seguridad."
+    },
+    {
+      "id": "explorer",
+      "nombre": "Explorador de red",
+      "descripcion": "Visualización de actividades y acceso a información detallada de transacciones vía IOTA Explorer."
+    }
+  ],
+  "manejo_datos_privacidad": {
+    "datos_recopilados": ["informacion_autenticacion", "actividad_usuario"],
+    "politicas": {
+      "no_venta_terceros": true,
+      "uso_solo_funcionalidad_principal": true,
+      "no_solvencia_crediticia": true
+    }
+  },
+  "consideraciones_implementacion": {
+    "plataforma": "extension_chrome",
+    "flujo_conexion": "vía extensión de navegador",
+    "hardware_support": ["ledger"],
+    "verificar_api_extensiones": true
+  }
+}
