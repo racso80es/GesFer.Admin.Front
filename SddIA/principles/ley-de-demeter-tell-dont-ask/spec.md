@@ -1,3 +1,16 @@
+---
+category: Clean Code
+contract_ref: paths.principlesPath/principles-contract.json
+id: c1f7a01b-9a8c-4d3b-8f2e-1e3d4a5b6c82
+metadata:
+  difficulty: Intermediate
+  status: Published
+principle_id: ley-de-demeter-tell-dont-ask
+tags:
+  - POO
+  - Encapsulación
+  - Acoplamiento
+---
 # Ley de Demeter (Tell, Don't Ask)
 
 **principle_id:** `ley-de-demeter-tell-dont-ask`

@@ -17,20 +17,20 @@ Se denominan **entidades de dominio** o **entidades del ecosistema SddIA** a aqu
 - **Templates** (paths.templatesPath) — contrato: templates-contract (required_token: Karma2Token).
 - **Tokens** (paths.tokensPath) — contrato: paths.tokensPath/tokens-contract.json (definición de los propios tokens).
 
-## Obligaciones de estructura y sincronidad
+## Obligaciones de estructura
 
 Todas las **entidades de dominio** han de:
 
-1. **Respetar la estructura** definida en su contrato: típicamente `spec.md` y `spec.json` en la carpeta de la entidad (paths según Cúmulo), con los campos y artefactos que exija el contrato.
-2. **Mantener sincronidad** entre la documentación legible (MD) y la definición estructural (JSON): cualquier cambio en la lógica o descripción en un `.md` debe propagarse al `.json` correspondiente en la misma transacción, y viceversa cuando el contrato sea JSON-first.
+1. **Respetar la estructura** definida en su contrato: la estructura canónica para las entidades es un único archivo `spec.md` en la carpeta de la entidad (paths según Cúmulo), con los metadatos requeridos por el contrato integrados en formato **YAML Frontmatter** en la parte superior del archivo.
+2. **Excepción de Tokens:** Las entidades de tipo Token (como `karma2-token`) pueden mantenerse en un formato de definición JSON puro (`spec.json`) si así lo requiere su especificación u operación.
 
-La validación de esta sincronía puede realizarse mediante el check opcional `sddia_md_json_parity` (acción validate) cuando el diff toque paths.skillsDefinitionPath, paths.processPath u otras rutas de entidades de dominio. La acción sddia-difusion incluye entre sus criterios la paridad MD/JSON en las definiciones que se difunden.
+La validación de esta estructura puede realizarse mediante la acción `validate`, asegurando que el documento `spec.md` contiene un bloque YAML Frontmatter bien formado y que los atributos en él corresponden con el esquema esperado por su contrato.
 
 ## Referencias
 
 - **Token (Karma2Token):** paths.tokensPath; SddIA/tokens/karma2-token/spec.json.
 - **Contrato de tokens:** paths.tokensPath/tokens-contract.json (Cúmulo).
-- **Sincronía MD/JSON:** paths.featurePath/refactorization-sincronidad-md-json/; SddIA/actions/validate (optional_checks.sddia_md_json_parity); SddIA/actions/sddia-difusion (criterios de aceptación).
+- **Arquitectura Frontmatter:** paths.featurePath/refactorization-arquitectura-frontmatter/.
 
 ---
-*Definición canónica de entidades de dominio para gobernanza SddIA. Ref: refactorization-sincronidad-md-json.*
+*Definición canónica de entidades de dominio para gobernanza SddIA. Ref: refactorization-arquitectura-frontmatter.*

@@ -1,10 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
-import { TEST_CLIENT_URL } from './lib/config.test';
+import { TEST_CLIENT_URL } from './lib/test.config';
 
 /**
  * Configuración de Playwright para GesFer
  *
- * URLs configuradas desde lib/config.test.ts:
+ * URLs configuradas desde lib/test.config.ts:
  * - Web: desde TEST_CLIENT_URL
  * - API: desde TEST_API_URL
  */

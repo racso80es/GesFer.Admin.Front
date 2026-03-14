@@ -1,3 +1,25 @@
+---
+action_id: spec
+contract_ref: actions-contract.json
+flow_steps:
+  - Validación token
+  - Ingesta y análisis
+  - Contexto vía --context
+  - Normalización OpenSpecs
+  - SecurityScanner
+  - Persistencia
+  - Auditoría
+inputs:
+  - '--token'
+  - '--title'
+  - '--input'
+  - '--context (Cúmulo)'
+name: Spec
+outputs:
+  - SPEC-*.md
+  - metadata JSON en carpeta de tarea (Cúmulo)
+principles_ref: paths.principlesPath
+---
 # Action: Spec
 
 ## Propósito

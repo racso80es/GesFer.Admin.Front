@@ -1,3 +1,17 @@
+---
+category: Testing
+contract_ref: paths.principlesPath/principles-contract.json
+id: c1f7a01b-9a8c-4d3b-8f2e-1e3d4a5b6c88
+metadata:
+  difficulty: Advanced
+  status: Published
+principle_id: test-first-vs-tdd
+tags:
+  - TDD
+  - Test-First
+  - Metodologías
+  - Diseño de Software
+---
 # Test-First vs TDD
 
 **principle_id:** `test-first-vs-tdd`

@@ -1,3 +1,34 @@
+---
+contract_ref: SddIA/tools/tools-contract.json
+cumulo_ref: SddIA/agents/cumulo.json
+depends_on_tools: []
+env:
+  - Windows 11
+  - PowerShell 7+
+  - Node.js 20+
+implementation_path_ref: paths.toolCapsules.start-frontend
+inputs:
+  OutputJson: boolean (opcional). Emitir resultado JSON por stdout.
+  OutputPath: string (opcional). Fichero donde escribir el resultado JSON.
+  Port: number (opcional). Puerto del dev server. Por defecto 3001.
+output:
+  exit_codes:
+    '0': 'Exito: frontend responde'
+    '1': Config no encontrado o invalido
+    '2': Puerto ocupado
+    '7': Frontend no respondio a tiempo
+  phases_feedback:
+    - init
+    - port-check
+    - launch
+    - healthcheck
+    - done
+    - error
+  schema_ref: tools-contract.json output.required_fields y optional_fields
+  success_criterion: El frontend responde en http://localhost:<port> (HTTP 200).
+toolId: start-frontend
+version: 1.0.0
+---
 # Especificación: start-frontend
 
 **toolId:** `start-frontend`

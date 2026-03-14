@@ -3,8 +3,12 @@
   "scope": "paths.actionsPath (SddIA/actions/)",
   "description": "Contrato que toda acción del ciclo debe cumplir: definición en paths.actionsPath/<action-id>/ con spec.md y spec.json. Entrada/salida y flujo documentados.",
   "definition_artefacts": [
-    { "ext": ".md", "naming": "spec.md", "path": "paths.actionsPath/<action-id>/", "purpose": "Especificación legible: propósito, entradas, salidas, flujo. es-ES." },
-    { "ext": ".json", "naming": "spec.json", "path": "paths.actionsPath/<action-id>/", "purpose": "Metadatos machine-readable: action_id, name, purpose, inputs, outputs, flow_steps, contract_ref, principles_applicable (opcional)." }
+    {
+      "ext": ".md",
+      "naming": "spec.md",
+      "path": "paths.actionsPath/<action-id>/",
+      "purpose": "Especificación legible con YAML Frontmatter integrando todos los metadatos y configuración."
+    }
   ],
   "principles_validation": "Las acciones que afecten diseño o implementación (spec, planning, implementation, execution) deben validar coherencia con paths.principlesPath (principles-contract.json). En spec.json puede declararse principles_applicable (array de principle_id) o principles_ref: paths.principlesPath.",
   "patterns_validation": "Las acciones planning, implementation y execution deben consultar paths.patternsPath para referenciar patrones en el PLAN, en ítems IMPL (pattern_id) y en ejecución. Norma: SddIA/norms/patterns-in-planning-implementation-execution.md.",
@@ -20,5 +24,10 @@
     "Planning, implementation, execution: aplicar patrones según patterns-in-planning-implementation-execution.md.",
     "Cumplimiento obligatorio de Karma2Token para trazabilidad y seguridad."
   ],
-  "consumers": ["paths.processPath", "SddIA/agents/*.json", "SddIA/norms/interaction-triggers.md", ".cursor/rules"]
+  "consumers": [
+    "paths.processPath",
+    "SddIA/agents/*.json",
+    "SddIA/norms/interaction-triggers.md",
+    ".cursor/rules"
+  ]
 }

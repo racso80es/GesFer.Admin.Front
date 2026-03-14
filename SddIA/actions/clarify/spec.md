@@ -1,3 +1,22 @@
+---
+action_id: clarify
+contract_ref: actions-contract.json
+flow_steps:
+  - Validación token
+  - Validación ruta
+  - Contexto
+  - Generación clarificaciones
+  - SecurityScanner
+  - Persistencia
+  - Auditoría
+inputs:
+  - '--token'
+  - '--spec'
+  - '--input o --context'
+name: Clarify
+outputs:
+  - '{SpecName}_CLARIFICATIONS.md en carpeta de la spec'
+---
 # Action: Clarify
 
 ## Propósito

@@ -1,3 +1,19 @@
+---
+category: Ciberseguridad
+id: a1b2c3d4-0000-4000-a000-000000000008
+interested_agents:
+  - security-engineer
+  - auditor
+  - architect
+metadata:
+  difficulty: Intermediate
+  status: Published
+tags:
+  - Recompensas
+  - Hackers
+  - HackerOne
+  - Open Security
+---
 # Bug Bounty Programs
 
 ## Descripción
