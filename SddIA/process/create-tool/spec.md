@@ -57,11 +57,11 @@ La herramienta debe implementarse **únicamente como ejecutable Rust** (`.exe`).
 
 ```
 scripts/tools/<tool-id>/
-├── bin/
-│   └── <tool-name>.exe        # Ejecutable Rust compilado (OBLIGATORIO)
+├── <tool-name>.exe             # Ejecutable Rust compilado (OBLIGATORIO)
 ├── manifest.json               # Metadatos de la herramienta (OBLIGATORIO)
 ├── <tool-name>-config.json     # Configuración (si aplica)
-└── <tool-name>.md              # Documentación de uso (OBLIGATORIO)
+├── <tool-name>.md              # Documentación de uso (OBLIGATORIO)
+└── <Tool-Name>.bat             # Launcher que invoca el .exe
 ```
 
 **Fuente Rust:**
@@ -86,7 +86,7 @@ scripts/tools-rs/src/<tool-name>/
    ```powershell
    cargo build --release --manifest-path scripts/tools-rs/Cargo.toml
    ```
-3. Copiar el `.exe` generado a `scripts/tools/<tool-id>/bin/<nombre>.exe`
+3. Copiar el `.exe` generado a `scripts/tools/<tool-id>/<nombre>.exe` (ruta de la tool)
 4. Actualizar el índice: `scripts/tools/index.json`
 5. Actualizar Cúmulo: `SddIA/agents/cumulo.paths.json` (campo `toolCapsules`)
 

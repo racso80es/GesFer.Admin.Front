@@ -35,6 +35,8 @@ version: 1.0.0
 **Definición (SddIA):** Este directorio.
 **Implementación (scripts):** Ruta canónica en Cúmulo → **implementation_path_ref:** `paths.toolCapsules.start-frontend`.
 
+**Implementación Rust:** Ejecutable `start_frontend.exe` en la ruta de la tool (junto al .bat). Fuente: `scripts/tools-rs/src/bin/start_frontend.rs`. Launcher `.bat` invoca el .exe. Compilación: `cargo build --release` en tools-rs; despliegue: `install.ps1`.
+
 ## Objetivo
 
 Herramienta que **levanta el dev server** del proyecto GesFer.Admin.Front (Next.js): ejecuta `npm run dev` en `src/`, comprueba que el puerto 3001 esté disponible y considera **éxito** si `http://localhost:3001` responde (HTTP 200).

@@ -1,19 +1,19 @@
 {
-  "contract_version": "1.1.0",
+  "contract_version": "1.3.0",
   "scope": "paths.toolsPath (Cúmulo)",
   "description": "Contrato que toda herramienta (tool) en paths.toolsPath (Cúmulo) debe cumplir: salida JSON adecuada al fin de la herramienta y feedback estructurado.",
   "default_implementation": {
     "language": "rust",
     "rationale": "Rendimiento, seguridad de memoria, portabilidad y distribución como binario. Las implementaciones por defecto de tools y de scripts de skills han de ser en Rust.",
     "delivery": [
-      "Cada herramienta reside en una capsula paths.toolsPath (Cúmulo) /<tool-id>/ con manifest.json. Los ejecutables se construyen en paths.toolsRustPath (Cúmulo) y se copian a paths.toolsPath (Cúmulo) /<tool-id>/bin/.",
-      "Launcher .bat en la capsula invoca el .exe en bin/.",
+      "Cada herramienta reside en una capsula paths.toolsPath (Cúmulo) /<tool-id>/ con manifest.json. Los ejecutables se construyen en paths.toolsRustPath (Cúmulo) y se copian a la ruta de la herramienta.",
+      "Ubicación del .exe: <capsula>/<tool_bin>.exe (en la ruta de la tool, junto al .bat). Launcher .bat invoca el .exe en la misma carpeta.",
       "Config (.json), documentacion (.md) y manifest.json obligatorios en la capsula. Rutas canonicas: Cúmulo paths.toolCapsules."
     ]
   },
   "implementation": {
     "format": "Rust executable (.exe)",
-    "location_pattern": "scripts/tools/{tool-id}/bin/{nombre}.exe",
+    "location_pattern": "scripts/tools/{tool-id}/{nombre}.exe",
     "source_location": "scripts/tools-rs/src/{nombre}.rs",
     "prohibited_formats": [
       ".ps1",
@@ -69,12 +69,12 @@
     },
     {
       "ext": "binary",
-      "path": "paths.toolsPath (Cúmulo) /<tool-id>/bin/<tool_bin>.exe",
-      "purpose": "Ejecutable Rust en la capsula (copiado desde tools-rs/install.ps1). OBLIGATORIO para nuevas herramientas."
+      "path": "paths.toolsPath (Cúmulo) /<tool-id>/<tool_bin>.exe",
+      "purpose": "Ejecutable Rust en la cápsula (copiado desde tools-rs/install.ps1). Ubicación: en <tool-id>/ (ruta de la tool, junto al .bat). OBLIGATORIO para nuevas herramientas."
     },
     {
       "ext": ".bat",
-      "purpose": "Launcher en capsula: invoca binario en bin/."
+      "purpose": "Launcher en cápsula: invoca el binario (.exe) en la ruta de la tool."
     },
     {
       "ext": ".json",

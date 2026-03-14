@@ -16,14 +16,16 @@ cd scripts/tools-rs
 cargo build --release
 ```
 
-El script `install.ps1` compila y **copia los ejecutables a la carpeta `bin/` de cada cápsula** (rutas canónicas: Cúmulo **paths.toolCapsules**, `SddIA/agents/cumulo.json`):
+El script `install.ps1` compila y **copia los ejecutables a la ruta de cada cápsula** (rutas canónicas: Cúmulo **paths.toolCapsules**, `SddIA/agents/cumulo.json`):
 
-- **paths.toolCapsules['prepare-full-env']** + `bin/prepare_full_env.exe` — Prepare-FullEnv (Docker, MySQL)
-- **paths.toolCapsules['invoke-mysql-seeds']** + `bin/invoke_mysql_seeds.exe` — Invoke-MySqlSeeds (migraciones EF, seeds)
+- **paths.toolCapsules['prepare-full-env']** + `prepare_full_env.exe` — Prepare-FullEnv (Docker, MySQL)
+- **paths.toolCapsules['invoke-mysql-seeds']** + `invoke_mysql_seeds.exe` — Invoke-MySqlSeeds (migraciones EF, seeds)
+- **paths.toolCapsules['start-frontend']** + `start_frontend.exe` — Start-Frontend (dev server Next.js)
+- **paths.toolCapsules['start-api']** + `start_api.exe` — Start-API (dev server .NET)
 
 ## Uso
 
-Los launchers `.bat` en **paths.toolsPath** (Cúmulo) son wrappers que delegan a la cápsula correspondiente. Dentro de cada cápsula (**paths.toolCapsules[&lt;tool-id&gt;]**), el `.bat` invoca el `.exe` en `bin/` si existe; si no, usa el script PowerShell de la cápsula.
+Los launchers `.bat` en **paths.toolsPath** (Cúmulo) son wrappers que delegan a la cápsula correspondiente. Dentro de cada cápsula (**paths.toolCapsules[&lt;tool-id&gt;]**), el `.bat` invoca el `.exe` en la misma carpeta; si no existe, usa el script PowerShell de la cápsula.
 
 Variables de entorno opcionales:
 

@@ -59,8 +59,8 @@ Así se mantiene un **feedback adecuado** tanto para humanos (mensajes claros) c
 **Las implementaciones por defecto de las herramientas (y de los scripts de skills) han de ser en Rust.**
 
 - **Motivo:** rendimiento, seguridad de memoria, portabilidad y distribución como binario único.
-- **Entrega:** cada herramienta reside en una **cápsula** **paths.toolCapsules[&lt;tool-id&gt;]** (Cúmulo). Los ejecutables se construyen en paths.toolsRustPath (Cúmulo) y se copian a `&lt;cápsula&gt;/bin/`. Opcional: wrapper `.bat` en **paths.toolsPath** que delegue a la cápsula.
-- **Launcher:** dentro de la cápsula, el `.bat` invoca el `.exe` en `bin/` si existe; en caso contrario, fallback al script `.ps1` de la cápsula.
+- **Entrega:** cada herramienta reside en una **cápsula** **paths.toolCapsules[&lt;tool-id&gt;]** (Cúmulo). Los ejecutables se construyen en paths.toolsRustPath (Cúmulo) y se copian a la **ruta de la herramienta**: `&lt;cápsula&gt;/&lt;tool_bin&gt;.exe` (junto al .bat). Opcional: wrapper `.bat` en **paths.toolsPath** que delegue a la cápsula.
+- **Launcher:** dentro de la cápsula, el `.bat` invoca el `.exe` en la misma carpeta; en caso contrario, fallback al script `.ps1` de la cápsula.
 - **Config** (`.json`), **documentación** (`.md`) y **manifest.json** (toolId, components, contract_ref) son obligatorios en la cápsula. **Rutas canónicas:** Cúmulo `SddIA/agents/cumulo.json` → **paths.toolsPath**, **paths.toolCapsules**. En documentación .md no usar rutas literales; referenciar vía Cúmulo.
 
 Referencia: agente Security Engineer (paths (Cúmulo) o agente Security Engineer).
@@ -69,9 +69,9 @@ Referencia: agente Security Engineer (paths (Cúmulo) o agente Security Engineer
 
 Cada herramienta reside en una **cápsula** **paths.toolCapsules[&lt;tool-id&gt;]** (Cúmulo) y debe contar con:
 
-- **Implementación Rust:** código en `scripts/tools-rs/src/bin/&lt;tool_bin&gt;.rs`; binario final en `&lt;cápsula&gt;/bin/` (copiado tras `scripts/tools-rs/install.ps1`).
+- **Implementación Rust:** código en `scripts/tools-rs/src/bin/&lt;tool_bin&gt;.rs`; binario final en `&lt;cápsula&gt;/&lt;tool_bin&gt;.exe` (copiado tras `scripts/tools-rs/install.ps1`).
 - **Fallback:** script `.ps1` en la cápsula cuando no exista o no se compile el binario Rust.
-- **Launcher:** `.bat` en la cápsula que invoque el binario en `bin/` si existe, si no el `.ps1`. Opcional: wrapper `.bat` en **paths.toolsPath** que delegue a la cápsula.
+- **Launcher:** `.bat` en la cápsula que invoque el binario (.exe) en la ruta de la tool; si no existe .exe, invocar el `.ps1`. Opcional: wrapper `.bat` en **paths.toolsPath** que delegue a la cápsula.
 - **manifest.json:** toolId, components (launcher_bat, launcher_ps1, config, doc, bin), contract_ref.
 - **Configuración:** cuando sea parametrizable, un `.json` de configuración en la cápsula.
 - **Documentación:** un `.md` en la cápsula que describa uso, parámetros y formato de la salida JSON. Idioma: es-ES.

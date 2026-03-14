@@ -21,4 +21,6 @@ JSON según SddIA/tools/tools-contract.json: toolId, exitCode, success, timestam
 
 ## Implementación
 
-Launcher `.bat` que ejecuta `npm run dev` en `src/` y realiza healthcheck. Implementación simplificada respecto al tooling .NET anterior.
+Ejecutable Rust `start_frontend.exe` en la ruta de la tool. Launcher `.bat` invoca el .exe. El binario ejecuta `npm run dev` en `src/`, comprueba puerto y realiza healthcheck en `http://localhost:3001`. Salida JSON según tools-contract.json.
+
+**Compilación:** Ejecutar `install.ps1` en `scripts/tools-rs/` para compilar y copiar el .exe a la cápsula.

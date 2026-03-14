@@ -16,10 +16,6 @@ reqwest = { version = "0.11", features = ["json", "blocking"] }
 anyhow = "1.0"
 
 [[bin]]
-name = "gesfer_manager"
-path = "src/bin/gesfer_manager.rs"
-
-[[bin]]
 name = "invoke_mysql_seeds"
 path = "src/bin/invoke_mysql_seeds.rs"
 
@@ -30,3 +26,7 @@ path = "src/bin/prepare_full_env.rs"
 [[bin]]
 name = "start_api"
 path = "src/bin/start_api.rs"
+
+[[bin]]
+name = "start_frontend"
+path = "src/bin/start_frontend.rs"
