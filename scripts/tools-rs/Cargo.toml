@@ -16,17 +16,5 @@ reqwest = { version = "0.11", features = ["json", "blocking"] }
 anyhow = "1.0"
 
 [[bin]]
-name = "invoke_mysql_seeds"
-path = "src/bin/invoke_mysql_seeds.rs"
-
-[[bin]]
-name = "prepare_full_env"
-path = "src/bin/prepare_full_env.rs"
-
-[[bin]]
-name = "start_api"
-path = "src/bin/start_api.rs"
-
-[[bin]]
 name = "start_frontend"
 path = "src/bin/start_frontend.rs"

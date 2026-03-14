@@ -89,7 +89,7 @@ Para operaciones de **commit**, invoke-commit se invoca directamente; no es nece
 ```powershell
 .\scripts\skills\invoke-commit\Invoke-Commit.bat --message "descripción" --files "a.md,b.json"
 .\scripts\skills\invoke-commit\Invoke-Commit.bat --message "descripción" --all
-.\scripts\skills\invoke-commit\Invoke-Commit.bat --message "detectar MySQL" --files "spec.md" --type feat --scope start-api
+.\scripts\skills\invoke-commit\Invoke-Commit.bat --message "detectar MySQL" --files "spec.md" --type feat --scope start-frontend
 ```
 
 ---

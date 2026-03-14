@@ -38,9 +38,6 @@ if ($LASTEXITCODE -ne 0) {
 $toolsDir = Join-Path $scriptDir "..\tools"
 $releaseDir = Join-Path $scriptDir "target\release"
 $capsules = @(
-    @{ exe = "prepare_full_env"; capsule = "prepare-full-env" },
-    @{ exe = "invoke_mysql_seeds"; capsule = "invoke-mysql-seeds" },
-    @{ exe = "start_api"; capsule = "start-api" },
     @{ exe = "start_frontend"; capsule = "start-frontend" }
 )
 foreach ($cap in $capsules) {

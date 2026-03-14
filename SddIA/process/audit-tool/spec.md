@@ -148,9 +148,9 @@ El proceso es configurable según las decisiones de clarificación:
 | **FAIL** | Alguna validación crítica falla (no arranca, JSON inválido, objetivo no cumplido) |
 | **PARTIAL** | Herramienta arranca y JSON válido, pero hay warnings o validaciones opcionales fallidas |
 
-## Caso práctico: start-api
+## Caso práctico: start-frontend
 
-Para la herramienta **start-api**, los criterios de validación son:
+Para la herramienta **start-frontend**, los criterios de validación son:
 
 1. Ejecución exitosa de `start_api.exe`.
 2. Retorno JSON con `success: true`.

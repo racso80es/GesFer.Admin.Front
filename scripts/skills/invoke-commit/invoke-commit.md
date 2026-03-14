@@ -19,7 +19,7 @@ Desde la raíz del repositorio:
 .\scripts\skills\invoke-commit\Invoke-Commit.bat --message "descripción" --all
 
 # Conventional Commits (tipo y scope)
-.\scripts\skills\invoke-commit\Invoke-Commit.bat --message "detectar MySQL no disponible" --files "spec.md" --type feat --scope start-api
+.\scripts\skills\invoke-commit\Invoke-Commit.bat --message "detectar MySQL no disponible" --files "spec.md" --type feat --scope start-frontend
 ```
 
 ## Parámetros

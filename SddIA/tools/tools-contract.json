@@ -26,7 +26,7 @@
   "output": {
     "description": "Toda herramienta debe producir al finalizar un resultado en formato JSON, adecuado a su propósito.",
     "required_fields": {
-      "toolId": "Identificador de la herramienta (kebab-case, ej. prepare-full-env).",
+      "toolId": "Identificador de la herramienta (kebab-case, ej. start-frontend).",
       "exitCode": "Código de salida numérico (0 = éxito, distinto de 0 = fallo).",
       "success": "Booleano: true si la ejecución fue correcta.",
       "timestamp": "ISO 8601 de finalización (UTC recomendado).",
