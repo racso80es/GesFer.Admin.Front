@@ -1,0 +1,8 @@
+{
+  "fix_id": "login-frontend-dashboard",
+  "branch": "fix/login-frontend-dashboard",
+  "persist": "docs/bugs/login-frontend-dashboard",
+  "root_cause": "Mismatch de nombres de propiedades en request de login: frontend envía usuario/contraseña (camelCase), API espera Usuario/Contraseña (PascalCase)",
+  "scope": "auth.ts: cambiar body de login a Usuario y Contraseña",
+  "validation": "audit:visual — test 2 (Login con credenciales válidas → redirect /dashboard) debe pasar"
+}

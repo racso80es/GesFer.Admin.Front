@@ -35,8 +35,8 @@ La acción **implementation** (implementación) no realiza cambios en el código
 
 ## Salida
 - **Documento de implementación** (único): nuevo archivo que consolida todos los touchpoints.
-  - **Nombre sugerido:** `IMPL-{FeatureId}.md` o `IMPL-{SpecName}.md` (ej. `IMPL-ARTICLE-FAMILY-CRUD.md`).
-  - **Ubicación sugerida:** misma carpeta que el PLAN (ej. `.docs/feature/article-family/`) o `openspecs/implementation/` según convención del proyecto.
+  - **Nombre:** `implementation.md` en la carpeta de la tarea (Cúmulo).
+  - **Formato:** YAML Frontmatter integrando metadatos (touchpoints, items); no implementation.json separado. Norma: SddIA/norms/features-documentation-frontmatter.md.
   - **Estructura mínima del documento generado:**
     1. **Cabecera:** referencia al PLAN, SPEC, rama.
     2. **Ítems de implementación:** por cada cambio a realizar:

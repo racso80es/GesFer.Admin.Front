@@ -3,9 +3,27 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { serverPostJson } from "@/lib/api/server-fetch";
 
 /**
+ * En desarrollo, HTTPS a localhost falla por certificado autofirmado.
+ * El backend expone http://localhost:5010 (perfil https: 5011+5010).
+ * Usar HTTP 5010 para evitar rechazo de Node.
+ */
+function loginApiBaseUrl(): string {
+  const configured = (process.env.ADMIN_API_URL || "https://localhost:5011").replace(/\/+$/, "");
+  try {
+    const u = new URL(configured);
+    if (u.protocol === "https:" && (u.hostname === "localhost" || u.hostname === "127.0.0.1")) {
+      return `http://${u.hostname}:5010`;
+    }
+  } catch {
+    /* ignore */
+  }
+  return configured;
+}
+
+/**
  * Configuración de autenticación para GesFer Admin
  * Utiliza CredentialsProvider para autenticar contra la API Admin de ASP.NET Core.
- * En desarrollo usa serverPostJson para aceptar el certificado HTTPS autofirmado de la API.
+ * En desarrollo usa serverPostJson y HTTP 5010 para evitar certificado autofirmado.
  */
 export const authConfig: NextAuthConfig = {
   providers: [
@@ -23,8 +41,9 @@ export const authConfig: NextAuthConfig = {
         }
 
         try {
-          const apiUrl = (process.env.ADMIN_API_URL || "https://localhost:5011").replace(/\/+$/, "");
-          const loginUrl = apiUrl.endsWith("/api") ? `${apiUrl}/admin/auth/login` : `${apiUrl}/api/admin/auth/login`;
+          const baseUrl = loginApiBaseUrl();
+          const apiBase = baseUrl.endsWith("/api") ? baseUrl : `${baseUrl}/api`;
+          const loginUrl = `${apiBase}/admin/auth/login`;
 
           const { ok, status, data, errorText } = await serverPostJson<{
             userId?: string;
@@ -36,8 +55,8 @@ export const authConfig: NextAuthConfig = {
             role?: string;
             token?: string;
           }>(loginUrl, {
-            usuario: credentials.username,
-            contraseña: credentials.password,
+            Usuario: credentials.username,
+            Contraseña: credentials.password,
           });
 
           if (!ok || !data) {

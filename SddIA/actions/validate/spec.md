@@ -15,9 +15,9 @@ inputs:
   - Rama actual
 name: Validate
 optional_checks:
-  sddia_md_json_parity: 'Si el diff toca SddIA/skills o SddIA/process, comprobar existencia y coherencia spec.md ↔ spec.json. Ref: refactorization-sincronidad-md-json.'
+  sddia_frontmatter_valid: 'Si el diff toca SddIA/skills o SddIA/process, comprobar que spec.md tenga YAML Frontmatter bien formado con campos clave.'
 outputs:
-  - validacion.json en carpeta tarea o paths.auditsPath
+  - validacion.md en carpeta tarea (Cúmulo) con YAML Frontmatter; no validacion.json separado. Si no hay carpeta: paths.auditsPath
 principles_ref: paths.principlesPath
 ---
 # Action: Validate
@@ -35,18 +35,19 @@ La acción **validate** (validación) comprueba que la feature cumple los criter
 ## Entradas
 
 - **Carpeta de la feature:** Ruta obtenida de Cúmulo (ej. paths.featurePath/<nombre_feature>/ o paths.fixPath/<nombre_fix>/). Opcional: si no existe documentación de tarea, se aplica el **modo sin documentación** (véase más abajo).
-  - Se usan como contexto: `objectives.md`, `spec.json`, `clarify.json`, `implementation.json`, `execution.json` (si existen) para saber alcance y qué se ha tocado.
+  - Se usan como contexto: `objectives.md`, `spec.md`, `clarify.md`, `implementation.md`, `execution.md` (si existen; metadatos en frontmatter) para saber alcance y qué se ha tocado.
 - **Rama actual:** La validación se ejecuta sobre la rama de la feature/fix (feat/ o fix/), nunca sobre `master`. En modo sin documentación, la rama actual y el diff frente a la base definen el alcance.
 
 ## Salidas
 
-- **Informe de validación:** validacion.json en la carpeta de la tarea (Cúmulo) si existe; si no, paths.auditsPath + validacion-<rama>-<timestamp>.json.
+- **Informe de validación:** validacion.md en la carpeta de la tarea (Cúmulo) con YAML Frontmatter si existe; si no, paths.auditsPath + validacion-<rama>-<timestamp>.md. Norma: SddIA/norms/features-documentation-frontmatter.md.
   - Estructura mínima (siempre):
     - **timestamp**, **branch**, **base_branch** (rama de referencia para el diff).
     - **git_changes:** resultado de la validación de cambios git (obligatorio en toda ejecución). Ver más abajo.
     - **checks:** lista de comprobaciones (git_changes, build, test, documentation, ley_git, …) con nombre, resultado (pass | fail | warn), mensaje opcional, detalle.
     - **global:** pass | fail (pass solo si las comprobaciones obligatorias pasan).
     - **blocking:** si hay fallos que impiden el PR.
+  - Los metadatos (timestamp, branch, git_changes, checks, global, blocking) van en YAML Frontmatter del validacion.md.
   - Opcional: copia o resumen en paths.auditsPath para historial.
 
 ### Validación de cambios git (siempre)
@@ -77,9 +78,9 @@ Estructura sugerida de **git_changes** en el informe:
 Cuando **no existe** carpeta de tarea (ruta no proporcionada o vacía):
 
 1. La **validación de cambios git** se ejecuta igual (es obligatoria siempre).
-2. El informe se persiste en **paths.auditsPath + validacion-<rama>-<timestamp>.json**.
+2. El informe se persiste en **paths.auditsPath + validacion-<rama>-<timestamp>.md** (con YAML Frontmatter).
 3. El check **documentación** puede figurar como **warn** en lugar de fail, con mensaje explícito de que no hay documentación de tarea (Cúmulo). La compilación y los tests siguen siendo obligatorios (pass/fail).
-4. En el informe puede añadirse **mode:** `"no_persist"` para indicar que no había carpeta de feature/fix.
+4. En el frontmatter puede añadirse **mode:** `"no_persist"` para indicar que no había carpeta de feature/fix.
 
 ## Flujo de ejecución (propuesto)
 
@@ -94,8 +95,8 @@ Cuando **no existe** carpeta de tarea (ruta no proporcionada o vacía):
 4. **Comprobaciones opcionales (según proyecto):**
    - Script de validación de PR: según skill o herramienta (Cúmulo).
    - Reglas de seguridad (Security Engineer) o rendimiento (Performance Engineer).
-   - **Sincronía MD/JSON (SddIA):** Si el diff toca `SddIA/skills/*/spec.md` o `SddIA/process/*/spec.md`, comprobar que exista el `spec.json` correspondiente en la misma carpeta y que los campos clave (p. ej. skill_id/process_id, parameters, rules) estén alineados. Registrarlo como check `sddia_md_json_parity` (pass | warn). Ref: paths.featurePath/refactorization-sincronidad-md-json/. // TODO: [REF-SddIA] validate — acción refactorization-sincronidad-md-json.
-5. **Generación de informe:** Construir el objeto de resultado incluyendo **siempre** `git_changes` y todos los checks; persistir en validacion.json en la carpeta de la tarea (Cúmulo) o en paths.auditsPath + validacion-<rama>-<timestamp>.json si no hay carpeta de tarea.
+   - **Frontmatter (SddIA):** Si el diff toca `SddIA/skills/*/spec.md` o `SddIA/process/*/spec.md`, comprobar que el frontmatter YAML esté bien formado y contenga los campos clave (skill_id/process_id, parameters, rules). Registrarlo como check `sddia_frontmatter_valid` (pass | warn).
+5. **Generación de informe:** Construir el documento con YAML Frontmatter incluyendo **siempre** `git_changes` y todos los checks; persistir en validacion.md en la carpeta de la tarea (Cúmulo) o en paths.auditsPath + validacion-<rama>-<timestamp>.md si no hay carpeta de tarea.
 6. **Auditoría:** Registrar la ejecución de validate en paths.auditsPath + paths.accessLogFile o en log de evolución (paths.evolutionPath).
 
 ## Implementación técnica (opcional)
@@ -128,19 +129,19 @@ No se requiere un agente nuevo: **QA Judge** asume la fase de validación. Si se
 - **Grado S+:** Trazabilidad desde execution hasta validacion.json; el PR solo se considera listo si `validacion.json` indica global pass y no blocking.
 - **Validación git obligatoria:** Todo informe incluye `git_changes`; no hay ejecución de validate sin análisis de diff frente a la rama base.
 - **Reproducibilidad:** Misma rama y mismo contexto deben producir el mismo resultado de validación (salvo flakiness de tests).
-- **Single Source of Truth:** Para el estado de la feature antes del PR, el artefacto canónico es validacion.json en la carpeta de la tarea (Cúmulo) (o el generado en paths.auditsPath si no hay carpeta de tarea).
-- **Sincronía SddIA:** Para entidades de dominio (skills, process), cualquier cambio en spec.md debe propagarse a spec.json en la misma transacción; validate puede incluir el check opcional `sddia_md_json_parity` cuando el diff toque paths.skillsDefinitionPath o paths.processPath.
+- **Single Source of Truth:** Para el estado de la feature antes del PR, el artefacto canónico es validacion.md en la carpeta de la tarea (Cúmulo) (o el generado en paths.auditsPath si no hay carpeta de tarea).
+- **Frontmatter SddIA:** Para entidades de dominio (skills, process), spec.md debe contener YAML Frontmatter con metadatos; validate puede incluir el check opcional `sddia_frontmatter_valid` cuando el diff toque paths.skillsDefinitionPath o paths.processPath.
 
 ## Dependencias con otras acciones
 
-- **execution:** Proporciona `execution.json`; validate puede usarlo para saber qué archivos/cambios revisar o priorizar tests.
-- **finalize:** Consume `validacion.json`; si global es fail o blocking es true, finalize no debe hacer push/PR sin advertencia o bloqueo.
+- **execution:** Proporciona `execution.md`; validate puede usarlo para saber qué archivos/cambios revisar o priorizar tests.
+- **finalize:** Consume `validacion.md`; si global es fail o blocking es true, finalize no debe hacer push/PR sin advertencia o bloqueo.
 
 ## Resumen
 
 - **Validación de cambios git:** Se ejecuta **siempre**; el informe incluye en toda ejecución la sección `git_changes` (diff frente a rama base: archivos añadidos, modificados, eliminados y resumen por categoría).
 - Con carpeta de tarea (Cúmulo): además de git_changes, checks de build, test y documentación; salida en validacion.json en esa carpeta.
-- Sin carpeta de tarea: mismo flujo; salida en paths.auditsPath + validacion-<rama>-<timestamp>.json; el check de documentación es warn en lugar de fail.
+- Sin carpeta de tarea: mismo flujo; salida en paths.auditsPath + validacion-<rama>-<timestamp>.md; el check de documentación es warn en lugar de fail.
 
 ---
 *Documento de definición de la acción Validate. Corresponde a la fase 7 del procedimiento feature (validar antes de cierre y PR).*

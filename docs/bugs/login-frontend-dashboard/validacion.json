@@ -1,0 +1,14 @@
+{
+  "fix_id": "login-frontend-dashboard",
+  "validated_at": "2026-03-14",
+  "criterion": "Login con credenciales válidas → redirect /dashboard",
+  "result": "PASS",
+  "audit_tests": {
+    "test_2_login_redirect_dashboard": "PASS",
+    "test_4_navigate_companies": "PASS",
+    "test_7_logout": "PASS",
+    "tests_passed": 5,
+    "tests_total": 8
+  },
+  "notes": "Tests 3, 5, 6 fallan por causas ajenas al login (dashboard heading, crear org, editar org). Objetivo del fix cumplido."
+}

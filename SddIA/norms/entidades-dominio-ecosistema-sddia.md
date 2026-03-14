@@ -26,11 +26,16 @@ Todas las **entidades de dominio** han de:
 
 La validación de esta estructura puede realizarse mediante la acción `validate`, asegurando que el documento `spec.md` contiene un bloque YAML Frontmatter bien formado y que los atributos en él corresponden con el esquema esperado por su contrato.
 
+## Documentación de tarea (paths.featurePath, paths.fixPath)
+
+La **documentación de tarea** (output de las acciones spec, clarify, planning, implementation, execution, validate, finalize) sigue el mismo patrón: **un solo .md por acción con YAML Frontmatter**; no ficheros .json separados. Norma específica: **SddIA/norms/features-documentation-frontmatter.md**.
+
 ## Referencias
 
 - **Token (Karma2Token):** paths.tokensPath; SddIA/tokens/karma2-token/spec.json.
 - **Contrato de tokens:** paths.tokensPath/tokens-contract.json (Cúmulo).
 - **Arquitectura Frontmatter:** paths.featurePath/refactorization-arquitectura-frontmatter/.
+- **Documentación de tarea:** SddIA/norms/features-documentation-frontmatter.md.
 
 ---
-*Definición canónica de entidades de dominio para gobernanza SddIA. Ref: refactorization-arquitectura-frontmatter.*
+*Definición canónica de entidades de dominio para gobernanza SddIA. Ref: refactorization-arquitectura-frontmatter, features-documentation-frontmatter.*

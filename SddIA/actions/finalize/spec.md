@@ -18,7 +18,7 @@ outputs:
   - Rama en origin
   - Evolution Logs
   - PR
-  - finalize.json opcional
+  - finalize.md opcional (YAML Frontmatter; no finalize.json separado)
 skill_ref: finalizar-proceso
 ---
 # Action: Finalize
@@ -36,7 +36,7 @@ La acción **finalize** (finalizar) cierra el ciclo de la feature: asegura commi
 ## Entradas
 
 - **Carpeta de la feature:** Ruta obtenida de Cúmulo (ej. paths.featurePath/<nombre_feature>/).
-  - Se espera que existan al menos: `objectives.md`, y preferiblemente `validacion.json` con resultado global pass.
+  - Se espera que existan al menos: `objectives.md`, y preferiblemente `validacion.md` con resultado global pass (metadatos en frontmatter).
 - **Rama actual:** Rama feat/ o fix/ con todos los cambios ya commiteados (o la acción puede incluir un paso de “commit pendientes” según criterio del proyecto).
 
 ## Salidas
@@ -46,7 +46,7 @@ La acción **finalize** (finalizar) cierra el ciclo de la feature: asegura commi
   - paths.evolutionPath + paths.evolutionLogFile (raíz docs: docs/EVOLUTION_LOG.md según proyecto): una línea con formato `[YYYY-MM-DD] [feat/<nombre>] [Descripción breve del resultado.] [Estado].`
   - paths.evolutionPath + paths.evolutionLogFile: una sección con fecha, título de la feature, resumen de acción/alcance/resultado y referencia a la carpeta de la feature (Cúmulo)/objectives.md.
 - **Pull Request:** Creado hacia `master`, con descripción que enlace a la documentación de la feature (ej. paths.featurePath/<nombre_feature>/).
-- **Opcional:** Referencia al PR o estado en validacion.json o finalize.json de la carpeta de la feature (Cúmulo) (ej. URL del PR, timestamp de cierre).
+- **Opcional:** Referencia al PR o estado en validacion.md o finalize.md de la carpeta de la feature (Cúmulo) (ej. URL del PR, timestamp de cierre en frontmatter).
 
 ## Skill de referencia: FinalizarProceso (finalizar-proceso)
 
@@ -62,14 +62,14 @@ Para **ejecutar** la acción finalize (pasos de push y PR), se debe invocar el s
   .\scripts\actions\finalize\Invoke-Finalize.ps1 -Persist "docs/features/<nombre_feature>/"
   ```
 - **Parámetros:** `-Persist` (obligatorio, ruta de la carpeta de la feature), `-BranchName` (opcional), `-NoVerify` (opcional, omitir verify-pr-protocol), `-Title` (opcional, título del PR).
-- **Comportamiento del script:** Comprueba precondiciones (rama no master, objectives.md, validacion.json); opcionalmente ejecuta verify-pr-protocol (Rust); **invoca la skill finalizar-proceso** ejecutando `Push-And-CreatePR.ps1` de la cápsula (paths.skillCapsules[\"finalizar-proceso\"]). El push y la creación del PR los realiza únicamente la skill; el agente no ejecuta comandos git directamente.
+- **Comportamiento del script:** Comprueba precondiciones (rama no master, objectives.md, validacion.md); opcionalmente ejecuta verify-pr-protocol (Rust); **invoca la skill finalizar-proceso** ejecutando `Push-And-CreatePR.ps1` de la cápsula (paths.skillCapsules[\"finalizar-proceso\"]). El push y la creación del PR los realiza únicamente la skill; el agente no ejecuta comandos git directamente.
 
 ## Flujo de ejecución (propuesto)
 
 1. **Comprobación de precondiciones:**
    - Rama actual no es `master`.
    - Existe objectives.md en la carpeta de la feature (Cúmulo).
-   - Existe validacion.json en la carpeta de la feature (Cúmulo) y su resultado global es pass (o se permite finalize con advertencia si el proyecto lo define).
+   - Existe validacion.md en la carpeta de la feature (Cúmulo) y su resultado global es pass (o se permite finalize con advertencia si el proyecto lo define).
 2. **Commits atómicos:** Si hay cambios sin commitear, el agente puede agruparlos en commits atómicos según convención (un commit por ítem lógico o por fase).
 3. **Ejecutar Protocolo de Aceptación (verify-pr-protocol):**
    - **OBLIGATORIO:** Antes de subir cambios o crear PR, se debe invocar la skill `verify-pr-protocol` (Rust).
@@ -79,7 +79,7 @@ Para **ejecutar** la acción finalize (pasos de push y PR), se debe invocar el s
    - Añadir entrada en docs/EVOLUTION_LOG.md (raíz) o paths.evolutionPath + paths.evolutionLogFile.
    - Añadir sección en paths.evolutionPath + paths.evolutionLogFile con resumen y enlace a la carpeta de la feature.
 5. **Ejecutar script finalize (push + PR):** **Invocar** `.\scripts\actions\finalize\Invoke-Finalize.ps1 -Persist "docs/features/<nombre_feature>/"` desde la raíz del repo. Este script comprueba precondiciones, opcionalmente ejecuta verify-pr-protocol y **invoca la skill finalizar-proceso** (Push-And-CreatePR.ps1 de la cápsula), que realiza el push y la creación del PR. Sin este paso ejecutado con éxito, el cierre no está completo. El agente no ejecuta `git push` ni `gh pr create` directamente; toda la interacción Git se hace a través de la skill (Ley COMANDOS).
-6. **Persistencia opcional:** Escribir finalize.json en la carpeta de la feature (Cúmulo) con { "pr_url": "...", "branch": "...", "timestamp": "..." }.
+6. **Persistencia opcional:** Escribir finalize.md en la carpeta de la feature (Cúmulo) con YAML Frontmatter (pr_url, branch, timestamp); no finalize.json separado. Norma: SddIA/norms/features-documentation-frontmatter.md.
 7. **Auditoría:** Registrar el evento de finalización en paths.auditsPath + paths.accessLogFile (Cúmulo).
 8. **Post-PR (skill finalizar-proceso, fase post_pr):** Una vez el PR esté aceptado/mergeado en el remoto, el ejecutor (o el usuario) aplica la fase **post_pr** de la skill **FinalizarProceso** invocando `.\scripts\skills\finalizar-proceso\Finalizar-Proceso.ps1 -BranchName "feat/<nombre_feature>"` (o Finalizar-Proceso.bat). Por defecto se elimina la rama remota; usar `-NoDeleteRemote` para no borrarla. Ver paths.skillsDefinitionPath/finalizar-proceso/spec.md.
 
@@ -95,7 +95,7 @@ La acción finalize **hace uso de la skill finalizar-proceso** (FinalizarProceso
 ## Integración con agentes
 
 - **Tekton Developer (ejecutor del cierre):** Puede ser el responsable de ejecutar finalize: commits finales, actualización de logs, push y apertura del PR, siempre mediante invoke-command para comandos de sistema y git.
-- **QA Judge:** Debe haber validado antes (validacion.json pass); si finalize se ejecuta sin validación previa, puede registrarse una advertencia.
+- **QA Judge:** Debe haber validado antes (validacion.md pass); si finalize se ejecuta sin validación previa, puede registrarse una advertencia.
 - **Cúmulo:** Validan que la documentación de la feature esté en la ruta canónica y que los Evolution Logs referencien correctamente esa ruta (SSOT).
 
 ## Agente responsable (referencia para definición de agente)
@@ -109,7 +109,7 @@ La acción finalize **hace uso de la skill finalizar-proceso** (FinalizarProceso
 
 Si se desea un agente nuevo para no mezclar “escribir código” con “cerrar y hacer PR”, se puede definir:
 
-- **Finalizer / Release Agent:** Solo se encarga de la fase 8: leer validacion.json, actualizar logs, push y crear PR. Invocado por Tekton o por el orquestador de la acción feature.
+- **Finalizer / Release Agent:** Solo se encarga de la fase 8: leer validacion.md, actualizar logs, push y crear PR. Invocado por Tekton o por el orquestador de la acción feature.
 
 ## Estándares de calidad
 
@@ -119,7 +119,7 @@ Si se desea un agente nuevo para no mezclar “escribir código” con “cerrar
 
 ## Dependencias con otras acciones
 
-- **validate:** Debe haber ejecutado y producido `validacion.json` con pass antes de considerar el cierre seguro.
+- **validate:** Debe haber ejecutado y producido `validacion.md` con pass antes de considerar el cierre seguro.
 - **feature:** finalize es la última fase (8) del procedimiento feature; depende de que las fases 0–7 estén completadas.
 
 ---
