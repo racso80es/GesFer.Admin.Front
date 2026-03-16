@@ -39,7 +39,7 @@ export async function serverPostJson<T = unknown>(
   }
 
   const { hostname, port, path, protocol } = parseUrl(url);
-  if (protocol !== "https:") {
+  if (protocol !== "https:" || process.env.NEXT_RUNTIME === "edge") {
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -55,7 +55,28 @@ export async function serverPostJson<T = unknown>(
     return { ok: res.ok, status: res.status, data, errorText };
   }
 
-  const https = await import("https");
+  // Bypass para que el Webpack (que analiza estáticamente import()) de Edge no trate de cargarlo.
+  let https: typeof import("https") | undefined;
+  if (typeof process !== "undefined" && process.env.NEXT_RUNTIME !== "edge") {
+    // Usar eval para engañar a webpack de que el import es puramente runtime,
+    // previniendo el warning `A Node.js module is loaded ('https') ...`
+    https = await eval(`import("https")`);
+  }
+
+  if (!https) {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const errorText = await res.text();
+    let data: T | null = null;
+    try {
+      data = errorText ? (JSON.parse(errorText) as T) : null;
+    } catch {}
+    return { ok: res.ok, status: res.status, data, errorText };
+  }
+
   const bodyStr = JSON.stringify(body);
   return new Promise((resolve) => {
     const options: import("https").RequestOptions = {
