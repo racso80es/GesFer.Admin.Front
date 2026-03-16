@@ -1,0 +1,6 @@
+{
+  "karma2-token": "edge-runtime-fix-1",
+  "name": "Corrección de advertencia módulo HTTPS Edge",
+  "status": "done",
+  "description": "Se aplica un bypass o comprobación de runtime a la carga del módulo https para asegurar que Next.js compile sin advertencias en Edge Runtime."
+}

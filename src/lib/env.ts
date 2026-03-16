@@ -9,6 +9,13 @@
 function requireEnv(name: string, hint?: string): string {
   const value = process.env[name];
   if (!value || value.trim() === "") {
+    // Si estamos en un proceso de build (como el CI de GitHub o `next build`),
+    // podemos evitar arrojar el error para permitir que la compilación de estáticos termine.
+    if (process.env.npm_lifecycle_event === "build" || process.env.CI) {
+      console.warn(`⚠️ [BUILD/CI] Ignorando falta de variable requerida: ${name}`);
+      return "dummy-value-for-build";
+    }
+
     const msg = hint
       ? `Variable de entorno requerida: ${name}. ${hint}`
       : `Variable de entorno requerida: ${name}. Ver .env.example`;

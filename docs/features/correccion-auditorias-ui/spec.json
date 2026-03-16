@@ -1,0 +1,12 @@
+{
+  "name": "correccion-auditorias-ui",
+  "version": "1.0.0",
+  "status": "planned",
+  "issues": [
+    "aria-controls en combobox",
+    "aria-selected en option"
+  ],
+  "components_affected": [
+    "src/components/ui/select.tsx"
+  ]
+}
