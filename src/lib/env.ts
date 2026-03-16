@@ -7,8 +7,17 @@
  */
 
 function requireEnv(name: string, hint?: string): string {
+  // En CI o en Build, no exigimos variables reales de entorno.
+  // Evita fallos de Next.js durante generación estática.
+  const isCI = process.env.CI === "true";
+  const isBuild = process.env.npm_lifecycle_event === "build";
+
   const value = process.env[name];
   if (!value || value.trim() === "") {
+    if (isCI || isBuild) {
+      return `dummy_${name}`;
+    }
+
     const msg = hint
       ? `Variable de entorno requerida: ${name}. ${hint}`
       : `Variable de entorno requerida: ${name}. Ver .env.example`;
