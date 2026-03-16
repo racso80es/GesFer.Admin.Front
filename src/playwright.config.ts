@@ -85,9 +85,13 @@ export default defineConfig({
   /* Servidor de desarrollo local - Respaldo si no se orquesta desde scripts */
   /* Nota: El script validate-pr.ps1/sh orquesta servicios, pero webServer actúa como respaldo */
   webServer: {
-    command: 'npm run dev',
-    url: TEST_CLIENT_URL,
-    reuseExistingServer: true, // Reutilizar si ya está corriendo (orquestado por script)
+    command: process.env.E2E_MOCK
+      ? `npx next dev -p ${process.env.E2E_MOCK_PORT ?? '3002'}`
+      : 'npm run dev',
+    url: process.env.E2E_MOCK
+      ? `http://localhost:${process.env.E2E_MOCK_PORT ?? '3002'}`
+      : TEST_CLIENT_URL,
+    reuseExistingServer: !process.env.E2E_MOCK, // Con mock: servidor fresco en puerto dedicado
     timeout: 180 * 1000, // 3 minutos para compilación inicial de Next.js
     stdout: 'pipe',
     stderr: 'pipe',

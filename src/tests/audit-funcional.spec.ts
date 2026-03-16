@@ -13,6 +13,7 @@ test.describe('Auditoría funcional — reemplazando a usuario', () => {
 
   test('1. Abrir /login — formulario visible', async ({ page }) => {
     await page.goto('/login');
+    await page.waitForSelector('#username', { state: 'visible', timeout: 25000 });
     await expect(page.getByRole('heading', { name: /Acceso Administrativo|Administrativo/i })).toBeVisible();
     await expect(page.getByLabel(/Usuario|Usuario Administrativo/i)).toBeVisible();
     await expect(page.getByLabel(/Contraseña/i)).toBeVisible();
@@ -21,6 +22,7 @@ test.describe('Auditoría funcional — reemplazando a usuario', () => {
 
   test('2. Login con credenciales válidas → redirect /dashboard', async ({ page }) => {
     await page.goto('/login');
+    await page.waitForSelector('#username', { state: 'visible', timeout: 25000 });
     await page.getByPlaceholder('admin').fill(USER);
     await page.getByPlaceholder('••••••••').fill(PASS);
     await page.getByRole('button', { name: /Acceder|Iniciar/i }).click();
@@ -29,18 +31,20 @@ test.describe('Auditoría funcional — reemplazando a usuario', () => {
 
   test('3. Dashboard carga resumen — cards con datos', async ({ page }) => {
     await page.goto('/login');
+    await page.waitForSelector('#username', { state: 'visible', timeout: 25000 });
     await page.getByPlaceholder('admin').fill(USER);
     await page.getByPlaceholder('••••••••').fill(PASS);
     await page.getByRole('button', { name: /Acceder|Iniciar/i }).click();
     await expect(page).toHaveURL(/\/dashboard/, { timeout: 10000 });
 
-    await expect(page.getByRole('heading', { name: /Dashboard Administrativo/i })).toBeVisible();
-    await expect(page.getByText(/Total Companies|Total Usuarios|Empresas/i)).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Dashboard Administrativo/i })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText(/Total Companies|Total Usuarios|Empresas/i).first()).toBeVisible({ timeout: 5000 });
     await expect(page.getByText(/Organizaciones|Companies/i).first()).toBeVisible({ timeout: 5000 });
   });
 
   test('4. Navegar a /companies — listado visible', async ({ page }) => {
     await page.goto('/login');
+    await page.waitForSelector('#username', { state: 'visible', timeout: 25000 });
     await page.getByPlaceholder('admin').fill(USER);
     await page.getByPlaceholder('••••••••').fill(PASS);
     await page.getByRole('button', { name: /Acceder|Iniciar/i }).click();
@@ -54,6 +58,7 @@ test.describe('Auditoría funcional — reemplazando a usuario', () => {
 
   test('5. Crear nueva organización → listado actualizado', async ({ page }) => {
     await page.goto('/login');
+    await page.waitForSelector('#username', { state: 'visible', timeout: 25000 });
     await page.getByPlaceholder('admin').fill(USER);
     await page.getByPlaceholder('••••••••').fill(PASS);
     await page.getByRole('button', { name: /Acceder|Iniciar/i }).click();
@@ -74,6 +79,7 @@ test.describe('Auditoría funcional — reemplazando a usuario', () => {
 
   test('6. Editar organización existente', async ({ page }) => {
     await page.goto('/login');
+    await page.waitForSelector('#username', { state: 'visible', timeout: 25000 });
     await page.getByPlaceholder('admin').fill(USER);
     await page.getByPlaceholder('••••••••').fill(PASS);
     await page.getByRole('button', { name: /Acceder|Iniciar/i }).click();
@@ -91,6 +97,7 @@ test.describe('Auditoría funcional — reemplazando a usuario', () => {
 
   test('7. Cerrar sesión → redirect /login', async ({ page }) => {
     await page.goto('/login');
+    await page.waitForSelector('#username', { state: 'visible', timeout: 25000 });
     await page.getByPlaceholder('admin').fill(USER);
     await page.getByPlaceholder('••••••••').fill(PASS);
     await page.getByRole('button', { name: /Acceder|Iniciar/i }).click();

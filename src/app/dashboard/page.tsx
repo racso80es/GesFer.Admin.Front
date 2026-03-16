@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getAdminApiUrl } from "@/lib/env";
 import { useSession } from "next-auth/react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loading } from "@/components/ui/loading";
@@ -30,21 +29,16 @@ export default function AdminDashboardPage() {
         setIsLoading(true);
         setError(null);
 
-        const apiUrl = getAdminApiUrl();
-        const token = session?.accessToken;
-
-        if (!token) {
-          setError("Token de autenticación no disponible");
+        if (!session?.user || session.user.role !== "Admin") {
           setIsLoading(false);
           return;
         }
 
-        const response = await fetch(`${apiUrl}/api/admin/dashboard/summary`, {
+        // Usar ruta API interna (same-origin) para evitar CORS
+        const response = await fetch("/api/admin/dashboard/summary", {
           method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
         });
 
         if (!response.ok) {

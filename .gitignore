@@ -72,6 +72,7 @@ src/Admin/Front/.env.production.local# Archivos de secretos y variables de entor
 .env.production.local
 .env.development
 .env.development.local
+.env.test
 
 # Archivos de configuración personalizados con datos sensibles
 *config.local.*

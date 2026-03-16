@@ -15,6 +15,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:mock": "bash tests/run-e2e-mock.sh",
+    "test:e2e:mock:ps1": "powershell -ExecutionPolicy Bypass -File tests/run-e2e-mock.ps1",
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:headed": "playwright test --headed",
     "audit:visual": "playwright test --headed tests/audit-funcional.spec.ts --project=chromium",

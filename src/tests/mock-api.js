@@ -23,7 +23,7 @@ const MOCK_DASHBOARD = {
   generatedAt: new Date().toISOString(),
 };
 
-const MOCK_COMPANIES = [
+let MOCK_COMPANIES = [
   {
     id: 'c1',
     name: 'Organización Demo 1',
@@ -44,10 +44,21 @@ const MOCK_COMPANIES = [
   },
 ];
 
+const MOCK_LOGS = {
+  logs: [
+    { id: 1, level: 'Information', message: 'Test log 1', timeStamp: new Date().toISOString(), source: 'Test' },
+    { id: 2, level: 'Warning', message: 'Test log 2', timeStamp: new Date().toISOString(), source: 'Test' },
+  ],
+  totalCount: 2,
+  pageNumber: 1,
+  pageSize: 100,
+  totalPages: 1,
+};
+
 const server = http.createServer((req, res) => {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') {
@@ -66,7 +77,18 @@ const server = http.createServer((req, res) => {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', () => {
-      // Accept any credentials for test
+      let parsed = {};
+      try {
+        parsed = JSON.parse(body || '{}');
+      } catch (e) {}
+      const user = parsed.Usuario || parsed.username || '';
+      const pass = parsed.Contraseña || parsed.password || '';
+      // Rechazar credenciales de test para login-ko
+      if (user === 'invalid' || pass === 'wrong') {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Unauthorized' }));
+        return;
+      }
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(MOCK_USER));
     });
@@ -80,23 +102,66 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Companies List
-  if (path === '/company' && req.method === 'GET') {
+  // Companies List (baseUrl includes /api, so path is /api/company)
+  if ((path === '/api/company' || path === '/company') && req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(MOCK_COMPANIES));
     return;
   }
 
   // Company Create
-  if (path === '/company' && req.method === 'POST') {
+  if ((path === '/api/company' || path === '/company') && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', () => {
       const data = JSON.parse(body);
       const newCompany = { ...data, id: `new-${Date.now()}`, isActive: true };
+      MOCK_COMPANIES = [...MOCK_COMPANIES, newCompany];
       res.writeHead(201, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(newCompany));
     });
+    return;
+  }
+
+  // Company Get by ID
+  const companyIdMatch = path.match(/^\/api\/company\/([^/]+)$/) || path.match(/^\/company\/([^/]+)$/);
+  if (companyIdMatch && req.method === 'GET') {
+    const id = companyIdMatch[1];
+    const company = MOCK_COMPANIES.find(c => c.id === id);
+    if (company) {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(company));
+    } else {
+      res.writeHead(404);
+      res.end(JSON.stringify({ error: 'Not Found' }));
+    }
+    return;
+  }
+
+  // Company Update
+  if (companyIdMatch && req.method === 'PUT') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      const id = companyIdMatch[1];
+      const data = JSON.parse(body);
+      const idx = MOCK_COMPANIES.findIndex(c => c.id === id);
+      if (idx >= 0) {
+        MOCK_COMPANIES[idx] = { ...MOCK_COMPANIES[idx], ...data };
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(MOCK_COMPANIES[idx]));
+      } else {
+        res.writeHead(404);
+        res.end(JSON.stringify({ error: 'Not Found' }));
+      }
+    });
+    return;
+  }
+
+  // Logs
+  if ((path.startsWith('/api/admin/logs') || path === '/api/admin/logs') && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(MOCK_LOGS));
     return;
   }
 
