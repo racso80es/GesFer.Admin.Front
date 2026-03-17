@@ -1,0 +1,11 @@
+{
+  "contract_ref": "paths.processPath/process-contract.json",
+  "name": "Corrección de Auditoría 2026-03-17",
+  "process_id": "correccion-auditorias",
+  "spec_version": "1.0.0",
+  "affected_files": [
+    "src/app/api/admin/dashboard/summary/route.ts",
+    "src/app/api/companies/route.ts",
+    "src/app/api/companies/[id]/route.ts"
+  ]
+}

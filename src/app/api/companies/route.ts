@@ -3,6 +3,8 @@ import { Company } from "@/lib/types/api";
 import { getAdminApiWithToken } from "@/lib/api/admin-api-server";
 import { auth } from "@/auth";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const session = await auth();
