@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getAdminApiWithToken } from "@/lib/api/admin-api-server";
 import { auth } from "@/auth";
 
+export const dynamic = "force-dynamic";
+
 /**
  * Proxy del resumen del dashboard.
  * Evita CORS: el cliente llama a esta ruta (same-origin) y el servidor consulta la API Admin.
