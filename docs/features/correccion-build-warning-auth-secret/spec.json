@@ -1,0 +1,10 @@
+{
+  "feature_id": "correccion-build-warning-auth-secret",
+  "name": "Corrección Advertencias de Build AUTH_SECRET",
+  "status": "spec",
+  "type": "bug-fix",
+  "components": [
+    "src/lib/env.ts"
+  ],
+  "dependencies": []
+}
