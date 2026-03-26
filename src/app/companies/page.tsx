@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { getNextAuthUrl } from "@/lib/env";
-import { Button } from "../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Plus, Pencil } from "lucide-react";
 import { Company } from "@/lib/types/api";
 import { auth } from "@/auth";
