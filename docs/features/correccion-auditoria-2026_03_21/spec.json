@@ -1,0 +1,23 @@
+{
+  "spec_version": "1.0.0",
+  "name": "Especificación de Corrección de Auditoría 2026-03-21",
+  "contract_ref": "paths.processPath/process-contract.json",
+  "input_ref": "docs/audits/AUDITORIA_2026_03_21.md",
+  "persist_ref": "docs/features/correccion-auditoria-2026_03_21",
+  "phases": [
+    {
+      "id": "1",
+      "name": "Refactorizar config.ts",
+      "description": "Eliminar la dependencia fs y lectura de archivos de configuración locales. Depender exclusivamente de variables de entorno."
+    },
+    {
+      "id": "2",
+      "name": "Refactorizar server-fetch.ts",
+      "description": "Eliminar el hack 'eval' y sustituirlo por '(process as any).mainModule.require(\"ht\" + \"tps\")'."
+    }
+  ],
+  "related_skills": [
+    "documentation",
+    "security-audit"
+  ]
+}

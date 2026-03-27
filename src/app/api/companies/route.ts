@@ -36,10 +36,9 @@ export async function POST(request: NextRequest) {
     const company = await api.post<Company>("/company", body);
     return NextResponse.json(company, { status: 201 });
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.error("Error creating company:", message, error);
+    console.error("Error creating company:", error);
     return NextResponse.json(
-      { error: "Error al crear la organización", detail: message },
+      { error: "Error al crear la organización" },
       { status: 500 }
     );
   }

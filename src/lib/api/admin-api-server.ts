@@ -43,7 +43,7 @@ export function getAdminApiWithToken(accessToken: string | undefined) {
       let body = "";
       try {
         body = await response.text();
-      } catch (textErr) {
+      } catch {
         body = response.statusText;
       }
       throw new Error(
