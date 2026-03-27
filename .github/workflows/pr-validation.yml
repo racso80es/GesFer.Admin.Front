@@ -41,3 +41,18 @@ jobs:
     - name: Test
       working-directory: src
       run: npm run test
+
+    - name: Setup Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Build gesfer-skills (evolution validate)
+      working-directory: scripts/skills-rs
+      run: cargo build --release
+
+    - name: SddIA evolution validate
+      shell: bash
+      run: |
+        set -e
+        git fetch origin "${{ github.base_ref }}"
+        BASE=$(git merge-base "origin/${{ github.base_ref }}" HEAD)
+        ./scripts/skills-rs/target/release/sddia_evolution_validate --base "$BASE" --head HEAD

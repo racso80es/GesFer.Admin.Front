@@ -1,0 +1,15 @@
+---
+description: Trazabilidad SddIA evolution al editar bajo SddIA/
+globs: SddIA/**/*
+alwaysApply: false
+---
+
+# SddIA evolution (refuerzo IDE)
+
+- **Norma canónica:** [SddIA/norms/sddia-evolution-sync.md](../../SddIA/norms/sddia-evolution-sync.md)
+- **Contrato:** [SddIA/evolution/evolution_contract.md](../../SddIA/evolution/evolution_contract.md)
+- **Rutas:** solo vía Cúmulo → [SddIA/norms/paths-via-cumulo.md](../../SddIA/norms/paths-via-cumulo.md) (`paths.sddiaEvolutionPath`, etc.)
+
+**Checklist mínimo** si alteras `./SddIA/`: registro con **UUID v4**, índice `Evolution_log.md`, detalle `{uuid}.md`, `tipo_operacion`, binarios Rust (`sddia_evolution_*`). En **baja**, rutas retiradas + referencia al commit previo.
+
+Si esta regla contradice **SddIA** o CI, prevalece SddIA. Esta regla no bloquea git; el cumplimiento fuerte está en validación CI y revisión.
