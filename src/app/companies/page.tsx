@@ -29,8 +29,9 @@ export default async function CompaniesPage() {
       try {
         const j = JSON.parse(errBody);
         detail = j.detail ? ` — ${j.detail}` : "";
-      } catch {
-        if (errBody) detail = ` — ${errBody.slice(0, 200)}`;
+        } catch (parseErr) {
+          const parseMsg = parseErr instanceof Error ? parseErr.message : String(parseErr);
+          if (errBody) detail = ` — ${errBody.slice(0, 200)} (${parseMsg})`;
       }
       console.error("GET /api/companies failed:", res.status, errBody);
       loadError =
