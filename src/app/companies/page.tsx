@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Button } from "../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Plus, Pencil } from "lucide-react";
 import { Company } from "@/lib/types/api";
 import { auth } from "@/auth";
@@ -25,7 +25,7 @@ export default async function CompaniesPage() {
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error("Error fetching companies:", message);
+    console.error("Error fetching companies:", message, error);
     loadError =
       "No se pudo conectar con el servidor. Comprueba que la API Admin esté en ejecución (ADMIN_API_URL) y vuelve a iniciar sesión si es necesario.";
   }
