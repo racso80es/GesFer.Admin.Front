@@ -17,7 +17,7 @@ export async function GET() {
     return NextResponse.json(companies);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error("Error fetching companies:", message, error);
+    console.error("Error fetching companies:", message);
     return NextResponse.json(
       { error: "Error al obtener las organizaciones", detail: message },
       { status: 500 }
