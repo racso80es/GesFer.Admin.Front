@@ -1,15 +1,16 @@
 ---
-description: Trazabilidad SddIA evolution al editar bajo SddIA/
-globs: SddIA/**/*
+description: Refuerzo IDE — protocolo evolution SddIA (registro obligatorio bajo ./SddIA/).
+globs:
+  - SddIA/**/*
 alwaysApply: false
 ---
 
-# SddIA evolution (refuerzo IDE)
+# SddIA evolution (IDE)
 
-- **Norma canónica:** [SddIA/norms/sddia-evolution-sync.md](../../SddIA/norms/sddia-evolution-sync.md)
-- **Contrato:** [SddIA/evolution/evolution_contract.md](../../SddIA/evolution/evolution_contract.md)
-- **Rutas:** solo vía Cúmulo → [SddIA/norms/paths-via-cumulo.md](../../SddIA/norms/paths-via-cumulo.md) (`paths.sddiaEvolutionPath`, etc.)
+- **Norma canónica:** `SddIA/norms/sddia-evolution-sync.md`
+- **Contrato:** `SddIA/evolution/evolution_contract.md` (rutas vía Cúmulo: `paths.sddiaEvolutionPath`, `paths.sddiaEvolutionContractFile`)
+- **Rutas:** solo `paths.*` en `SddIA/agents/cumulo.paths.json` — ver `SddIA/norms/paths-via-cumulo.md`
 
-**Checklist mínimo** si alteras `./SddIA/`: registro con **UUID v4**, índice `Evolution_log.md`, detalle `{uuid}.md`, `tipo_operacion`, binarios Rust (`sddia_evolution_*`). En **baja**, rutas retiradas + referencia al commit previo.
+**Checklist mínimo** al cambiar artefactos bajo `./SddIA/`: detalle `{uuid}.md` (UUID v4) + fila en `Evolution_log.md`; `tipo_operacion` alta | baja | modificación; registro vía binario Rust de la cápsula `paths.skillCapsules.sddia-evolution-register`, no `.ps1` como entrega principal.
 
-Si esta regla contradice **SddIA** o CI, prevalece SddIA. Esta regla no bloquea git; el cumplimiento fuerte está en validación CI y revisión.
+Si una regla del IDE contradice **SddIA** o **AGENTS.md**, prevalece SddIA. El cumplimiento fuerte está en CI y revisión humana.

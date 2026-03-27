@@ -1,44 +1,34 @@
 ---
 skill_id: sddia-evolution-register
-kind: skill
-implementation: rust
-capsule: paths.skillCapsules.sddia-evolution-register
+created: 2026-03-27
+capsule_ref: paths.skillCapsules.sddia-evolution-register
+implementation: scripts/skills-rs/src/bin/sddia_evolution_register.rs
 ---
 
-# Skill: sddia-evolution-register
+# Skill — sddia-evolution-register
 
-## Propósito
+Registra un cambio del protocolo SddIA bajo `./SddIA/`: genera UUID v4, escribe `SddIA/evolution/{uuid}.md`, actualiza `Evolution_log.md`, calcula `replicacion.hash_integrity` (SHA-256 del YAML canónico).
 
-Registrar cambios normativos bajo `./SddIA/` con UUID v4, actualizar `Evolution_log.md` y escribir `{uuid}.md` según contrato v1.1.
+## Invocación
 
-## Request JSON (stdin)
+- Ejecutable: `sddia_evolution_register.exe` (cápsula `scripts/skills/sddia-evolution/`, vía `install.ps1`).
+- Argumentos: `--input <fichero.json>` o `--input -` para stdin (JSON **camelCase**, ver tabla).
 
-Envolver opcionalmente en `{ "request": { ... } }`.
+## Request JSON (camelCase)
 
 | Campo | Obligatorio | Descripción |
 | :--- | :---: | :--- |
-| `autor` | sí | Autor del cambio |
-| `proyecto_origen_cambio` | sí | Origen / contexto del proyecto |
-| `contexto` | sí | Contexto de la intervención |
-| `descripcion_breve` | sí | Una línea |
-| `tipo_operacion` | sí | `alta` \| `baja` \| `modificacion` |
-| `cambios_realizados` | sí | Lista `{ "anterior", "nuevo" }` |
-| `impacto` | sí | `Bajo` \| `Medio` \| `Alto` |
-| `replicacion_instrucciones` | no | Texto para réplica en otro entorno |
-| `rutas_eliminadas` | no | Solo baja |
-| `commit_referencia_previo` | no | Solo baja |
-
-## Entrada UTF-8 (Windows)
-
-En PowerShell, el pipe a un `.exe` puede corromper acentos; usar por ejemplo:
-
-`cmd /c "chcp 65001>nul && type payload.json | sddia_evolution_register.exe"`
-
-## Salida
-
-JSON `{ "success", "id_cambio", "detail_path", "hash_integridad" }` o error.
+| `autor` | Sí | Responsable del registro. |
+| `descripcionBreve` | Sí | Una línea (índice). |
+| `tipoOperacion` | Sí | `alta` \| `baja` \| `modificacion`. |
+| `contexto` | Sí | Motivación. |
+| `proyectoOrigenCambio` | Sí | Repositorio o producto. |
+| `cambiosRealizados` | No | Lista `{ anterior, nuevo }` (por defecto `[]`). |
+| `impacto` | Sí | `Bajo` \| `Medio` \| `Alto`. |
+| `replicacionInstrucciones` | No | Texto para otros entornos. |
+| `rutasEliminadas` | No | Lista (operación `baja`). |
+| `commitReferenciaPrevio` | No | Trazabilidad en bajas. |
 
 ## Binarios hermanos
 
-- `sddia_evolution_validate` — valida diff git (`--base` / `--head`).
-- `sddia_evolution_watch` — observa `./SddIA/` (debounce).
+En la misma cápsula: `sddia_evolution_validate`, `sddia_evolution_watch` (ver `manifest.json`).
