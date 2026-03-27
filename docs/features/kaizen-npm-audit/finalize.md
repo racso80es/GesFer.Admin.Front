@@ -10,7 +10,7 @@ status: finalized
 - Creación de documentación (`objectives.md`, `spec.md`, `plan.md`, `implementation.md`, `validacion.md`).
 - Ejecución de `npm audit fix` en `/src`.
 - Vulnerabilidades reducidas en subdependencias modificadas en `package-lock.json`.
-- Tarea finalizada y movida a `docs/TASKS/DONE/Kaizen_2026_03_27.md`.
+- Tarea finalizada y movida a `docs/TASKS/DONE/Kaizen_npm_audit_2026_03_27.md`.
 - Registro añadido en `docs/evolution/EVOLUTION_LOG.md`.
 
 ## Conclusiones

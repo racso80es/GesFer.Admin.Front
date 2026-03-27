@@ -64,6 +64,9 @@ struct Args {
 }
 
 fn get_repo_root() -> PathBuf {
+    // If CARGO_MANIFEST_DIR is set (e.g., during `cargo run`), use it.
+    // Otherwise, assume the binary is being run from the repo root or another known good location,
+    // and rely on the current directory.
     if let Ok(manifest_dir) = std::env::var("CARGO_MANIFEST_DIR") {
         Path::new(&manifest_dir)
             .parent()
@@ -78,6 +81,7 @@ fn get_repo_root() -> PathBuf {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
 
+    // Read request
     let mut input_content = String::new();
     if args.input == "-" {
         std::io::stdin().read_to_string(&mut input_content)?;
@@ -125,11 +129,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let record_path = evo_dir.join(format!("{}.md", id_cambio));
     let mut file = fs::File::create(&record_path)?;
-    write!(file, "---\n{}---\n\n# {}\n\n{}", final_frontmatter, record.descripcion_breve, record.contexto)?;
+    write!(
+        file,
+        "---\n{}---\n\n# {}\n\n{}",
+        final_frontmatter, record.descripcion_breve, record.contexto
+    )?;
 
     let log_path = evo_dir.join("Evolution_log.md");
     if let Ok(mut log_file) = OpenOptions::new().append(true).open(&log_path) {
-        writeln!(log_file, "| {} | {} | {} |", id_cambio, fecha, record.descripcion_breve)?;
+        writeln!(
+            log_file,
+            "| {} | {} | {} |",
+            id_cambio, fecha, record.descripcion_breve
+        )?;
     }
 
     println!("Registro de evolución creado: {}", record_path.display());
