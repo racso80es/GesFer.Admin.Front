@@ -108,8 +108,7 @@ function loadConfig(): AppConfig {
     // Fallback: usar variables de entorno o valores por defecto
     return getDefaultConfig(env);
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.warn(`Error loading config for ${env}, using defaults:`, message);
+    console.warn(`Error loading config for ${env}, using defaults:`, error instanceof Error ? error.message : String(error));
     return getDefaultConfig(env);
   }
 }

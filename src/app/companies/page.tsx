@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { getNextAuthUrl } from "@/lib/env";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import { Plus, Pencil } from "lucide-react";
 import { Company } from "@/lib/types/api";
 import { auth } from "@/auth";
@@ -29,9 +29,8 @@ export default async function CompaniesPage() {
       try {
         const j = JSON.parse(errBody);
         detail = j.detail ? ` — ${j.detail}` : "";
-        } catch (parseErr) {
-          const parseMsg = parseErr instanceof Error ? parseErr.message : String(parseErr);
-          if (errBody) detail = ` — ${errBody.slice(0, 200)} (${parseMsg})`;
+      } catch {
+        if (errBody) detail = ` — ${errBody.slice(0, 200)}`;
       }
       console.error("GET /api/companies failed:", res.status, errBody);
       loadError =
@@ -42,8 +41,7 @@ export default async function CompaniesPage() {
       companies = await res.json();
     }
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.error("Error fetching companies:", message, error);
+    console.error("Error fetching companies:", error);
     loadError =
       "No se pudo conectar con el servidor. Comprueba que la API Admin esté en ejecución (ADMIN_API_URL) y vuelve a iniciar sesión si es necesario.";
   }
