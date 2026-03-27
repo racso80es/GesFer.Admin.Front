@@ -54,8 +54,7 @@ export default function AdminDashboardPage() {
         const data = await response.json();
         setSummary(data);
       } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        console.error("Error al cargar el resumen:", message);
+        console.error("Error al cargar el resumen:", err);
         setError("Error al conectar con el servidor");
       } finally {
         setIsLoading(false);

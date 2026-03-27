@@ -6,12 +6,10 @@ import { cn } from "@/lib/utils/cn";
 
 export interface InputProps extends ShadcnInputProps {
   "data-testid"?: string;
-  hasError?: boolean;
-  errorMessageId?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, "data-testid": dataTestId, hasError, errorMessageId, ...props }, ref) => {
+  ({ className, type, "data-testid": dataTestId, ...props }, ref) => {
     const testId =
       dataTestId ||
       `shared-input-${type || "text"}-${props.name || props.id || "default"}`;
@@ -22,8 +20,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         className={cn(className)}
         data-testid={testId}
-        aria-invalid={hasError ? "true" : undefined}
-        aria-describedby={errorMessageId}
         {...props}
       />
     );
