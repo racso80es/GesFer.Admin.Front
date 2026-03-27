@@ -18,12 +18,42 @@ struct RegisterRequest {
     impacto: Option<String>,
     #[serde(default)]
     cambios_realizados: Vec<CambioRealizado>,
+    #[serde(default)]
+    rutas_eliminadas: Option<Vec<String>>,
+    #[serde(default)]
+    commit_referencia_previo: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 struct CambioRealizado {
     anterior: Option<String>,
     nuevo: Option<String>,
+}
+
+#[derive(Serialize, Debug)]
+struct EvolutionRecord {
+    document_type: String,
+    contrato_version: String,
+    id_cambio: String,
+    fecha: String,
+    autor: String,
+    proyecto_origen_cambio: String,
+    contexto: String,
+    descripcion_breve: String,
+    tipo_operacion: String,
+    cambios_realizados: Vec<CambioRealizado>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    rutas_eliminadas: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    commit_referencia_previo: Option<String>,
+    impacto: String,
+    replicacion: Replicacion,
+}
+
+#[derive(Serialize, Debug)]
+struct Replicacion {
+    instrucciones: String,
+    hash_integrity: String,
 }
 
 #[derive(Parser, Debug)]
@@ -64,51 +94,54 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let id_cambio = Uuid::new_v4().to_string();
     let fecha = Utc::now().to_rfc3339();
 
-    // 1. Build YAML Frontmatter
-    let frontmatter = format!(
-        "document_type: evolution_record\n\
-         contrato_version: \"1.1\"\n\
-         id_cambio: \"{}\"\n\
-         fecha: \"{}\"\n\
-         autor: \"{}\"\n\
-         proyecto_origen_cambio: \"{}\"\n\
-         contexto: \"{}\"\n\
-         descripcion_breve: \"{}\"\n\
-         tipo_operacion: \"{}\"\n\
-         cambios_realizados: []\n\
-         impacto: \"{}\"\n\
-         replicacion:\n  \
-         instrucciones: \"N/A\"\n  \
-         hash_integrity: \"SHA-256-PENDIENTE\"\n",
-        id_cambio,
-        fecha,
-        req.autor,
-         req.proyecto_origen_cambio.clone().unwrap_or_else(|| "GesFer".to_string()),
-         req.contexto.clone().unwrap_or_else(|| "Actualización".to_string()),
-        req.descripcion_breve,
-        req.tipo_operacion,
-         req.impacto.clone().unwrap_or_else(|| "Bajo".to_string())
-    );
+    let mut record = EvolutionRecord {
+        document_type: "evolution_record".to_string(),
+        contrato_version: "1.1".to_string(),
+        id_cambio: id_cambio.clone(),
+        fecha: fecha.clone(),
+        autor: req.autor,
+        proyecto_origen_cambio: req.proyecto_origen_cambio.unwrap_or_else(|| "GesFer".to_string()),
+        contexto: req.contexto.clone().unwrap_or_else(|| "Actualización".to_string()),
+        descripcion_breve: req.descripcion_breve.clone(),
+        tipo_operacion: req.tipo_operacion,
+        cambios_realizados: req.cambios_realizados,
+        rutas_eliminadas: req.rutas_eliminadas,
+        commit_referencia_previo: req.commit_referencia_previo,
+        impacto: req.impacto.unwrap_or_else(|| "Bajo".to_string()),
+        replicacion: Replicacion {
+            instrucciones: "N/A".to_string(),
+            hash_integrity: "SHA-256-PENDIENTE".to_string(),
+        },
+    };
+
+    let frontmatter = serde_yaml::to_string(&record)?;
 
     let mut hasher = Sha256::new();
     hasher.update(frontmatter.as_bytes());
     let hash_result = format!("{:x}", hasher.finalize());
 
-    let final_frontmatter = frontmatter.replace("SHA-256-PENDIENTE", &hash_result);
+    record.replicacion.hash_integrity = hash_result;
+    let final_frontmatter = serde_yaml::to_string(&record)?;
 
-    // 2. Write to SddIA/evolution/{id}.md
     let repo_root = get_repo_root();
     let evo_dir = repo_root.join("SddIA/evolution");
     fs::create_dir_all(&evo_dir)?;
 
     let record_path = evo_dir.join(format!("{}.md", id_cambio));
     let mut file = fs::File::create(&record_path)?;
-    write!(file, "---\n{}---\n\n# {}\n\n{}", final_frontmatter, req.descripcion_breve, req.contexto.unwrap_or_default())?;
+    write!(
+        file,
+        "---\n{}---\n\n# {}\n\n{}",
+        final_frontmatter, record.descripcion_breve, record.contexto
+    )?;
 
-    // 3. Update Evolution_log.md
     let log_path = evo_dir.join("Evolution_log.md");
     if let Ok(mut log_file) = OpenOptions::new().append(true).open(&log_path) {
-        writeln!(log_file, "| {} | {} | {} |", id_cambio, fecha, req.descripcion_breve)?;
+        writeln!(
+            log_file,
+            "| {} | {} | {} |",
+            id_cambio, fecha, record.descripcion_breve
+        )?;
     }
 
     println!("Registro de evolución creado: {}", record_path.display());
