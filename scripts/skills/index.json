@@ -37,7 +37,8 @@
       "skillId": "sddia-evolution-register",
       "path": "sddia-evolution/",
       "manifest": "sddia-evolution/manifest.json",
-      "description": "Registro y validación del protocolo SddIA evolution (UUID, índice, detalle, watcher)."
+      "launcher_bat": "sddia-evolution/Register.bat",
+      "description": "Registro evolution SddIA (UUID, índice, hash); validate y watch en la misma cápsula."
     }
   ]
 }

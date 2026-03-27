@@ -1,46 +1,46 @@
-# Contrato de cambio — SddIA Evolution (v1.1)
+---
+document_type: evolution_contract
+contrato_version: "1.1"
+norma_ref: SddIA/norms/sddia-evolution-sync.md
+paths_ref: SddIA/agents/cumulo.paths.json
+---
 
-**Versión del contrato:** `1.1`  
-**Fuente de rutas:** Cúmulo → `paths.sddiaEvolutionPath`, `paths.sddiaEvolutionLogFile`, `paths.sddiaEvolutionContractFile`.
+# Contrato de cambio — protocolo SddIA (evolution)
 
-## Propósito
-
-Cada intervención que altere artefactos bajo `./SddIA/` (salvo acuerdos explícitos en la norma) debe quedar registrada con un **detalle atómico** (`{id_cambio}.md`) y reflejo en el **índice** (`Evolution_log.md`).
+Versión **1.1**. Toda intervención que altere artefactos bajo `./SddIA/` (salvo exclusiones acordadas en la norma) debe registrarse con **doble persistencia**: índice maestro (`paths.sddiaEvolutionLogFile`) y fichero de detalle `{id_cambio}.md` donde `id_cambio` es un **UUID v4** en forma canónica (minúsculas, con guiones).
 
 ## Identificador
 
-- **`id_cambio`:** UUID v4 en string canónico (minúsculas, con guiones).
+- **`id_cambio`:** UUID v4 (string).
 - **Nombre de fichero:** `{id_cambio}.md` en `paths.sddiaEvolutionPath`.
-- El formato legado `SSDD-LOG-YYYYMMDD-HHMM` **no** es el identificador machine-readable principal.
+- El formato legible tipo `SSDD-LOG-YYYYMMDD-HHMM` no sustituye al GUID como id machine-readable principal.
 
-## Frontmatter obligatorio (detalle atómico)
+## Frontmatter obligatorio (detalle `{id_cambio}.md`)
 
-| Campo | Tipo / valores |
-| :--- | :--- |
-| `contrato_version` | `1.1` |
-| `id_cambio` | UUID v4 |
-| `fecha` | ISO 8601 (fecha u fecha-hora) |
-| `autor` | string |
-| `proyecto_origen_cambio` | string |
-| `contexto` | string |
-| `descripcion_breve` | string |
-| `tipo_operacion` | `alta` \| `baja` \| `modificacion` |
-| `cambios_realizados` | lista de `{ anterior, nuevo }` |
-| `impacto` | `Bajo` \| `Medio` \| `Alto` |
-| `replicacion.instrucciones` | string |
-| `replicacion.hash_integridad` | SHA-256 en hex minúsculas del YAML canónico del frontmatter, o `SHA-256-PENDIENTE` |
+| Campo | Tipo | Notas |
+| :--- | :--- | :--- |
+| `contrato_version` | string | Debe ser `1.1`. |
+| `id_cambio` | string | UUID v4. |
+| `fecha` | string | ISO 8601 (fecha u offset UTC). |
+| `autor` | string | Identidad responsable del registro. |
+| `proyecto_origen_cambio` | string | Repositorio o contexto. |
+| `contexto` | string | Motivación breve. |
+| `descripcion_breve` | string | Una línea para índice. |
+| `tipo_operacion` | string | `alta` \| `baja` \| `modificacion`. |
+| `cambios_realizados` | lista | Objetos `{ anterior, nuevo }` (en **baja**, documentar path retirado y sustituto o histórico). |
+| `impacto` | string | `Bajo` \| `Medio` \| `Alto`. |
+| `replicacion.instrucciones` | string | Pasos para otro entorno. |
+| `replicacion.hash_integrity` | string | SHA-256 en hex minúsculas del YAML canónico del frontmatter, o `SHA-256-PENDIENTE`. |
 
 ## Frontmatter condicional (baja)
 
-| Campo | Cuándo |
-| :--- | :--- |
-| `rutas_eliminadas` | Lista de strings cuando `tipo_operacion: baja` |
-| `commit_referencia_previo` | SHA corto, URL o trazabilidad al último commit donde existía lo retirado |
+- `rutas_eliminadas`: lista de strings (paths relativos a la raíz del repo).
+- `commit_referencia_previo`: SHA corto, URL de commit o referencia de trazabilidad donde el artefacto aún existía.
 
 ## Hash de integridad
 
-El SHA-256 se calcula sobre el **bloque YAML del frontmatter** en forma **canónica**: claves en orden lexicográfico, serialización estable (sin comentarios). La definición exacta coincide con la implementación en `sddia_evolution_register` (binario en `paths.skillsRustPath`).
+El campo `replicacion.hash_integrity` debe ser el **SHA-256** (hex minúsculas, 64 caracteres) del bloque YAML **canónico** del frontmatter, serializado con claves en orden estable (p. ej. orden lexicográfico de claves de primer nivel) y sin línea final extra; o el literal `SHA-256-PENDIENTE` hasta calcularlo (solo transitorio).
 
 ## Índice `Evolution_log.md`
 
-Tabla recomendada: **ID (GUID)** | **Fecha** | **Descripción breve**.
+Tabla recomendada: **ID (GUID)** | **Fecha** | **Descripción breve**. Tras el primer registro oficial, eliminar filas placeholder «pendiente».

@@ -1,42 +1,45 @@
-//! Observa cambios bajo ./SddIA/ (debounce) y avisa por stderr para ejecutar register.
-
-use gesfer_skills::evolution::repo_root;
-use notify::{Config, RecommendedWatcher, RecursiveMode, Watcher};
+use clap::Parser;
+use notify::{Config, Event, RecommendedWatcher, RecursiveMode, Watcher};
 use std::path::Path;
 use std::sync::mpsc::channel;
-use std::thread;
 use std::time::Duration;
 
-fn main() {
-    let root = repo_root();
-    let sddia = root.join("SddIA");
-    if !sddia.is_dir() {
-        eprintln!("No existe ./SddIA en {}", root.display());
-        std::process::exit(1);
-    }
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Args {
+    #[arg(short, long, default_value = "SddIA")]
+    path: String,
+}
+
+fn main() -> notify::Result<()> {
+    let args = Args::parse();
+    let path_to_watch = Path::new(&args.path);
+
+    println!("Watching {:?} for SddIA evolution sync...", path_to_watch);
 
     let (tx, rx) = channel();
-    let mut watcher = RecommendedWatcher::new(tx, Config::default()).expect("watcher");
-    watcher
-        .watch(Path::new(&sddia), RecursiveMode::Recursive)
-        .expect("watch SddIA");
 
-    eprintln!(
-        "[sddia_evolution_watch] Observando {} (debounce ~1.5s). Ctrl+C para salir.",
-        sddia.display()
-    );
+    let mut watcher = RecommendedWatcher::new(
+        tx,
+        Config::default().with_poll_interval(Duration::from_secs(2)),
+    )?;
 
-    loop {
-        match rx.recv() {
-            Ok(Ok(_event)) => {
-                thread::sleep(Duration::from_millis(1500));
-                while rx.try_recv().is_ok() {}
-                eprintln!(
-                    "[sddia_evolution_watch] Cambio detectado bajo SddIA/. Ejecute sddia_evolution_register con JSON (stdin) según SddIA/norms/sddia-evolution-sync.md."
-                );
+    watcher.watch(path_to_watch, RecursiveMode::Recursive)?;
+
+    for res in rx {
+        match res {
+            Ok(Event { paths, .. }) => {
+                for path in paths {
+                    if path.starts_with(Path::new("SddIA/evolution")) {
+                        continue; // ignore changes in the evolution folder itself to prevent loop
+                    }
+                    eprintln!("Cambio detectado en {:?} → ejecutar sddia_evolution_register", path);
+                    // Just log for now. Register should be invoked manually or via agents for full context.
+                }
             }
-            Ok(Err(e)) => eprintln!("watch error: {:?}", e),
-            Err(_) => break,
+            Err(e) => println!("watch error: {:?}", e),
         }
     }
+
+    Ok(())
 }
