@@ -21,3 +21,7 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Resumen:** Saneamiento y adaptación del proyecto frontend Next.js extraído del monorepo GesFer. Incluye: actualización de agentes SddIA al contexto frontend, constituciones, documentación, scripts, tools, workflow CI/CD (pr-validation.yml), internalización de Shared, Dockerfile standalone y unificación de URLs.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
+
+## [2024-03-27] Tarea: Actualizacion_Readme
+- Se ha borrado `src/README.md`
+- Se ha actualizado el `README.md` principal para reflejar que GesFer Admin es un frontend Next.js aislado que consume una API independiente.
