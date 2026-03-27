@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ErrorMessage } from "@/components/ui/error-message";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { ErrorMessage } from "../ui/error-message";
 import type { Company, CreateCompany, UpdateCompany } from "@/lib/types/api";
 import { useTranslations } from 'next-intl';
 
@@ -14,6 +14,31 @@ interface CompanyFormProps {
   onCancel: () => void;
   isLoading?: boolean;
 }
+
+// Opciones de idioma disponibles (mapeo de códigos a Guids según seed-data.sql)
+// Estos son los IDs fijos de los idiomas en la base de datos
+const languageOptions = [
+  { value: "10000000-0000-0000-0000-000000000001", label: "Español", code: "es" },
+  { value: "10000000-0000-0000-0000-000000000002", label: "English", code: "en" },
+  { value: "10000000-0000-0000-0000-000000000003", label: "Català", code: "ca" },
+];
+
+// Mapeo de nombres de idioma según el locale
+const languageNames: Record<string, Record<string, string>> = {
+  es: { es: "Español", en: "English", ca: "Català" },
+  en: { es: "Spanish", en: "English", ca: "Catalan" },
+  ca: { es: "Espanyol", en: "Anglès", ca: "Català" },
+};
+
+// Función para obtener el Guid del idioma desde el código o mantener el Guid si ya lo es
+const getLanguageId = (value: string | undefined): string | undefined => {
+  if (!value) return undefined;
+  // Si ya es un Guid (contiene guiones), devolverlo tal cual
+  if (value.includes("-")) return value;
+  // Si es un código, buscar el Guid correspondiente
+  const option = languageOptions.find(opt => opt.code === value);
+  return option?.value || undefined;
+};
 
 export function CompanyForm({
   company,
@@ -38,35 +63,10 @@ export function CompanyForm({
     ...(isEditing && { isActive: company.isActive }),
   });
 
-  // Opciones de idioma disponibles (mapeo de códigos a Guids según seed-data.sql)
-  // Estos son los IDs fijos de los idiomas en la base de datos
-  const languageOptions = [
-    { value: "10000000-0000-0000-0000-000000000001", label: "Español", code: "es" },
-    { value: "10000000-0000-0000-0000-000000000002", label: "English", code: "en" },
-    { value: "10000000-0000-0000-0000-000000000003", label: "Català", code: "ca" },
-  ];
-
-  // Función para obtener el Guid del idioma desde el código o mantener el Guid si ya lo es
-  const getLanguageId = (value: string | undefined): string | undefined => {
-    if (!value) return undefined;
-    // Si ya es un Guid (contiene guiones), devolverlo tal cual
-    if (value.includes("-")) return value;
-    // Si es un código, buscar el Guid correspondiente
-    const option = languageOptions.find(opt => opt.code === value);
-    return option?.value || undefined;
-  };
-
   // Obtener el locale actual para mostrar los nombres de idioma en el idioma correcto
   const locale = typeof window !== 'undefined'
     ? window.location.pathname.split('/')[1] || 'es'
     : 'es';
-
-  // Mapeo de nombres de idioma según el locale
-  const languageNames: Record<string, Record<string, string>> = {
-    es: { es: "Español", en: "English", ca: "Català" },
-    en: { es: "Spanish", en: "English", ca: "Catalan" },
-    ca: { es: "Espanyol", en: "Anglès", ca: "Català" },
-  };
 
   const currentLanguageNames = languageNames[locale] || languageNames.es;
 
