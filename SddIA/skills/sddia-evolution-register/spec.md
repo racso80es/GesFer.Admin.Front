@@ -28,6 +28,12 @@ Envolver opcionalmente en `{ "request": { ... } }`.
 | `rutas_eliminadas` | no | Solo baja |
 | `commit_referencia_previo` | no | Solo baja |
 
+## Entrada UTF-8 (Windows)
+
+En PowerShell, el pipe a un `.exe` puede corromper acentos; usar por ejemplo:
+
+`cmd /c "chcp 65001>nul && type payload.json | sddia_evolution_register.exe"`
+
 ## Salida
 
 JSON `{ "success", "id_cambio", "detail_path", "hash_integridad" }` o error.

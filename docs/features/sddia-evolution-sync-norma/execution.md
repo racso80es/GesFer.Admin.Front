@@ -13,7 +13,7 @@ Implementación del protocolo **SddIA evolution** v1.1: Cúmulo, carpeta `SddIA/
 
 ## Registro evolution
 
-Primer registro oficial generado con `sddia_evolution_register` (stdin JSON): detalle `SddIA/evolution/3275d2e5-14bf-4f67-803f-be9fc9573421.md` (sustituye fila placeholder del índice).
+Primer registro oficial generado con `sddia_evolution_register` (stdin JSON UTF-8; en Windows usar `cmd /c "chcp 65001>nul && type payload.json | sddia_evolution_register.exe"`): detalle `SddIA/evolution/29c51ecd-7d80-431d-8fdf-277a152d685a.md`.
 
 ## Rama
 

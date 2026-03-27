@@ -4,4 +4,4 @@
 
 | ID (GUID) | Fecha | Descripción breve |
 | :--- | :--- | :--- |
-| 3275d2e5-14bf-4f67-803f-be9fc9573421 | 2026-03-27T12:27:48.919679+00:00 | Protocolo evolution SddIA v1.1: norma, C?mulo, Rust, CI, difusi?n Cursor |
+| 29c51ecd-7d80-431d-8fdf-277a152d685a | 2026-03-27T12:28:44.648510600+00:00 | Protocolo evolution SddIA v1.1: norma, Cúmulo, Rust, CI, difusión Cursor |
