@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
-import { getNextAuthUrl } from "@/lib/env";
 import { Button } from "../../components/ui/button";
 import { Plus, Pencil } from "lucide-react";
 import { Company } from "@/lib/types/api";
 import { auth } from "@/auth";
+import { getAdminApiWithToken } from "@/lib/api/admin-api-server";
 
 export default async function CompaniesPage() {
   const session = await auth();
@@ -17,31 +16,16 @@ export default async function CompaniesPage() {
   let loadError: string | null = null;
 
   try {
-    const baseUrl = getNextAuthUrl();
-    const cookie = (await headers()).get("cookie") ?? "";
-    const res = await fetch(`${baseUrl}/api/companies`, {
-      cache: "no-store",
-      headers: { cookie },
-    });
-    if (!res.ok) {
-      let errBody = await res.text();
-      let detail = "";
-      try {
-        const j = JSON.parse(errBody);
-        detail = j.detail ? ` — ${j.detail}` : "";
-      } catch {
-        if (errBody) detail = ` — ${errBody.slice(0, 200)}`;
-      }
-      console.error("GET /api/companies failed:", res.status, errBody);
-      loadError =
-        res.status === 401
-          ? "Sesión no válida o expirada. Cierra sesión e inicia de nuevo."
-          : `Error al cargar organizaciones (${res.status})${detail}. Comprueba que la API Admin esté en ejecución (ADMIN_API_URL).`;
+    const accessToken = session?.accessToken ?? (session as { accessToken?: string } | null)?.accessToken;
+    if (!accessToken) {
+      loadError = "Sesión no válida o expirada. Cierra sesión e inicia de nuevo.";
     } else {
-      companies = await res.json();
+      const api = getAdminApiWithToken(accessToken);
+      companies = await api.get<Company[]>("/company");
     }
   } catch (error) {
-    console.error("Error fetching companies:", error);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Error fetching companies:", message);
     loadError =
       "No se pudo conectar con el servidor. Comprueba que la API Admin esté en ejecución (ADMIN_API_URL) y vuelve a iniciar sesión si es necesario.";
   }

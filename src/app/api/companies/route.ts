@@ -17,7 +17,7 @@ export async function GET() {
     return NextResponse.json(companies);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error("Error fetching companies:", message, error);
+    console.error("Error fetching companies:", message);
     return NextResponse.json(
       { error: "Error al obtener las organizaciones", detail: message },
       { status: 500 }
@@ -36,9 +36,10 @@ export async function POST(request: NextRequest) {
     const company = await api.post<Company>("/company", body);
     return NextResponse.json(company, { status: 201 });
   } catch (error) {
-    console.error("Error creating company:", error);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Error creating company:", message);
     return NextResponse.json(
-      { error: "Error al crear la organización" },
+      { error: "Error al crear la organización", detail: message },
       { status: 500 }
     );
   }
