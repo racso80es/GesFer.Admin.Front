@@ -12,8 +12,6 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 
----
-
 ## [2026-03-27] [feat/kaizen-accessibility] Kaizen: Accesibilidad en Input compartido
 
 **Estado:** Mergeado en main. Proceso automático cerrado.
@@ -22,3 +20,12 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/kaizen-accessibility/](../features/kaizen-accessibility/)
 **Tarea de origen:** [docs/TASKS/DONE/Kaizen_2026_03_27.md](../TASKS/DONE/Kaizen_2026_03_27.md)
+
+## [2026-03-27] [feat/kaizen-npm-audit] Kaizen: Auditoría y Corrección de Vulnerabilidades NPM
+
+**Estado:** Completado (Ejecución automática).
+
+**Resumen:** Tarea automática tipo Kaizen para auditar las dependencias del frontend. Se ejecutó `npm audit fix` reduciendo el número de vulnerabilidades en `src/package-lock.json` de 13 a 8. Las 8 restantes requieren cambios de compatibilidad mayores (breaking changes) en dependencias críticas como `next` y `jest-environment-jsdom`, por lo que se mantienen para asegurar la compatibilidad con Edge Runtime.
+
+**Documentación:** [docs/features/kaizen-npm-audit/](../features/kaizen-npm-audit/)
+**Tarea de origen:** [docs/TASKS/DONE/Kaizen_npm_audit_2026_03_27.md](../TASKS/DONE/Kaizen_npm_audit_2026_03_27.md)
