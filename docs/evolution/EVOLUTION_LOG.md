@@ -11,3 +11,11 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Resumen:** Saneamiento y adaptación del proyecto frontend Next.js extraído del monorepo GesFer. Incluye: actualización de agentes SddIA al contexto frontend, constituciones, documentación, scripts, tools, workflow CI/CD (pr-validation.yml), internalización de Shared, Dockerfile standalone y unificación de URLs.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
+
+## [2026-03-27] [feat/kaizen-npm-audit] Kaizen: Auditoría y Corrección de Vulnerabilidades NPM
+
+**Estado:** Completado (Ejecución automática).
+
+**Resumen:** Tarea automática tipo Kaizen para auditar las dependencias del frontend. Se ejecutó `npm audit fix` reduciendo el número de vulnerabilidades en `src/package-lock.json` de 13 a 8. Las 8 restantes requieren cambios de compatibilidad mayores (breaking changes) en dependencias críticas como `next` y `jest-environment-jsdom`, por lo que se mantienen para asegurar la compatibilidad con Edge Runtime.
+
+**Documentación:** [docs/features/kaizen-npm-audit/](../features/kaizen-npm-audit/)

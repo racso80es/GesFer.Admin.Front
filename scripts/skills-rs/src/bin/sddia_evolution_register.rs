@@ -1,195 +1,139 @@
-//! Registro de cambio SddIA evolution (UUID, índice, detalle, hash).
-//! Lee JSON por stdin: `{ "request": { ... } }` o cuerpo plano con los campos del request.
-
-use gesfer_skills::evolution::{evolution_dir, repo_root, sha256_hex};
+use chrono::Utc;
+use clap::Parser;
 use serde::{Deserialize, Serialize};
-use serde_json::json;
-use std::fs;
-use std::io::{self, Read};
-use std::path::Path;
+use sha2::{Digest, Sha256};
+use std::fs::{self, OpenOptions};
+use std::io::{Read, Write};
+use std::path::{Path, PathBuf};
 use uuid::Uuid;
 
-#[derive(Debug, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 struct RegisterRequest {
     autor: String,
-    proyecto_origen_cambio: String,
-    contexto: String,
     descripcion_breve: String,
     tipo_operacion: String,
-    cambios_realizados: Vec<CambioPar>,
-    impacto: String,
+    contexto: Option<String>,
+    proyecto_origen_cambio: Option<String>,
+    impacto: Option<String>,
     #[serde(default)]
-    replicacion_instrucciones: String,
+    cambios_realizados: Vec<CambioRealizado>,
     #[serde(default)]
     rutas_eliminadas: Option<Vec<String>>,
     #[serde(default)]
     commit_referencia_previo: Option<String>,
 }
 
-#[derive(Debug, Deserialize, Serialize, Clone)]
-struct CambioPar {
-    anterior: String,
-    nuevo: String,
+#[derive(Serialize, Deserialize, Debug)]
+struct CambioRealizado {
+    anterior: Option<String>,
+    nuevo: Option<String>,
 }
 
-#[derive(Serialize)]
-struct ReplicacionHash {
-    instrucciones: String,
-}
-
-#[derive(Serialize)]
-struct FrontmatterForHash {
-    autor: String,
-    cambios_realizados: Vec<CambioPar>,
-    contexto: String,
+#[derive(Serialize, Debug)]
+struct EvolutionRecord {
+    document_type: String,
     contrato_version: String,
-    descripcion_breve: String,
-    fecha: String,
     id_cambio: String,
-    impacto: String,
-    proyecto_origen_cambio: String,
-    replicacion: ReplicacionHash,
-    tipo_operacion: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    commit_referencia_previo: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    rutas_eliminadas: Option<Vec<String>>,
-}
-
-#[derive(Serialize)]
-struct ReplicacionFull {
-    hash_integridad: String,
-    instrucciones: String,
-}
-
-#[derive(Serialize)]
-struct FrontmatterFull {
+    fecha: String,
     autor: String,
-    cambios_realizados: Vec<CambioPar>,
-    contexto: String,
-    contrato_version: String,
-    descripcion_breve: String,
-    fecha: String,
-    id_cambio: String,
-    impacto: String,
     proyecto_origen_cambio: String,
-    replicacion: ReplicacionFull,
+    contexto: String,
+    descripcion_breve: String,
     tipo_operacion: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    commit_referencia_previo: Option<String>,
+    cambios_realizados: Vec<CambioRealizado>,
     #[serde(skip_serializing_if = "Option::is_none")]
     rutas_eliminadas: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    commit_referencia_previo: Option<String>,
+    impacto: String,
+    replicacion: Replicacion,
 }
 
-fn main() {
-    if let Err(e) = run() {
-        eprintln!("{}", e);
-        let err = json!({
-            "success": false,
-            "error": e
-        });
-        println!("{}", err);
-        std::process::exit(1);
+#[derive(Serialize, Debug)]
+struct Replicacion {
+    instrucciones: String,
+    hash_integrity: String,
+}
+
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Args {
+    #[arg(short, long)]
+    input: String,
+}
+
+fn get_repo_root() -> PathBuf {
+    if let Ok(manifest_dir) = std::env::var("CARGO_MANIFEST_DIR") {
+        Path::new(&manifest_dir)
+            .parent()
+            .and_then(|p| p.parent())
+            .unwrap_or_else(|| Path::new("."))
+            .to_path_buf()
+    } else {
+        std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."))
     }
 }
 
-fn run() -> Result<(), String> {
-    let mut buf = String::new();
-    io::stdin()
-        .read_to_string(&mut buf)
-        .map_err(|e| e.to_string())?;
-    let v: serde_json::Value = serde_json::from_str(&buf).map_err(|e| e.to_string())?;
-    let req: RegisterRequest = if let Some(r) = v.get("request") {
-        serde_json::from_value(r.clone()).map_err(|e| e.to_string())?
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args = Args::parse();
+
+    let mut input_content = String::new();
+    if args.input == "-" {
+        std::io::stdin().read_to_string(&mut input_content)?;
     } else {
-        serde_json::from_value(v).map_err(|e| e.to_string())?
-    };
+        input_content = fs::read_to_string(&args.input)?;
+    }
 
-    let id = Uuid::new_v4();
-    let id_str = id.to_string();
-    let fecha = chrono::Utc::now().to_rfc3339();
+    let req: RegisterRequest = serde_json::from_str(&input_content)?;
 
-    let fm_hash = FrontmatterForHash {
-        autor: req.autor.clone(),
-        cambios_realizados: req.cambios_realizados.clone(),
-        contexto: req.contexto.clone(),
+    let id_cambio = Uuid::new_v4().to_string();
+    let fecha = Utc::now().to_rfc3339();
+
+    let mut record = EvolutionRecord {
+        document_type: "evolution_record".to_string(),
         contrato_version: "1.1".to_string(),
-        descripcion_breve: req.descripcion_breve.clone(),
+        id_cambio: id_cambio.clone(),
         fecha: fecha.clone(),
-        id_cambio: id_str.clone(),
-        impacto: req.impacto.clone(),
-        proyecto_origen_cambio: req.proyecto_origen_cambio.clone(),
-        replicacion: ReplicacionHash {
-            instrucciones: req.replicacion_instrucciones.clone(),
-        },
-        tipo_operacion: req.tipo_operacion.clone(),
-        commit_referencia_previo: req.commit_referencia_previo.clone(),
-        rutas_eliminadas: req.rutas_eliminadas.clone(),
-    };
-
-    let yaml_for_hash = serde_yaml::to_string(&fm_hash).map_err(|e| e.to_string())?;
-    let hash = sha256_hex(yaml_for_hash.as_bytes());
-
-    let fm_full = FrontmatterFull {
         autor: req.autor,
-        cambios_realizados: req.cambios_realizados,
-        contexto: req.contexto,
-        contrato_version: "1.1".to_string(),
-        descripcion_breve: req.descripcion_breve,
-        fecha,
-        id_cambio: id_str.clone(),
-        impacto: req.impacto,
-        proyecto_origen_cambio: req.proyecto_origen_cambio,
-        replicacion: ReplicacionFull {
-            hash_integridad: hash.clone(),
-            instrucciones: req.replicacion_instrucciones,
-        },
+        proyecto_origen_cambio: req.proyecto_origen_cambio.unwrap_or_else(|| "GesFer".to_string()),
+        contexto: req.contexto.clone().unwrap_or_else(|| "Actualización".to_string()),
+        descripcion_breve: req.descripcion_breve.clone(),
         tipo_operacion: req.tipo_operacion,
-        commit_referencia_previo: req.commit_referencia_previo,
+        cambios_realizados: req.cambios_realizados,
         rutas_eliminadas: req.rutas_eliminadas,
+        commit_referencia_previo: req.commit_referencia_previo,
+        impacto: req.impacto.unwrap_or_else(|| "Bajo".to_string()),
+        replicacion: Replicacion {
+            instrucciones: "N/A".to_string(),
+            hash_integrity: "SHA-256-PENDIENTE".to_string(),
+        },
     };
 
-    let yaml_body = serde_yaml::to_string(&fm_full).map_err(|e| e.to_string())?;
-    let md_content = format!(
-        "---\n{}---\n\n## Resumen\n\nRegistro generado por `sddia_evolution_register`.\n",
-        yaml_body
-    );
+    let frontmatter = serde_yaml::to_string(&record)?;
 
-    let root = repo_root();
-    let evo = evolution_dir(&root);
-    fs::create_dir_all(&evo).map_err(|e| e.to_string())?;
-    let detail_path = evo.join(format!("{}.md", id_str));
-    fs::write(&detail_path, &md_content).map_err(|e| e.to_string())?;
+    let mut hasher = Sha256::new();
+    hasher.update(frontmatter.as_bytes());
+    let hash_result = format!("{:x}", hasher.finalize());
 
-    let log_path = evo.join("Evolution_log.md");
-    upsert_log_row(&log_path, &id_str, &fm_full.fecha, &fm_full.descripcion_breve)?;
+    record.replicacion.hash_integrity = hash_result;
+    let final_frontmatter = serde_yaml::to_string(&record)?;
 
-    let out = json!({
-        "success": true,
-        "id_cambio": id_str,
-        "detail_path": detail_path.to_string_lossy(),
-        "hash_integridad": hash,
-    });
-    println!("{}", serde_json::to_string(&out).unwrap());
-    Ok(())
-}
+    let repo_root = get_repo_root();
+    let evo_dir = repo_root.join("SddIA/evolution");
+    fs::create_dir_all(&evo_dir)?;
 
-fn upsert_log_row(log: &Path, id: &str, fecha: &str, desc: &str) -> Result<(), String> {
-    let mut s = if log.exists() {
-        fs::read_to_string(log).map_err(|e| e.to_string())?
-    } else {
-        String::new()
-    };
+    let record_path = evo_dir.join(format!("{}.md", id_cambio));
+    let mut file = fs::File::create(&record_path)?;
+    write!(file, "---\n{}---\n\n# {}\n\n{}", final_frontmatter, record.descripcion_breve, record.contexto)?;
 
-    let row = format!("| {} | {} | {} |", id, fecha, desc.replace('|', "\\|"));
-    let placeholder = "| *(pendiente primer registro oficial vía `sddia_evolution_register`)* | — | — |";
-    if s.contains("pendiente primer registro oficial") {
-        s = s.replace(placeholder, &row);
-    } else if !s.contains(id) {
-        s.push('\n');
-        s.push_str(&row);
-        s.push('\n');
+    let log_path = evo_dir.join("Evolution_log.md");
+    if let Ok(mut log_file) = OpenOptions::new().append(true).open(&log_path) {
+        writeln!(log_file, "| {} | {} | {} |", id_cambio, fecha, record.descripcion_breve)?;
     }
-    fs::write(log, s).map_err(|e| e.to_string())?;
+
+    println!("Registro de evolución creado: {}", record_path.display());
+    println!("{}", serde_json::json!({ "status": "ok", "id": id_cambio }));
+
     Ok(())
 }

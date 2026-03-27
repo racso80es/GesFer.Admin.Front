@@ -10,7 +10,7 @@ En SddIA **no se escriben rutas de ficheros literales** (ej. `docs/features/`, `
 
 - **Persistencia de tareas:** paths.featurePath, paths.fixPath, paths.logPath.
 - **Evolution y auditoría:** paths.evolutionPath, paths.evolutionLogFile, paths.auditsPath, paths.accessLogFile.
-- **Protocolo SddIA (trazabilidad bajo `./SddIA/`):** paths.sddiaEvolutionPath, paths.sddiaEvolutionLogFile, paths.sddiaEvolutionContractFile (contrato e índice del registro de cambios normativos SddIA; distinto de paths.evolutionPath del producto en `docs/evolution/`). Norma: `SddIA/norms/sddia-evolution-sync.md`.
+- **Evolution del protocolo SddIA (distinto de evolución de producto en docs):** paths.sddiaEvolutionPath, paths.sddiaEvolutionLogFile, paths.sddiaEvolutionContractFile. No confundir con paths.evolutionPath / `docs/evolution/` (cierres de feature/producto).
 - **Técnico y operativo:** paths.architecturePath, paths.infrastructurePath, paths.debtPath, paths.tasksPath.
 - **SddIA:** paths.actionsPath, paths.processPath, paths.patternsPath, paths.principlesPath, paths.tokensPath, paths.normsPath.
 - **Skills y tools:** paths.skillsDefinitionPath, paths.skillCapsules[skill-id], paths.skillsRustPath; paths.toolsDefinitionPath, paths.toolCapsules[tool-id], paths.toolsRustPath.
@@ -18,5 +18,5 @@ En SddIA **no se escriben rutas de ficheros literales** (ej. `docs/features/`, `
 
 ## Aplicación
 
-- **Actions, process, skills, agents:** Referenciar rutas solo como paths.\<clave\> o paths.\<clave\>[\<id\>]. No usar cadenas literales docs/... ni scripts/... en la documentación de comportamiento.
+- **Actions, process, skills, agents:** Referenciar rutas solo como paths.\<clave\> o paths.\<clave\>[\<id\>]. Estructura de entidades: archivo .md con frontmatter YAML (paths.actionsPath, paths.processPath, paths.skillsDefinitionPath, paths.toolsDefinitionPath, etc.). No usar cadenas literales docs/... ni scripts/... en la documentación de comportamiento.
 - **AGENTS.md y constitution:** Indicar que la única fuente de rutas es el contrato de paths (cumulo.paths.json) referenciado por Cúmulo; no ejemplos con rutas literales salvo en ese contrato.
