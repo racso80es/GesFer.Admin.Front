@@ -1,0 +1,13 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Kaizen Action: Fix Jest Haste Map Collision",
+  "description": "Documenting resolution of jest-haste-map naming collision",
+  "phases": [
+    "Activacion",
+    "Verificacion de Aplicacion",
+    "Cierre de Tarea"
+  ],
+  "persist_ref": "docs/features/jest-haste-map-fix",
+  "related_actions": ["docs/audits/AUDITORIA_2026_03_28.md"],
+  "contract_ref": "SddIA/process/process-contract.md"
+}

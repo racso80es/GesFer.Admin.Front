@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-03-28] [automatic-task/jest-haste-map-fix] Kaizen Action: Fix Jest Haste Map Collision
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Documented resolution of jest-haste-map naming collision. Build structure remains completely intact. Test runner works as expected without any warnings.
+
+**Documentación:** [docs/features/jest-haste-map-fix/](../features/jest-haste-map-fix/)
