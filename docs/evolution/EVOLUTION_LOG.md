@@ -4,6 +4,16 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 ---
 
+## [2026-03-28] [feat/actualizacion-readme] Actualizacion de Readme
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Unificación del archivo `README.md` principal con `src/README.md`. Se eliminó el archivo `src/README.md` para mantener una única fuente de verdad (SSOT). La documentación se consolidó en la raíz del repositorio, especificando claramente la configuración, entorno y comandos de ejecución (`cd src && npm install`).
+
+**Documentación:** [docs/features/Actualizacion_Readme/](../features/Actualizacion_Readme/)
+
+---
+
 ## [2026-03-27] [fix/kaizen-error-handling] Type Guards en Bloques Catch (Kaizen)
 
 **Estado:** Completado (En PR). Proceso cerrado en tarea automática.
