@@ -32,3 +32,11 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+## [2026-03-28] [automatic-task/correccion-auditorias-2026-03-23] Strict Error Handling (Kaizen)
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización en los manejadores de ruta de API para asegurar el manejo correcto de errores arrojados en los bloques `catch`. Se inyectaron explícitamente type guards (`instanceof Error`) en `src/app/api/companies/[id]/route.ts` y `src/app/api/companies/route.ts` para extraer el string del mensaje, cumpliendo con la directiva arquitectónica que prohíbe el uso o registro directo del tipo `unknown` y completando los pendientes críticos detectados en la auditoría 2026-03-23.
+
+**Documentación:** [docs/features/correccion-auditorias-2026-03-23/](../features/correccion-auditorias-2026-03-23/)
