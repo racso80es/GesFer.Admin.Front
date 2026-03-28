@@ -1,0 +1,13 @@
+{
+  "process_id": "correccion-auditoria-fs-config",
+  "name": "Eliminar dependencia de fs en config.ts",
+  "description": "Corrección de hallazgo crítico (Auditoría 2026-03-21) sobre uso de módulos fs/path de Node.js en código cliente/Edge en Next.js.",
+  "phases": [
+    "Planificación y Especificación",
+    "Implementación y Verificación",
+    "Validación y Cierre"
+  ],
+  "persist_ref": "docs/features/fix-config-fs-dependency",
+  "related_actions": ["fix"],
+  "contract_ref": "SddIA/process/automatic-task/spec.md"
+}
