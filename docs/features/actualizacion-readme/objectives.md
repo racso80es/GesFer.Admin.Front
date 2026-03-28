@@ -1,0 +1,2 @@
+# Actualización de Readme
+**Objetivo:** Unificar el archivo `README.md` principal con posibles archivos `README.md` dentro de `src/`. Además, analizar la solución para adecuar el contenido de modo que sea un reflejo preciso de la estructura actual.
