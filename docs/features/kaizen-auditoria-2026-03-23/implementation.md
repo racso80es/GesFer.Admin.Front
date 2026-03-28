@@ -1,0 +1,5 @@
+# Implementation Notes
+
+- **Instrucción 1 (Error Handling)**: Se implementó la extracción estricta de mensajes usando `error instanceof Error ? error.message : String(error)` en los handlers GET, PUT y DELETE de `src/app/api/companies/[id]/route.ts` y en el handler POST de `src/app/api/companies/route.ts`. El archivo `src/app/api/admin/dashboard/summary/route.ts` y el handler GET de `src/app/api/companies/route.ts` ya contaban con esta implementación correcta debido a intervenciones previas.
+- **Instrucción 2 (Data Fetching Refactor)**: Confirmado que la llamada a la API en `src/app/companies/page.tsx` ya no usa `fetch` local. Utiliza directamente el proxy interno `getAdminApiWithToken(accessToken)`. No requirió cambios.
+- **Instrucción 3 (Extracción de Constantes)**: Confirmado que los arrays `languageOptions` y `languageNames` en `src/components/companies/company-form.tsx` ya se encuentran ubicados en el scope superior (raíz) del archivo y no dentro de la función de render. No requirió cambios.
