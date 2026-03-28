@@ -1,0 +1,13 @@
+{
+  "process_id": "automatic-task",
+  "name": "Actualización de Readme",
+  "description": "Unificar readme.md principal con posibles readme en src.",
+  "phases": [
+    "Planificación y Especificación",
+    "Implementación y Verificación",
+    "Cierre"
+  ],
+  "persist_ref": "docs/features/actualizacion-readme",
+  "related_actions": ["docs/TASKS/Actualizacion_Readme.md"],
+  "contract_ref": "SddIA/process/process-contract.md"
+}

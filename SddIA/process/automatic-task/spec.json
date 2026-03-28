@@ -1,0 +1,15 @@
+{
+  "process_id": "automatic-task",
+  "name": "Automatic Task Execution",
+  "description": "Lifecycle process for automatically executing tasks from the backlog, including Kaizen improvement cycles when backlog is empty.",
+  "phases": [
+    "Análisis de Backlog",
+    "Activación de Tarea",
+    "Planificación y Especificación",
+    "Implementación y Verificación",
+    "Cierre"
+  ],
+  "persist_ref": "paths.featurePath",
+  "related_actions": ["paths.actionsPath"],
+  "contract_ref": "paths.processPath/process-contract.md"
+}
