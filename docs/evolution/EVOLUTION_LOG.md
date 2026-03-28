@@ -4,6 +4,16 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 ---
 
+## [2026-03-28] [feature/actualizacion-readme] Consolidación Documentación Principal (SSOT)
+
+**Estado:** Completado (En PR).
+
+**Resumen:** Unificación del `README.md` principal y `src/README.md` en un Single Source of Truth (SSOT) localizado en la raíz del repositorio. Se consolidaron las directivas de arquitectura, ejecución, testing, y las normativas del Sistema Multi-Agente GesFer. Se eliminó el `README.md` redundante.
+
+**Documentación:** [docs/features/actualizacion-readme/](../features/actualizacion-readme/)
+
+---
+
 ## [2026-03-27] [fix/kaizen-error-handling] Type Guards en Bloques Catch (Kaizen)
 
 **Estado:** Completado (En PR). Proceso cerrado en tarea automática.

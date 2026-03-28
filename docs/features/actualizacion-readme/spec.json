@@ -1,0 +1,9 @@
+{
+  "process_id": "feature",
+  "name": "actualizacion-readme",
+  "description": "Unificación de README.md principal y src/README.md",
+  "phases": ["Preparacion", "Tracking", "Unificacion", "Validacion", "Finalizacion"],
+  "persist_ref": "docs/features/actualizacion-readme",
+  "related_actions": ["Actualizacion_Readme"],
+  "contract_ref": "SddIA/process/process-contract.json"
+}
