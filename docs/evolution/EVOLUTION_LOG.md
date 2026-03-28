@@ -32,3 +32,11 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+## [2026-03-28] [automatic-task/kaizen-error-handling-companies] Refactor error handling in companies API
+
+**Estado:** Completado. Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización en los handlers de la API de `companies` para usar strictly typed messages desde los bloques `catch`, de acuerdo con las prácticas de TypeScript para el manejo de errores.
+
+**Documentación:** [docs/features/kaizen-error-handling-companies/](../features/kaizen-error-handling-companies/)
