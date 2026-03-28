@@ -60,12 +60,9 @@ export async function serverPostJson<T = unknown>(
   if (typeof process !== "undefined" && process.env.NEXT_RUNTIME !== "edge") {
     // Patrón permitido para evadir restricción estática en Edge Webpack y evitar uso de eval()
     try {
-      if (typeof (globalThis as any).__non_webpack_require__ !== "undefined") {
-         https = (globalThis as any).__non_webpack_require__("ht" + "tps");
-      } else {
-         const req = module.require;
-         https = req("ht" + "tps");
-      }
+      https = typeof (globalThis as any).__non_webpack_require__ !== 'undefined'
+        ? (globalThis as any).__non_webpack_require__('h' + 'ttps')
+        : (typeof require !== 'undefined' ? require('h' + 'ttps') : null);
     } catch {
        // Ignore require failure if we run on edge/browser without native require
     }

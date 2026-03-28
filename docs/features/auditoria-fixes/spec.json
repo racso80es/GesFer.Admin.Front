@@ -1,0 +1,7 @@
+{
+  "process_id": "auditoria-fixes",
+  "name": "Aplicar correcciones de auditorías",
+  "description": "Tarea automática para sanear hallazgos críticos y medios detectados en las últimas auditorías.",
+  "phases": ["Planificación", "Implementación", "Verificación", "Cierre"],
+  "related_actions": ["fix"]
+}

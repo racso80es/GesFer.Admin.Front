@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-03-28] [automatic-task/auditoria-fixes] Correcciones de Auditorías Acumuladas
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Aplicación de refactorizaciones provenientes de las auditorías recientes: se introdujeron `type guards` en los manejadores de ruta API (dashboard y companies), se sanitizó isomorficamente la función `loadConfig` (retirando dependencias de Node.js de entorno cliente/edge) y se endureció la inserción segura del módulo HTTPS sorteando el análisis estático en Webpack.
+
+**Documentación:** [docs/features/auditoria-fixes/](../features/auditoria-fixes/)
