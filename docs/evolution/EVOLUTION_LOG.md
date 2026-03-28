@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-03-28] [automatic-task/fix-jest-haste-collision] Fix Jest Haste Module Naming Collision
+
+**Estado:** Completado.
+
+**Resumen:** Confirmación de que el error de colisión de nombres de módulo de Haste de Jest provocado por los artefactos de la compilación de `.next/standalone` ha sido mitigado al excluir `<rootDir>/.next/` dentro de `modulePathIgnorePatterns` en `src/jest.config.js`.
+
+**Documentación:** [docs/features/fix-jest-haste-collision/](../features/fix-jest-haste-collision/)

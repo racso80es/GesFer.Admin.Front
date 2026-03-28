@@ -1,0 +1,19 @@
+{
+  "id": "fix-jest-haste-collision",
+  "name": "Fix Jest Haste Module Naming Collision",
+  "type": "automatic-task",
+  "status": "active",
+  "date": "2026-03-28",
+  "source": "docs/audits/AUDITORIA_2026_03_28.md",
+  "objectives": [
+    "Address the 'Haste module naming collision' reported in the Kaizen audit on 2026-03-28.",
+    "Ensure src/jest.config.js properly configures Jest to ignore .next/ directory.",
+    "Validate that running cd src && npm run test does not result in module naming collision warnings.",
+    "Document the resolution and close the automated task successfully."
+  ],
+  "implementation": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/.next/"
+    ]
+  }
+}
