@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-03-28] [fix/kaizen-jest-haste-map] Fix Jest Haste Map Collision
+
+**Estado:** Completado. Proceso cerrado en tarea automática.
+
+**Resumen:** Validación y documentación del cierre del hallazgo de auditoría relacionado a la colisión de módulos de Jest haste-map debido al entorno `.next/standalone`. Se confirmó que la configuración `<rootDir>/.next/` ya estaba ignorada correctamente en `jest.config.js`, por lo que el proceso se cerró satisfactoriamente como validado sin requerir cambios de código adicionales.
+
+**Documentación:** [docs/features/kaizen-jest-haste-map/](../features/kaizen-jest-haste-map/)
