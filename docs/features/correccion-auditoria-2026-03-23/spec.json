@@ -1,0 +1,15 @@
+{
+  "name": "Corrección de Auditoría 2026-03-23",
+  "description": "Resolución de hallazgos críticos (type guards) sobre el manejo de excepciones en route handlers.",
+  "status": "In Progress",
+  "priority": "High",
+  "related_actions": [
+    "spec",
+    "clarify",
+    "planning",
+    "implementation",
+    "execution",
+    "validate",
+    "finalize"
+  ]
+}
