@@ -1,0 +1,19 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección de Auditoría - 2026-03-29",
+  "description": "Documentación formal para la revisión general y comprobación del estado del proyecto tras auditoría (100% health)",
+  "phases": [
+    {
+      "id": "1",
+      "name": "Análisis de auditorías",
+      "status": "done"
+    },
+    {
+      "id": "2",
+      "name": "Validación de Integridad",
+      "status": "done"
+    }
+  ],
+  "related_actions": ["spec", "validate"],
+  "spec_version": "1.0.0"
+}
