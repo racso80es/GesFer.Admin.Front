@@ -1,0 +1,7 @@
+{
+  "feature_id": "fix-api-error-logging",
+  "name": "Fix API Error Logging",
+  "description": "Implement strict TypeScript type guards for error logging in companies API routes based on Kaizen action.",
+  "status": "active",
+  "related_audits": ["docs/audits/AUDITORIA_2026_03_23.md"]
+}
