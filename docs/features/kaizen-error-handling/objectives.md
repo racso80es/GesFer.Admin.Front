@@ -1,5 +1,5 @@
-# Objetivos: Manejo de Errores Inseguro en Bloques Catch (Kaizen)
+# Objectives
 
-1. **Objetivo Principal:** Reemplazar el uso directo del objeto `unknown` inferido en bloques `catch` por un type guard explícito.
-2. **Conformidad Técnica:** Cumplir con la regla arquitectónica que exige que cualquier error capturado sea analizado mediante `instanceof Error` antes de su uso o registro.
-3. **Robustez:** Evitar problemas de inferencia en tiempo de ejecución al interactuar con objetos arrojados que podrían no heredar de la clase base `Error`.
+- Refactorizar el manejo de errores en los endpoints de la API (`src/app/api/...`) para extraer el mensaje del error utilizando type guards de TypeScript (`error instanceof Error`).
+- Evitar pasar el objeto de error crudo (`unknown`) directamente a `console.error` o a las respuestas JSON.
+- Cumplir con la acción Kaizen identificada en la auditoría `AUDITORIA_2026_03_23.md`.

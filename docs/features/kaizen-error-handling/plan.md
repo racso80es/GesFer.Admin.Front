@@ -1,6 +1,7 @@
-# Plan de Ejecución
+# Plan
 
-1. Analizar el código actual de las 10 ubicaciones detectadas en `docs/audits/AUDITORIA_2026_03_27.md` para identificar el bloque `catch`.
-2. Reemplazar la utilización directa del `error` inferido por un type guard explícito.
-3. Modificar el uso posterior de este error (usualmente `console.error(error)` o similar) para usar el nuevo `message`.
-4. Verificar con TypeScript que no haya errores de inferencia u otros utilizando `tsc --noEmit`.
+1. Leer el archivo de `src/app/api/admin/dashboard/summary/route.ts` para refactorizar la línea del `console.error`.
+2. Leer el archivo `src/app/api/companies/[id]/route.ts` y aplicar Type Guards para GET, PUT y DELETE.
+3. Leer el archivo `src/app/api/companies/route.ts` y aplicar Type Guard para el método POST (el método GET ya lo tiene parcialmente, pero verificar que no reciba el error crudo).
+4. Compilar (`cd src && npm run build`), testear (`npm run test`) y validar tipos (`npx tsc --noEmit`) para confirmar.
+5. Elaborar documentación final.

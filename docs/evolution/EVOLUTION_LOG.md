@@ -32,3 +32,5 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+- 2026-03-29 (UTC-0): [kaizen-error-handling] Se completó la tarea automática para refactorizar el manejo de errores en los route handlers de la API, usando type guards de TypeScript en lugar de pasar la variable de error directamente a `console.error`.
