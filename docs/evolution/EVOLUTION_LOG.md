@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-03-29] [automatic-task/kaizen-config-and-edge] Kaizen Config Edge Optimization
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización en `src/lib/config.ts` eliminando las dependencias dinámicas a `fs` y `path` (así como la invocación de `fs.readFileSync`) que provocaban inestabilidades y warnings en el Next.js Edge Runtime. Se implementó una lectura directa y exclusiva de la configuración inyectada por variables de entorno a través de la función `getDefaultConfig(env)`, asegurando el cumplimiento de la metodología Twelve-Factor y corrigiendo el hallazgo crítico reportado en la auditoría `AUDITORIA_2026_03_21.md`.
+
+**Documentación:** [docs/features/kaizen-config-and-edge/](../features/kaizen-config-and-edge/)
