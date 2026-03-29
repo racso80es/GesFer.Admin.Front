@@ -67,50 +67,7 @@ function getEnvironment(): Environment {
  */
 function loadConfig(): AppConfig {
   const env = getEnvironment();
-
-  try {
-    // En Node.js podemos cargar archivos JSON directamente
-    // Usamos variables intermedias y validación para no inyectar fs/path
-    // estáticamente y evitar errores de Webpack en Next.js Edge
-    if (typeof window === 'undefined' && typeof process !== 'undefined' && process.env.NEXT_RUNTIME !== 'edge') {
-      const getModule = (name: string) => {
-        try {
-           if (typeof (globalThis as any).__non_webpack_require__ !== "undefined") {
-              return (globalThis as any).__non_webpack_require__(name);
-           }
-           return module.require(name);
-        } catch {
-           return null;
-        }
-      };
-
-      const fs = getModule("f" + "s");
-      const path = getModule("p" + "ath");
-
-      if (fs && path) {
-        const configPath = path.join(process.cwd(), 'config', `${env}.json`);
-
-        if (fs.existsSync(configPath)) {
-          const configContent = fs.readFileSync(configPath, 'utf-8');
-          const config = JSON.parse(configContent);
-
-          // Generar connectionString si no está definido
-          if (config.database && !config.database.connectionString) {
-            config.database.connectionString =
-              `Server=${config.database.server};Port=${config.database.port};Database=${config.database.database};User=${config.database.user};Password=${config.database.password};CharSet=utf8mb4;AllowUserVariables=True;AllowLoadLocalInfile=True;`;
-          }
-
-          return config;
-        }
-      }
-    }
-
-    // Fallback: usar variables de entorno o valores por defecto
-    return getDefaultConfig(env);
-  } catch (error) {
-    console.warn(`Error loading config for ${env}, using defaults:`, error instanceof Error ? error.message : String(error));
-    return getDefaultConfig(env);
-  }
+  return getDefaultConfig(env);
 }
 
 /** Lee valor numérico de env; si no está definido, devuelve 0 (config no usada). */

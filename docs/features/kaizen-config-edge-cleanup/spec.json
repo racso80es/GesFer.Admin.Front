@@ -1,0 +1,9 @@
+{
+  "process_id": "automatic-task",
+  "name": "Kaizen: Config Edge Cleanup",
+  "description": "Refactor loadConfig to remove fs/path logic",
+  "phases": ["Activación", "Implementación", "Cierre"],
+  "persist_ref": "paths.featurePath",
+  "related_actions": ["paths.actionsPath"],
+  "contract_ref": "paths.processPath/process-contract.md"
+}

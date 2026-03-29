@@ -32,3 +32,11 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+## [2026-03-29] [automatic-task/kaizen-config-edge-cleanup] Refactorización de Edge Runtime config.ts
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización de la función `loadConfig` en `src/lib/config.ts` para eliminar por completo la lectura dinámica de variables del disco local mediante `fs` y `path`. La configuración de la aplicación ahora recae estrictamente en variables de entorno a través de `getDefaultConfig()`, solucionando fallos de ejecución en Edge Runtime detectados en la auditoría técnica.
+
+**Documentación:** [docs/features/kaizen-config-edge-cleanup/](../features/kaizen-config-edge-cleanup/)
