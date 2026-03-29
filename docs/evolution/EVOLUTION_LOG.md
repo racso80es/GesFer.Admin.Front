@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-03-29] [automatic-task/kaizen-route-handlers] Refactor Route Handlers
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización transversal en el frontend para asegurar el manejo correcto de errores arrojados en los bloques `catch` de `src/app/api/companies/[id]/route.ts` y `src/app/api/companies/route.ts`. Se inyectaron explícitamente *type guards* (`instanceof Error`) para extraer el string del mensaje.
+
+**Documentación:** [docs/features/kaizen-route-handlers/](../features/kaizen-route-handlers/)

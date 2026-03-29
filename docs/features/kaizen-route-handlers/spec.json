@@ -1,0 +1,7 @@
+{
+  "process_id": "kaizen-route-handlers",
+  "name": "Refactor Route Handlers",
+  "description": "Implementar type guards string en los bloques catch de los route handlers.",
+  "phases": ["exploration", "implementation", "validation"],
+  "related_actions": ["automatic_task"]
+}
