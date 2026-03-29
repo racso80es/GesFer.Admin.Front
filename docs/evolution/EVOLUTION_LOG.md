@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-03-29] [automatic-task/kaizen-auditoria-2026-03-23] Arreglo de Errores de Type Guards (Auditoría)
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización en los manejadores de ruta API de la entidad companies (`src/app/api/companies/[id]/route.ts` y `src/app/api/companies/route.ts`). Se añadieron explícitamente *type guards* (`instanceof Error`) en los bloques `catch` correspondientes para no enviar el objeto original `error` por `console.error` en los endpoints GET, PUT, POST y DELETE, mitigando las vulnerabilidades críticas indicadas por la auditoría.
+
+**Documentación:** [docs/features/kaizen-auditoria-2026-03-23/](../features/kaizen-auditoria-2026-03-23/)

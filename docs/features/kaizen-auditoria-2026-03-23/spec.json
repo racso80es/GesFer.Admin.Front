@@ -1,0 +1,7 @@
+{
+  "feature": "kaizen-auditoria-2026-03-23",
+  "name": "Arreglo de Errores de Type Guards de Auditoría",
+  "description": "Refactoriza el manejo de errores en los manejadores de ruta API de la entidad companies",
+  "status": "in-progress",
+  "source_task": "docs/audits/AUDITORIA_2026_03_23.md"
+}
