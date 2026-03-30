@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-03-30] [automatic-task/automatic-kaizen-error-handling] Automatic Kaizen Error Handling Fix
+
+**Estado:** Completado. Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización en los controladores de la API (`src/app/api/`) para asegurar el manejo correcto de errores arrojados en los bloques `catch`. Se inyectaron explícitamente *type guards* (`instanceof Error`) para extraer el string del mensaje y se evitaron llamadas a `console.error` que exponían el objeto `error` original, cumpliendo con la directiva arquitectónica.
+
+**Documentación:** [docs/features/automatic-kaizen-error-handling/](../features/automatic-kaizen-error-handling/)
