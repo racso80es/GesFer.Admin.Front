@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-03-30] [automatic-task/kaizen-auditoria-2026-03-23] Kaizen - Manejo de errores estricto en API (Auditoría 2026-03-23)
+
+**Estado:** Completado. Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización continua impulsada por la auditoría 2026-03-23 para establecer un manejo de errores estricto en los `route handlers` de la API. Se reemplazó la exposición directa de objetos de error de tipo `unknown` en `console.error` mediante validaciones `instanceof Error`, garantizando que únicamente se registran cadenas de texto (strings) predecibles en los logs. Esto aumenta la resiliencia en un entorno Serverless/Edge Runtime.
+
+**Documentación:** [docs/features/kaizen-auditoria-2026-03-23/](../features/kaizen-auditoria-2026-03-23/)
