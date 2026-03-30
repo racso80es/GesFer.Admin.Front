@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-03-30] [automatic-task/kaizen-config-edge] Refactor fs.readFileSync Edge
+
+**Estado:** Completado (En PR). Proceso automático Kaizen cerrado.
+
+**Resumen:** Refactorización de `src/lib/config.ts` eliminando los módulos de Node (`fs`, `path`) para evitar el uso del sistema de archivos local estático en código isomórfico, cumpliendo con la arquitectura Twelve-Factor de Next.js Edge. (Basado en AUDITORIA_2026_03_21.md).
+
+**Documentación:** [docs/features/kaizen-config-edge/](../features/kaizen-config-edge/)

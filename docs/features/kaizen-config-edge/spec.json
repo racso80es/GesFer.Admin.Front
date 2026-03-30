@@ -1,0 +1,8 @@
+{
+  "process_id": "feature",
+  "name": "Corrección Edge config",
+  "contract_ref": "paths.processPath/feature/spec.md",
+  "description": "Documentación de la corrección del hallazgo crítico en src/lib/config.ts reportado en AUDITORIA_2026_03_21.md",
+  "persist_ref": "paths.featurePath/kaizen-config-edge",
+  "status": "planning"
+}
