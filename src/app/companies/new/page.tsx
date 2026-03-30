@@ -24,7 +24,8 @@ export default function NewCompanyPage() {
       router.push("/companies");
       router.refresh();
     } catch (error) {
-      console.error(error);
+      const message = error instanceof Error ? error.message : String(error);
+      console.error("Error creating company:", message);
       // Handle error (e.g., show toast)
     }
   };
