@@ -24,7 +24,8 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
         const data = await response.json();
         setCompany(data);
       } catch (error) {
-        console.error(error);
+        const message = error instanceof Error ? error.message : String(error);
+        console.error("Error fetching company:", message);
       } finally {
         setIsLoading(false);
       }
@@ -50,7 +51,9 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
       router.push("/companies");
       router.refresh();
     } catch (error) {
-      console.error(error);
+      const message = error instanceof Error ? error.message : String(error);
+      console.error("Error updating company:", message);
+      // TODO: Handle error (e.g., show toast)
     }
   };
 
