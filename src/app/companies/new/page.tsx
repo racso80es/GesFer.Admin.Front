@@ -1,6 +1,6 @@
 "use client";
 
-import { CompanyForm } from "../../../components/companies/company-form";
+import { CompanyForm } from "@/components/companies/company-form";
 import { useRouter } from "next/navigation";
 import { CreateCompany } from "@/lib/types/api";
 
