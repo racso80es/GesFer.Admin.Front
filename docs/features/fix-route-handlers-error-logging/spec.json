@@ -1,0 +1,7 @@
+{
+  "process_id": "fix-route-handlers-error-logging",
+  "name": "Fix Route Handlers Error Logging",
+  "description": "Fix logging strictness by removing direct error objects from console.error calls",
+  "phases": ["exploration", "implementation", "validation"],
+  "related_actions": ["AUDITORIA_2026_03_23"]
+}
