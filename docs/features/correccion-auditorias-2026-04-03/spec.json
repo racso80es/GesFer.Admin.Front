@@ -1,0 +1,8 @@
+{
+  "process_id": "correccion-auditorias-2026-04-03",
+  "name": "Corrección Auditoría 2026-04-03",
+  "description": "Corrección de importaciones relativas",
+  "phases": ["implementacion", "validacion"],
+  "persist_ref": "docs/features/correccion-auditorias-2026-04-03",
+  "related_actions": ["docs/audits/AUDITORIA_2026_04_03.md"]
+}
