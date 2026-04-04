@@ -111,11 +111,8 @@ export function CompanyForm({
 
       await onSubmit(dataToSubmit);
     } catch (error) {
-      setSubmitError(
-        error instanceof Error
-          ? error.message
-          : t('saveError')
-      );
+      const message = error instanceof Error ? error.message : String(error);
+      setSubmitError(message || t('saveError'));
     }
   };
 
