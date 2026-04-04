@@ -1,0 +1,14 @@
+{
+  "process_id": "correccion-auditoria-2026-03-23",
+  "name": "Correcciones de Auditoria 2026-03-23",
+  "description": "Aplicar correcciones de auditoria enfocadas en el manejo estricto de tipos de errores en los catch blocks.",
+  "phases": [
+    "planning",
+    "execution",
+    "verification",
+    "closure"
+  ],
+  "persist_ref": "docs/features/correccion-auditoria-2026-03-23",
+  "related_actions": ["refactor", "error-handling"],
+  "contract_ref": "SddIA/process/correccion-auditorias/spec.md"
+}

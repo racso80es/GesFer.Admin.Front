@@ -32,3 +32,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+---
+
+## [2026-04-04] [automatic-task/correccion-auditoria-2026-03-23] Correcciones de Auditoría 2026-03-23
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Se aplicaron las correcciones críticas dictadas por la Auditoría de la fecha 2026-03-23 enfocadas en el manejo estricto de tipos de errores en los catch blocks de los endpoints de compañías para prevenir el registro del tipo `unknown`.
+
+**Documentación:** [docs/features/correccion-auditoria-2026-03-23/](../features/correccion-auditoria-2026-03-23/)
