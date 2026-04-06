@@ -1,0 +1,9 @@
+{
+  "process_id": "correccion-auditoria-2026-04-06",
+  "name": "Corrección de Auditoría",
+  "description": "Corrección de imports relativos y manejo de errores",
+  "phases": ["fix", "validate"],
+  "persist_ref": "docs/audits/AUDITORIA_2026_04_06.md",
+  "related_actions": ["fix-imports", "fix-catch-blocks"],
+  "contract_ref": "spec.md"
+}
