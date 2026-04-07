@@ -1,0 +1,5 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Correccion Auditorias",
+  "description": "Fix audit findings."
+}
