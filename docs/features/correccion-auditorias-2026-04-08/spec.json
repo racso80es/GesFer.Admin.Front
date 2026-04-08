@@ -1,0 +1,13 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección de hallazgos de Auditoría 2026-04-08",
+  "description": "Corrección de Type Guard en catch y rutas relativas.",
+  "phases": [
+    { "id": "0", "name": "Documentar objetivos" },
+    { "id": "1", "name": "Actualizar código" },
+    { "id": "2", "name": "Validar" }
+  ],
+  "persist_ref": "docs/features/correccion-auditorias-2026-04-08",
+  "related_actions": ["implementation", "validate"],
+  "contract_ref": "SddIA/process/process-contract.json"
+}

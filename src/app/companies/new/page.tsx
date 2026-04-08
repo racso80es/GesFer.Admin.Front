@@ -1,6 +1,6 @@
 "use client";
 
-import { CompanyForm } from "../../../components/companies/company-form";
+import { CompanyForm } from "@/components/companies/company-form";
 import { useRouter } from "next/navigation";
 import { CreateCompany } from "@/lib/types/api";
 
@@ -24,7 +24,8 @@ export default function NewCompanyPage() {
       router.push("/companies");
       router.refresh();
     } catch (error) {
-      console.error(error);
+      const message = error instanceof Error ? error.message : String(error);
+      console.error("Error en submit de nueva compañía:", message);
       // Handle error (e.g., show toast)
     }
   };
