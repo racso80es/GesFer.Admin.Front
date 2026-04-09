@@ -24,7 +24,9 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
         const data = await response.json();
         setCompany(data);
       } catch (error) {
-        console.error(error);
+        // TODO: Refactor error handling to use type guard for message extraction.
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(message);
       } finally {
         setIsLoading(false);
       }
@@ -50,7 +52,9 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
       router.push("/companies");
       router.refresh();
     } catch (error) {
-      console.error(error);
+      // TODO: Refactor error handling to use type guard for message extraction.
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(message);
     }
   };
 

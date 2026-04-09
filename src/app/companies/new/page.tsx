@@ -24,7 +24,9 @@ export default function NewCompanyPage() {
       router.push("/companies");
       router.refresh();
     } catch (error) {
-      console.error(error);
+      // TODO: Refactor error handling to use type guard for message extraction.
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(message);
       // Handle error (e.g., show toast)
     }
   };

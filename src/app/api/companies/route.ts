@@ -16,6 +16,7 @@ export async function GET() {
     const companies = await api.get<Company[]>("/company");
     return NextResponse.json(companies);
   } catch (error) {
+    // TODO: Refactor error handling to use type guard for message extraction.
     const message = error instanceof Error ? error.message : String(error);
     console.error("Error fetching companies:", message);
     return NextResponse.json(
@@ -36,7 +37,9 @@ export async function POST(request: NextRequest) {
     const company = await api.post<Company>("/company", body);
     return NextResponse.json(company, { status: 201 });
   } catch (error) {
-    console.error("Error creating company:", error);
+    // TODO: Refactor error handling to use type guard for message extraction.
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Error creating company:", message);
     return NextResponse.json(
       { error: "Error al crear la organización" },
       { status: 500 }
