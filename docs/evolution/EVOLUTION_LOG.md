@@ -32,3 +32,12 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+## [2026-04-09] [automatic-task/correccion-auditorias] Correccion de Auditorias: Type Guards
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automatica.
+
+**Resumen:** Refactorizacion de manejo de errores en rutas de la API, implementando estrictos type guards.
+
+**Documentacion:** [docs/features/correccion-auditorias/](../features/correccion-auditorias/)
+---
