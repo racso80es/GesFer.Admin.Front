@@ -32,3 +32,10 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+## [2026-03-21] [automatic-task/refactor-config-load] Refactor config.ts
+
+**Estado:** Completado.
+
+**Resumen:** Removed fs and path from config.ts.
+**Documentación:** [docs/features/refactor-config-load/](../features/refactor-config-load/)
