@@ -1,6 +1,6 @@
 "use client";
 
-import { CompanyForm } from "../../../../components/companies/company-form";
+import { CompanyForm } from "@/components/companies/company-form";
 import { useRouter } from "next/navigation";
 import { CreateCompany, UpdateCompany, Company } from "@/lib/types/api";
 import { useEffect, useState } from "react";
@@ -24,7 +24,8 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
         const data = await response.json();
         setCompany(data);
       } catch (error) {
-        console.error(error);
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(message);
       } finally {
         setIsLoading(false);
       }
@@ -50,7 +51,8 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
       router.push("/companies");
       router.refresh();
     } catch (error) {
-      console.error(error);
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(message);
     }
   };
 

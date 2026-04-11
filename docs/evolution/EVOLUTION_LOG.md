@@ -32,3 +32,11 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+## [2026-04-11] [feat/correccion-auditorias-2026-04-11] Auditoria
+
+**Estado:** Completado (En PR).
+
+**Resumen:** Correcion de imports y logs.
+
+**Documentación:** [docs/features/correccion-auditorias-2026-04-11/](../features/correccion-auditorias-2026-04-11/)
