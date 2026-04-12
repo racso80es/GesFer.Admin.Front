@@ -1,0 +1,2 @@
+# Finalización
+Tarea Kaizen completada.
