@@ -53,7 +53,8 @@ export function DestructiveActionConfirm({
       setInputValue("");
       onOpenChange(false);
     } catch (error) {
-      console.error("Error al ejecutar acción destructiva:", error);
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`Error al ejecutar acción destructiva: ${message}`);
     } finally {
       setIsExecuting(false);
     }

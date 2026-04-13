@@ -25,7 +25,7 @@ export default async function CompaniesPage() {
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error("Error fetching companies:", message, error);
+    console.error(`Error fetching companies: ${message}`);
     loadError =
       "No se pudo conectar con el servidor. Comprueba que la API Admin esté en ejecución (ADMIN_API_URL) y vuelve a iniciar sesión si es necesario.";
   }
