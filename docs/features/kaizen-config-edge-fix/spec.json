@@ -1,0 +1,6 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Refactorización de config.ts para Edge Runtime",
+  "description": "Elimina dependencias dinámicas a fs y path.",
+  "persist_ref": "docs/features/kaizen-config-edge-fix"
+}
