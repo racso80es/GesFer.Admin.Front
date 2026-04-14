@@ -15,6 +15,7 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
   const router = useRouter();
   const [company, setCompany] = useState<Company | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCompany = async () => {
@@ -35,6 +36,7 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
   }, [params.id]);
 
   const handleSubmit = async (data: CreateCompany | UpdateCompany) => {
+    setSubmitError(null);
     try {
       const response = await fetch(`/api/companies/${params.id}`, {
         method: "PUT",
@@ -53,6 +55,7 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.error(message);
+      setSubmitError(error instanceof Error ? error.message : "Error al actualizar la organización");
     }
   };
 
@@ -63,6 +66,11 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
     <div className="container mx-auto py-10">
       <h1 className="text-2xl font-bold mb-6">Editar Organización</h1>
       <div className="max-w-2xl bg-white p-6 rounded-lg shadow">
+        {submitError && (
+          <div className="mb-4 rounded-md bg-red-50 border border-red-200 p-4 text-red-800 text-sm">
+            {submitError}
+          </div>
+        )}
         <CompanyForm
           company={company}
           onSubmit={handleSubmit}

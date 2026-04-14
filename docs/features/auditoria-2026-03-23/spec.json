@@ -1,0 +1,13 @@
+{
+  "process_id": "auditoria-2026-03-23",
+  "name": "Correcciones Auditoria 2026-03-23",
+  "description": "Aplicar fixes de la auditoria de salud del 2026-03-23 (type guards de error, data fetching sin cookies directas, extracción de constantes)",
+  "phases": [
+    "Planificación",
+    "Ejecución de Fixes",
+    "Validación y Tests"
+  ],
+  "persist_ref": "docs/features/auditoria-2026-03-23",
+  "related_actions": ["fix"],
+  "contract_ref": "SddIA/process/process-contract.md"
+}
