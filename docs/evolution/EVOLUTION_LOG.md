@@ -33,6 +33,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
 
+## [2026-04-02] [automatic-task/kaizen-fix-error-logs] Type Guards en Catch Blocks (Kaizen)
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización transversal en los endpoints de compañías para asegurar el manejo correcto de errores arrojados en los bloques `catch`. Se inyectaron explícitamente *type guards* (`instanceof Error`) para extraer el string del mensaje, cumpliendo con la directiva arquitectónica que prohíbe el uso o registro directo del tipo `unknown`.
+
+**Documentación:** [docs/features/kaizen-fix-error-logs/](../features/kaizen-fix-error-logs/)
 ---
 
 ## [2026-04-14] [automatic-task/kaizen-feedback-errores] Feedback Visual de Errores (Kaizen)
