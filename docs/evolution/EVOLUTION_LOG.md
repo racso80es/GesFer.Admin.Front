@@ -32,3 +32,11 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+## [2026-04-14] [automatic-task/kaizen-config-edge-fix] Refactorización de config.ts para Edge Runtime
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Se eliminó la dependencia dinámica hacia los módulos `fs` y `path` en `src/lib/config.ts`, lo que violaba la arquitectura Edge Runtime de Next.js y causaba inestabilidad. La configuración ahora se basa enteramente en las variables de entorno inyectadas, resolviendo el hallazgo crítico de la auditoría AUDITORIA_2026_03_21.md.
+
+**Documentación:** [docs/features/kaizen-config-edge-fix/](../features/kaizen-config-edge-fix/)
