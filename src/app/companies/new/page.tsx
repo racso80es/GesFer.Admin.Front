@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { CompanyForm } from "@/components/companies/company-form";
+import { CompanyForm } from "../../../components/companies/company-form";
 import { useRouter } from "next/navigation";
 import { CreateCompany } from "@/lib/types/api";
+import { useState } from "react";
 
 export default function NewCompanyPage() {
   const router = useRouter();
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (data: CreateCompany) => {
-    setErrorMsg(null);
+    setError(null);
     try {
       const response = await fetch("/api/companies", {
         method: "POST",
@@ -27,17 +27,20 @@ export default function NewCompanyPage() {
       router.push("/companies");
       router.refresh();
     } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      console.error("Mensaje de error:", message);
-      setErrorMsg(message);
+      console.error(error);
+      setError(error instanceof Error ? error.message : "Error al crear la organización");
     }
   };
 
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-2xl font-bold mb-6">Nueva Organización</h1>
-      {errorMsg && <div className="text-red-500 mb-4 p-3 bg-red-100 rounded">{errorMsg}</div>}
       <div className="max-w-2xl bg-white p-6 rounded-lg shadow">
+        {error && (
+          <div className="mb-4 rounded-md bg-red-50 border border-red-200 p-4 text-red-800 text-sm">
+            {error}
+          </div>
+        )}
         <CompanyForm
           onSubmit={handleSubmit}
           onCancel={() => router.back()}

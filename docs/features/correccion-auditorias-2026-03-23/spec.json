@@ -1,0 +1,11 @@
+{
+  "contract_ref": "paths.processPath/correccion-auditorias/spec.json",
+  "name": "Especificacion Tecnica Correccion Auditoria 2026-03-23",
+  "components": [
+    "src/app/api/admin/dashboard/summary/route.ts",
+    "src/app/api/companies/[id]/route.ts",
+    "src/app/api/companies/route.ts",
+    "src/app/companies/page.tsx",
+    "src/components/companies/company-form.tsx"
+  ]
+}

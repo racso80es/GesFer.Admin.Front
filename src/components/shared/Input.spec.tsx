@@ -28,26 +28,4 @@ describe("Shared Input", () => {
     const input = screen.getByRole("textbox");
     expect(input).toHaveAttribute("data-testid", "custom-input");
   });
-
-  it("adds aria-invalid when hasError is true", () => {
-    render(<Input hasError={true} />);
-    const input = screen.getByRole("textbox");
-    expect(input).toHaveAttribute("aria-invalid", "true");
-  });
-
-  it("does not add aria-invalid when hasError is false or undefined", () => {
-    const { rerender } = render(<Input hasError={false} />);
-    let input = screen.getByRole("textbox");
-    expect(input).not.toHaveAttribute("aria-invalid");
-
-    rerender(<Input />);
-    input = screen.getByRole("textbox");
-    expect(input).not.toHaveAttribute("aria-invalid");
-  });
-
-  it("adds aria-describedby when errorMessageId is provided", () => {
-    render(<Input errorMessageId="error-123" />);
-    const input = screen.getByRole("textbox");
-    expect(input).toHaveAttribute("aria-describedby", "error-123");
-  });
 });

@@ -1,0 +1,22 @@
+{
+  "contract_ref": "paths.processPath/process-contract.json",
+  "input_ref": "docs/audits/AUDITORIA_2026_03_28.md",
+  "name": "Corrección según Auditorías - 2026-03-28",
+  "persist_ref": "docs/features/correccion-auditorias-2026-03-28",
+  "phases": [
+    {
+      "description": "Añadir ignore pattern en Jest config",
+      "id": "0",
+      "name": "Configuración"
+    }
+  ],
+  "principles_ref": "paths.principlesPath",
+  "process_id": "correccion-auditorias",
+  "related_actions": [
+    "configure-jest"
+  ],
+  "related_skills": [
+    "javascript"
+  ],
+  "spec_version": "1.0.0"
+}

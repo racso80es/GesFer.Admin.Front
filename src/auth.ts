@@ -63,7 +63,8 @@ export const authConfig: NextAuthConfig = {
             accessToken: data.token ?? "",
           };
         } catch (error) {
-          console.error("Error en authorize (admin):", error);
+          const message = error instanceof Error ? error.message : String(error);
+          console.error("Error en authorize (admin):", message);
           return null;
         }
       },

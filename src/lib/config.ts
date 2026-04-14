@@ -69,31 +69,10 @@ function loadConfig(): AppConfig {
   const env = getEnvironment();
 
   try {
-    // En Node.js podemos cargar archivos JSON directamente
-    if (typeof window === 'undefined') {
-      const fs = require('fs');
-      const path = require('path');
-      const configPath = path.join(process.cwd(), 'config', `${env}.json`);
-
-      if (fs.existsSync(configPath)) {
-        const configContent = fs.readFileSync(configPath, 'utf-8');
-        const config = JSON.parse(configContent);
-
-        // Generar connectionString si no está definido
-        if (config.database && !config.database.connectionString) {
-          config.database.connectionString =
-            `Server=${config.database.server};Port=${config.database.port};Database=${config.database.database};User=${config.database.user};Password=${config.database.password};CharSet=utf8mb4;AllowUserVariables=True;AllowLoadLocalInfile=True;`;
-        }
-
-        return config;
-      }
-    }
-
-    // Fallback: usar variables de entorno o valores por defecto
+    // Usar variables de entorno o valores por defecto
     return getDefaultConfig(env);
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.warn(`Error loading config for ${env}, using defaults:`, message);
+    console.warn(`Error loading config for ${env}, using defaults:`, error instanceof Error ? error.message : String(error));
     return getDefaultConfig(env);
   }
 }

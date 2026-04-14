@@ -4,6 +4,26 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 ---
 
+## [2026-03-28] [feat/actualizacion-readme] Actualizacion de Readme
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Unificación del archivo `README.md` principal con `src/README.md`. Se eliminó el archivo `src/README.md` para mantener una única fuente de verdad (SSOT). La documentación se consolidó en la raíz del repositorio, especificando claramente la configuración, entorno y comandos de ejecución (`cd src && npm install`).
+
+**Documentación:** [docs/features/Actualizacion_Readme/](../features/Actualizacion_Readme/)
+
+---
+
+## [2026-03-27] [fix/kaizen-error-handling] Type Guards en Bloques Catch (Kaizen)
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización transversal en el frontend para asegurar el manejo correcto de errores arrojados en los bloques `catch`. Se inyectaron explícitamente *type guards* (`instanceof Error`) para extraer el string del mensaje, cumpliendo con la directiva arquitectónica que prohíbe el uso o registro directo del tipo `unknown`.
+
+**Documentación:** [docs/features/kaizen-error-handling/](../features/kaizen-error-handling/)
+
+---
+
 ## [2026-03-13] [feat/audit-inicial-admin-front] Auditoría inicial y saneamiento
 
 **Estado:** Mergeado en main (PR #1). Proceso cerrado.
@@ -11,30 +31,28 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Resumen:** Saneamiento y adaptación del proyecto frontend Next.js extraído del monorepo GesFer. Incluye: actualización de agentes SddIA al contexto frontend, constituciones, documentación, scripts, tools, workflow CI/CD (pr-validation.yml), internalización de Shared, Dockerfile standalone y unificación de URLs.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
+- 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
 
-## [2026-03-27] [feat/kaizen-accessibility] Kaizen: Accesibilidad en Input compartido
+## [2026-04-14] [automatic-task/kaizen-config-edge-fix] Refactorización de config.ts para Edge Runtime
 
-**Estado:** Mergeado en main. Proceso automático cerrado.
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
 
-**Resumen:** Se añadió soporte para `hasError` y `errorMessageId` en el componente `Input` compartido, mapeándolo a los atributos ARIA correspondientes para mejorar la accesibilidad de formularios con errores.
+**Resumen:** Se eliminó la dependencia dinámica hacia los módulos `fs` y `path` en `src/lib/config.ts`, lo que violaba la arquitectura Edge Runtime de Next.js y causaba inestabilidad. La configuración ahora se basa enteramente en las variables de entorno inyectadas, resolviendo el hallazgo crítico de la auditoría AUDITORIA_2026_03_21.md.
 
-**Documentación:** [docs/features/kaizen-accessibility/](../features/kaizen-accessibility/)
-**Tarea de origen:** [docs/TASKS/DONE/Kaizen_2026_03_27.md](../TASKS/DONE/Kaizen_2026_03_27.md)
+**Documentación:** [docs/features/kaizen-config-edge-fix/](../features/kaizen-config-edge-fix/)
+## [2026-04-02] [automatic-task/kaizen-fix-error-logs] Type Guards en Catch Blocks (Kaizen)
 
-## [2026-03-27] [feat/kaizen-npm-audit] Kaizen: Auditoría y Corrección de Vulnerabilidades NPM
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
 
-**Estado:** Completado (Ejecución automática).
+**Resumen:** Refactorización transversal en los endpoints de compañías para asegurar el manejo correcto de errores arrojados en los bloques `catch`. Se inyectaron explícitamente *type guards* (`instanceof Error`) para extraer el string del mensaje, cumpliendo con la directiva arquitectónica que prohíbe el uso o registro directo del tipo `unknown`.
 
-**Resumen:** Tarea automática tipo Kaizen para auditar las dependencias del frontend. Se ejecutó `npm audit fix` reduciendo el número de vulnerabilidades en `src/package-lock.json` de 13 a 8. Las 8 restantes requieren cambios de compatibilidad mayores (breaking changes) en dependencias críticas como `next` y `jest-environment-jsdom`, por lo que se mantienen para asegurar la compatibilidad con Edge Runtime.
+**Documentación:** [docs/features/kaizen-fix-error-logs/](../features/kaizen-fix-error-logs/)
+---
 
-**Documentación:** [docs/features/kaizen-npm-audit/](../features/kaizen-npm-audit/)
-**Tarea de origen:** [docs/TASKS/DONE/Kaizen_npm_audit_2026_03_27.md](../TASKS/DONE/Kaizen_npm_audit_2026_03_27.md)
+## [2026-04-14] [automatic-task/kaizen-feedback-errores] Feedback Visual de Errores (Kaizen)
 
-## [2026-04-14] [feat/kaizen-error-handling] Kaizen: Manejo de Errores Inseguro en Bloques Catch
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
 
-**Estado:** Completado (Ejecución automática).
+**Resumen:** Se resolvió el hallazgo H-03 de la auditoría funcional del 2026-03-13. Se implementó una gestión de estado UI (React `useState`) con type guards en `src/app/companies/new/page.tsx` y `src/app/companies/[id]/edit/page.tsx` para mostrar alertas visuales al usuario en caso de que la API retorne errores, complementando el mero uso de `console.error` en el servidor/cliente.
 
-**Resumen:** Tarea automática tipo Kaizen para auditar el manejo de errores en bloques `catch`. Se comprobó que el type guard requerido (`error instanceof Error`) ya estaba implementado en los 10 archivos señalados por el reporte de auditoría. Se validó la compilación, se corrieron pruebas exitosamente y se cerró la tarea.
-
-**Documentación:** [docs/features/kaizen-error-handling/](../features/kaizen-error-handling/)
-**Tarea de origen:** [docs/TASKS/DONE/Kaizen_error_handling_2026_03_27.md](../TASKS/DONE/Kaizen_error_handling_2026_03_27.md)
+**Documentación:** [docs/features/kaizen-feedback-errores/](../features/kaizen-feedback-errores/)

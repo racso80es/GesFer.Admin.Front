@@ -40,10 +40,7 @@ $capsules = @(
     @{ exe = "merge_to_master_cleanup"; capsule = "finalizar-git" },
     @{ exe = "invoke_command"; capsule = "invoke-command" },
     @{ exe = "push_and_create_pr"; capsule = "finalizar-git" },
-    @{ exe = "invoke_commit"; capsule = "invoke-commit" },
-    @{ exe = "sddia_evolution_register"; capsule = "sddia-evolution" },
-    @{ exe = "sddia_evolution_validate"; capsule = "sddia-evolution" },
-    @{ exe = "sddia_evolution_watch"; capsule = "sddia-evolution" }
+    @{ exe = "invoke_commit"; capsule = "invoke-commit" }
 )
 foreach ($cap in $capsules) {
     $src = Join-Path $releaseDir "$($cap.exe).exe"
