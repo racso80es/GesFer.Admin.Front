@@ -32,3 +32,12 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/audit-inicial-admin-front/](../features/audit-inicial-admin-front/)
 - 2026-03-28 05:05:20 UTC - Unificación del README.md raíz con src/README.md completada bajo el proceso `automatic-task`.
+
+## [2026-04-14] [automatic-task/kaizen-edge-runtime-fixes] Kaizen Edge Runtime Fixes
+
+**Estado:** Completado.
+
+**Resumen:** Refactorizadas dependencias isomórficas removiendo uso de fs/path y optimizando carga dinámica de https.
+
+**Documentación:** [docs/features/kaizen-edge-runtime-fixes/](../features/kaizen-edge-runtime-fixes/)
+---
