@@ -1,1 +1,0 @@
-{ "process_id": "refactor-config", "name": "Refactor config", "description": "Remove fs dependency", "phases": ["implement"], "persist_ref": "docs/features/refactor-config-load", "related_actions": [], "contract_ref": "" }

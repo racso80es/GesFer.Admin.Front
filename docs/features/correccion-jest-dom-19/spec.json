@@ -1,0 +1,7 @@
+{
+  "contract_ref": "paths.processPath/correccion-auditorias/spec.json",
+  "name": "Especificacion Tecnica Correccion Auditoria 2026-03-19",
+  "components": [
+    "src/tsconfig.json"
+  ]
+}
