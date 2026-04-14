@@ -40,3 +40,12 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Resumen:** Refactorización transversal en los endpoints de compañías para asegurar el manejo correcto de errores arrojados en los bloques `catch`. Se inyectaron explícitamente *type guards* (`instanceof Error`) para extraer el string del mensaje, cumpliendo con la directiva arquitectónica que prohíbe el uso o registro directo del tipo `unknown`.
 
 **Documentación:** [docs/features/kaizen-fix-error-logs/](../features/kaizen-fix-error-logs/)
+---
+
+## [2026-04-14] [automatic-task/kaizen-feedback-errores] Feedback Visual de Errores (Kaizen)
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Se resolvió el hallazgo H-03 de la auditoría funcional del 2026-03-13. Se implementó una gestión de estado UI (React `useState`) con type guards en `src/app/companies/new/page.tsx` y `src/app/companies/[id]/edit/page.tsx` para mostrar alertas visuales al usuario en caso de que la API retorne errores, complementando el mero uso de `console.error` en el servidor/cliente.
+
+**Documentación:** [docs/features/kaizen-feedback-errores/](../features/kaizen-feedback-errores/)
