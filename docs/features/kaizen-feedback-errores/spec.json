@@ -1,0 +1,16 @@
+{
+  "feature_id": "kaizen-feedback-errores",
+  "name": "Kaizen Feedback de Errores en Formularios de Organización",
+  "description": "Implementar un sistema de feedback visible para el usuario final cuando ocurre un error al intentar crear o editar una organización, en lugar de limitarse a usar `console.error()`. Esto aborda directamente el hallazgo H-03 identificado en la auditoría `AUDITORIA_FUNCIONAL_FRONTEND_2026-03-13.md`.",
+  "type": "feature",
+  "status": "active",
+  "phases": [
+    "Planificación y Especificación",
+    "Implementación y Verificación",
+    "Cierre"
+  ],
+  "persist_ref": "docs/features/kaizen-feedback-errores",
+  "related_actions": [
+    "AUDITORIA_FUNCIONAL_FRONTEND_2026-03-13"
+  ]
+}
