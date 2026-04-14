@@ -1,0 +1,13 @@
+<<<<<<< SEARCH
+<<<<<<< HEAD
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(message);
+=======
+      console.error(error);
+      setSubmitError(error instanceof Error ? error.message : "Error al actualizar la organización");
+>>>>>>> origin/main
+=======
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(message);
+      setSubmitError(error instanceof Error ? error.message : "Error al actualizar la organización");
+>>>>>>> REPLACE
