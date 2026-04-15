@@ -56,3 +56,10 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Resumen:** Se resolvió el hallazgo H-03 de la auditoría funcional del 2026-03-13. Se implementó una gestión de estado UI (React `useState`) con type guards en `src/app/companies/new/page.tsx` y `src/app/companies/[id]/edit/page.tsx` para mostrar alertas visuales al usuario en caso de que la API retorne errores, complementando el mero uso de `console.error` en el servidor/cliente.
 
 **Documentación:** [docs/features/kaizen-feedback-errores/](../features/kaizen-feedback-errores/)
+## [2026-04-15] [automatic-task/kaizen-implement-logs] Implementar ruta /logs
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Se resolvió el hallazgo H-01 de la auditoría funcional de 2026-03-13 creando la ruta `/logs` y un componente placeholder. Esto evita que el menú del Sidebar redirija a una página 404 de no encontrado.
+
+**Documentación:** [docs/features/kaizen-implement-logs/](../features/kaizen-implement-logs/)
