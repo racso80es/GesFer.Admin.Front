@@ -1,0 +1,6 @@
+{
+  "name": "Jest Haste Collision Fix",
+  "type": "Kaizen",
+  "source_audit": "docs/audits/AUDITORIA_2026_03_28.md",
+  "target_file": "src/jest.config.js"
+}
