@@ -1,0 +1,5 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Kaizen Edge Runtime Fixes",
+  "description": "Fix issues with fs/path in config.ts and https in server-fetch.ts"
+}
