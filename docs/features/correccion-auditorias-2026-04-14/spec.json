@@ -1,0 +1,39 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección Auditoría 2026-04-14",
+  "description": "Documentación formal del cierre de auditoría sin hallazgos que corregir.",
+  "phases": [
+    {
+      "id": "0",
+      "name": "Análisis de auditorías",
+      "description": "Revisar últimos informes."
+    },
+    {
+      "id": "1",
+      "name": "Documentación de objetivos",
+      "description": "objectives.md con hallazgos priorizados y criterios de cierre."
+    },
+    {
+      "id": "2",
+      "name": "Especificación",
+      "description": "Acción spec; spec.md, spec.json."
+    },
+    {
+      "id": "7",
+      "name": "Validar",
+      "description": "Acción validate; validacion.md."
+    },
+    {
+      "id": "8",
+      "name": "Finalizar",
+      "description": "Acción finalize; Evolution Logs, PR."
+    }
+  ],
+  "persist_ref": "docs/features/correccion-auditorias-2026-04-14",
+  "related_actions": [
+    "spec",
+    "validate",
+    "finalize"
+  ],
+  "contract_ref": "SddIA/process/process-contract.json"
+}
