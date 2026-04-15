@@ -69,6 +69,7 @@ function loadConfig(): AppConfig {
   const env = getEnvironment();
 
   try {
+    // Usar variables de entorno o valores por defecto
     return getDefaultConfig(env);
   } catch (error) {
     console.warn(`Error loading config for ${env}, using defaults:`, error instanceof Error ? error.message : String(error));
