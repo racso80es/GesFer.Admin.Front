@@ -1,0 +1,8 @@
+{
+  "id": "kaizen-auditoria-2026-03-23",
+  "name": "Kaizen - Manejo de errores estricto en API (Auditoría 2026-03-23)",
+  "type": "kaizen",
+  "status": "open",
+  "persist_ref": "docs/features/kaizen-auditoria-2026-03-23",
+  "related_actions": ["docs/audits/AUDITORIA_2026_03_23.md"]
+}

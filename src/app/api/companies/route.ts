@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     const message = error instanceof Error ? error.message : String(error);
     console.error("Error creating company:", message);
     return NextResponse.json(
-      { error: "Error al crear la organización" },
+      { error: "Error al crear la organización", detail: message },
       { status: 500 }
     );
   }
