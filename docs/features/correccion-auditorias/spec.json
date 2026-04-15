@@ -1,0 +1,7 @@
+{
+  "feature_id": "correccion-auditorias",
+  "name": "Corrección de Auditorías S+",
+  "description": "Aplica correcciones de TypeScript a bloques catch que pasan errores inferidos directamente al log.",
+  "status": "in-progress",
+  "date": "2026-04-15"
+}
