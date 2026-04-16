@@ -27,8 +27,9 @@ export default function NewCompanyPage() {
       router.push("/companies");
       router.refresh();
     } catch (error) {
-      console.error(error);
-      setError(error instanceof Error ? error.message : "Error al crear la organización");
+const message = error instanceof Error ? error.message : String(error);
+      console.error("Error:", message);
+      setError(message);
     }
   };
 

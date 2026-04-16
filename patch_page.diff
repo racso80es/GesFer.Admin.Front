@@ -1,0 +1,9 @@
+<<<<<<< SEARCH
+<<<<<<< HEAD
+    console.error(`Error fetching companies: ${message}`);
+=======
+    console.error("Error fetching companies:", message);
+>>>>>>> origin/main
+=======
+    console.error(`Error fetching companies: ${message}`);
+>>>>>>> REPLACE

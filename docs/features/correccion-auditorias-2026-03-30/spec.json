@@ -1,0 +1,43 @@
+{
+  "name": "correccion-auditorias-2026-03-30",
+  "description": "Corrección de logging inseguro en el proyecto según la auditoría técnica de 2026-03-30.",
+  "process_id": "correccion-auditorias",
+  "contract_ref": "SddIA/process/process-contract.json",
+  "persist_ref": "docs/features/correccion-auditorias-2026-03-30",
+  "related_actions": [
+    "spec",
+    "clarify",
+    "planning",
+    "implementation",
+    "execution",
+    "validate",
+    "finalize"
+  ],
+  "phases": [
+    {
+      "id": "1",
+      "name": "Análisis de auditorías",
+      "description": "Hallazgos de logging identificados y priorizados como críticos."
+    },
+    {
+      "id": "2",
+      "name": "Documentación de objetivos",
+      "description": "objectives.md con hallazgos redactados."
+    },
+    {
+      "id": "3",
+      "name": "Especificación",
+      "description": "spec.md y spec.json generados con los requisitos de la modificación de logs."
+    },
+    {
+      "id": "4",
+      "name": "Implementación y ejecución",
+      "description": "Aplicar type guards a los bloques catch correspondientes."
+    },
+    {
+      "id": "5",
+      "name": "Validar y finalizar",
+      "description": "Verificar tests, compilación e incluir reporte en validacion.md."
+    }
+  ]
+}

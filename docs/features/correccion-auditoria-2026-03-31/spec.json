@@ -1,0 +1,13 @@
+{
+  "process_id": "correccion-auditoria-2026-03-31",
+  "name": "Corrección de manejo de errores de TypeScript",
+  "description": "Aplicar type guards a los bloques catch identificados en la auditoría del 2026-03-31",
+  "phases": [
+    "identificación",
+    "modificación de código",
+    "verificación"
+  ],
+  "persist_ref": "docs/features/correccion-auditoria-2026-03-31",
+  "related_actions": ["SddIA/process/correccion-auditorias"],
+  "contract_ref": "SddIA Process Contract"
+}

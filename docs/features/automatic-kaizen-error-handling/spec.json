@@ -1,0 +1,14 @@
+{
+  "process_id": "automatic-kaizen-error-handling",
+  "name": "Automatic Kaizen Error Handling Fix",
+  "description": "Applies a uniform type guard and string extraction to catch blocks in API route handlers, eliminating direct console.error logging of the unknown error object.",
+  "phases": [
+    "Identify Files",
+    "Inject Type Guards",
+    "Replace Logs",
+    "Verify Build"
+  ],
+  "persist_ref": "docs/features/automatic-kaizen-error-handling/",
+  "related_actions": ["docs/audits/AUDITORIA_2026_03_23.md"],
+  "contract_ref": "docs/features/automatic-kaizen-error-handling/spec.md"
+}

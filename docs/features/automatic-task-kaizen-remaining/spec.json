@@ -1,0 +1,14 @@
+{
+  "name": "kaizen-error-handling-remaining",
+  "process_id": "automatic-task",
+  "description": "Aplicar type guards en los bloques catch de api/companies/[id]/route.ts",
+  "phases": [
+    "planning",
+    "implementation",
+    "validation",
+    "closure"
+  ],
+  "persist_ref": "paths.featurePath/automatic-task-kaizen-remaining",
+  "related_actions": ["kaizen-error-handling"],
+  "contract_ref": "paths.processPath/automatic-task/spec.json"
+}

@@ -1,0 +1,9 @@
+{
+  "process_id": "audit-corrections-001",
+  "name": "Corrección Auditorías: Type Guards",
+  "description": "Resolución de hallazgos de auditoría (2026-03-23) sobre manejo estricto de errores en handlers de Next.js",
+  "phases": ["Análisis", "Implementación", "Validación"],
+  "persist_ref": "docs/features/correccion-auditorias",
+  "related_actions": ["fix/kaizen-error-handling"],
+  "contract_ref": "SddIA/process/correccion-auditorias"
+}

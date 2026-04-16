@@ -1,0 +1,12 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Kaizen Fix Error Logs",
+  "description": "Corrige el manejo de excepciones en endpoints de la API reemplazando el paso directo de error a console.error por type guards.",
+  "phases": [
+    "Identificación de logs",
+    "Refactorización (Type Guards)",
+    "Validación de compilación"
+  ],
+  "persist_ref": "docs/features/kaizen-fix-error-logs",
+  "related_actions": ["bug-fix"]
+}

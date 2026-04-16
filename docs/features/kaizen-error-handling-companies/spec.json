@@ -1,0 +1,15 @@
+{
+  "process_id": "automatic-task",
+  "name": "kaizen-error-handling-companies",
+  "description": "Refactor error handling to use strict type guards in companies route handlers.",
+  "phases": [
+    "Análisis de Backlog",
+    "Activación de Tarea",
+    "Planificación y Especificación",
+    "Implementación y Verificación",
+    "Cierre"
+  ],
+  "persist_ref": "paths.fixPath",
+  "related_actions": ["paths.actionsPath"],
+  "contract_ref": "paths.processPath/process-contract.md"
+}

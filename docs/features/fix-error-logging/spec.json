@@ -1,0 +1,9 @@
+{
+  "process_id": "automatic-task-001",
+  "name": "fix-error-logging",
+  "description": "Corrección de la salida de error crudo en console.error de los route handlers de API.",
+  "phases": ["Planificación", "Implementación", "Validación"],
+  "persist_ref": "docs/features/fix-error-logging/",
+  "related_actions": ["AUDITORIA_2026_03_23"],
+  "contract_ref": "SddIA/process/automatic-task/spec.md"
+}

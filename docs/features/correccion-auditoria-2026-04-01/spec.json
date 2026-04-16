@@ -1,0 +1,15 @@
+{
+  "process_id": "correccion-auditoria-2026-04-01",
+  "name": "Corrección de Auditoría Frontend 2026-04-01",
+  "description": "Corrección de imports relativos cruzando límites lógicos en frontend",
+  "phases": [
+    "Identificar imports relativos a corregir",
+    "Refactorizar importaciones a utilizar @/",
+    "Verificar que no queden importaciones relativas con .. en app/ y components/",
+    "Verificar compilación y pruebas"
+  ],
+  "persist_ref": "docs/features/correccion-auditoria-2026-04-01",
+  "related_actions": [
+    "Audit Frontend Imports"
+  ]
+}

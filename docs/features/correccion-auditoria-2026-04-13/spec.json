@@ -1,0 +1,20 @@
+{
+  "name": "Corrección de Auditoría 2026-04-13",
+  "process_id": "correccion-auditorias",
+  "description": "Corrección de los problemas detectados en el informe de auditoría 2026-04-13 (imports relativos cruzando directorios y captura de errores sin safe string extraction).",
+  "phases": [
+    {
+      "id": "refactor-imports",
+      "name": "Refactorizar Importaciones",
+      "description": "Reemplazar importaciones relativas inseguras por alias estandarizados."
+    },
+    {
+      "id": "refactor-errors",
+      "name": "Refactorizar Manejo de Errores",
+      "description": "Añadir extracciones seguras de mensajes en bloques catch."
+    }
+  ],
+  "persist_ref": "docs/features/correccion-auditoria-2026-04-13",
+  "related_actions": ["spec", "implementation", "validate", "finalize"],
+  "contract_ref": "docs/process/process-contract.json"
+}

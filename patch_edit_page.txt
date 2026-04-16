@@ -1,0 +1,18 @@
+<<<<<<< SEARCH
+    } catch (error) {
+<<<<<<< HEAD
+      const message = error instanceof Error ? error.message : String(error);
+      console.error("Error updating company:", message);
+      // TODO: Handle error (e.g., show toast)
+=======
+      console.error(error);
+      setSubmitError(error instanceof Error ? error.message : "Error al actualizar la organización");
+>>>>>>> origin/main
+    }
+=======
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.error("Error updating company:", message);
+      setSubmitError(message);
+    }
+>>>>>>> REPLACE
