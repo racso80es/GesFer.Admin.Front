@@ -1,0 +1,9 @@
+{
+  "process_id": "automatic-task",
+  "name": "kaizen-implement-logs",
+  "description": "Implementar ruta /logs mencionada en H-01",
+  "phases": ["Análisis", "Implementación", "Verificación", "Cierre"],
+  "persist_ref": "docs/features/kaizen-implement-logs/",
+  "related_actions": ["Crear página placeholder para logs"],
+  "contract_ref": "SddIA/process/process-contract.json"
+}
