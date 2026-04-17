@@ -1,0 +1,11 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección de Importaciones Relativas",
+  "description": "Reemplazo de importaciones relativas largas por alias absolutos (@/) en los componentes de empresas.",
+  "phases": [
+    "spec",
+    "implementation",
+    "validate"
+  ],
+  "persist_ref": "docs/features/correccion-importaciones"
+}

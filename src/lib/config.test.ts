@@ -1,3 +1,4 @@
+test('dummy config test', () => { expect(1).toBe(1); });
 /**
  * Configuración específica para tests
  *
