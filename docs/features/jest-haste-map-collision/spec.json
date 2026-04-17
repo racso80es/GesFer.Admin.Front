@@ -1,0 +1,9 @@
+{
+  "process_id": "jest-haste-map-collision",
+  "name": "Jest Haste Map Collision Fix",
+  "description": "Resolver el problema de module naming collision en Jest causado por el output standalone de Next.js.",
+  "phases": ["exploration", "planning", "validation", "closure"],
+  "persist_ref": "docs/features/jest-haste-map-collision",
+  "related_actions": ["automatic-task"],
+  "contract_ref": "SddIA/process/automatic-task"
+}

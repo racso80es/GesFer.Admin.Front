@@ -1,0 +1,9 @@
+{
+  "process_id": "correccion-errores",
+  "name": "Corrección de Errores Inseguros",
+  "description": "Aplicar type guards a bloques catch",
+  "phases": [],
+  "persist_ref": "docs/features/correccion-errores",
+  "related_actions": [],
+  "contract_ref": "paths.processPath/process-contract.json"
+}

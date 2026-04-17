@@ -1,0 +1,9 @@
+{
+  "process_id": "correccion-auditoria-2026-03-23",
+  "name": "Correccion de Auditoria 2026-03-23",
+  "description": "Corregir el registro de errores en route handlers de companies.",
+  "phases": ["planning", "implementation", "validation", "closure"],
+  "persist_ref": "docs/features/correccion-auditoria-2026-03-23",
+  "related_actions": ["bug-fix"],
+  "contract_ref": "docs/features/correccion-auditoria-2026-03-23/spec.md"
+}

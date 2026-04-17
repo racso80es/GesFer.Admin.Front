@@ -1,0 +1,13 @@
+{
+  "process_id": "kaizen-error-handling",
+  "name": "Kaizen Error Handling",
+  "description": "Implementation of strict TypeScript error handling with type guards for route handlers.",
+  "phases": [
+    "Planificación y Especificación",
+    "Implementación y Verificación",
+    "Cierre"
+  ],
+  "persist_ref": "docs/features/kaizen-error-handling",
+  "related_actions": ["docs/audits/AUDITORIA_2026_03_23.md"],
+  "contract_ref": "SddIA/process/process-contract.md"
+}

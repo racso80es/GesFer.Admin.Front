@@ -1,0 +1,1 @@
+Fix jest config modulePathIgnorePatterns

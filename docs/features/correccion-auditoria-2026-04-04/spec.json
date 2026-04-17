@@ -1,0 +1,21 @@
+{
+  "name": "Corrección Auditoría 2026-04-04",
+  "description": "Implementación de correcciones de auditoría en Edge Runtime, Imports y Error Handling.",
+  "process_id": "correccion-auditorias",
+  "persist_ref": "docs/features/correccion-auditoria-2026-04-04",
+  "related_actions": ["spec", "clarify", "planning", "implementation", "execution", "validate", "finalize"],
+  "phases": [
+    {
+      "id": "1",
+      "name": "Corregir Edge config"
+    },
+    {
+      "id": "2",
+      "name": "Corregir imports"
+    },
+    {
+      "id": "3",
+      "name": "Corregir type guards en catch"
+    }
+  ]
+}

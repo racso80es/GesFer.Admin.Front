@@ -1,21 +1,25 @@
 ---
 title: Validación - Corrección Auditorías
+feature_id: correccion-auditorias
 date: "2026-04-15"
 ---
 
-# Validación y Cierre
+# Validación y cierre
 
-## Cambios Realizados
-1. En `src/app/companies/new/page.tsx`, se aplicó el Type Guard en el `catch`.
-2. En `src/app/companies/[id]/edit/page.tsx`, se aplicaron Type Guards en las dos funciones con `catch`.
-3. Todos los manejadores `console.error`, `setError` y `setSubmitError` ahora reciben textos seguros (`error.message` o `String(error)`) en vez de objetos `unknown`.
+## Cambios comprobados
 
-## Pruebas Superadas
-- `npx tsc --noEmit` completado sin errores.
-- `npm run build` completado correctamente.
-- `npm run test` con validación de tests automatizados (3 test suites passed).
+1. Rutas `src/app/api/companies/route.ts` y `src/app/api/companies/[id]/route.ts`: type guards en los `catch` y mensajes seguros en log y respuesta.
+2. `src/app/companies/new/page.tsx`: type guard en el `catch` de envío del formulario.
+3. `src/app/companies/[id]/edit/page.tsx`: type guards en `fetchCompany` y en el `catch` de actualización.
+4. `console.error`, `setError` y `setSubmitError` reciben solo cadenas derivadas del error, no el valor `unknown` del `catch`.
 
-## Criterios DoD
-- Todos los bloques catch modificados.
-- Tipado estricto cumplido sin bypass de deuda técnica.
-- Archivo preparado para submit al auditor interno (SddIA).
+## Pruebas
+
+- `npx tsc --noEmit` sin errores.
+- `npm run build` correcto.
+- `npm run test` con suites en verde.
+
+## DoD
+
+- Todos los `catch` tocados cumplen el patrón acordado.
+- Sin bypass de deuda técnica en el tipado.

@@ -1,0 +1,14 @@
+<<<<<<< SEARCH
+<<<<<<< HEAD
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(message);
+      // Handle error (e.g., show toast)
+=======
+      console.error(error);
+      setError(error instanceof Error ? error.message : "Error al crear la organización");
+>>>>>>> origin/main
+=======
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(message);
+      setError(error instanceof Error ? error.message : "Error al crear la organización");
+>>>>>>> REPLACE

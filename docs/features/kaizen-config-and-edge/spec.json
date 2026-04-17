@@ -1,0 +1,13 @@
+{
+  "process_id": "kaizen-config-and-edge",
+  "name": "Kaizen Config Edge Setup",
+  "description": "Remove dynamic filesystem capabilities in config loading",
+  "phases": [
+    "Analysis",
+    "Implementation",
+    "Validation"
+  ],
+  "persist_ref": "docs/features/kaizen-config-and-edge/",
+  "related_actions": ["docs/TASKS/ACTIVE/kaizen-config-and-edge.md"],
+  "contract_ref": "docs/audits/AUDITORIA_2026_03_21.md"
+}

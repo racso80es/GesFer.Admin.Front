@@ -1,0 +1,12 @@
+{
+  "feature_id": "correcciones-auditorias",
+  "name": "Audit Corrections 2026-03-23",
+  "description": "Fixes critical errors reported in AUDITORIA_2026_03_23.md related to raw error logging and constant instantiations.",
+  "status": "implementation",
+  "affected_files": [
+    "src/app/api/companies/[id]/route.ts",
+    "src/app/api/companies/route.ts",
+    "src/app/companies/page.tsx",
+    "src/components/companies/company-form.tsx"
+  ]
+}

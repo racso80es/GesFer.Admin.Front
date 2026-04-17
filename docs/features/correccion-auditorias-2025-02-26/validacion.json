@@ -1,0 +1,11 @@
+{
+  "status": "success",
+  "name": "Corrección según Auditoría 2025-02-26",
+  "audit_date": "2025-02-26",
+  "tests_passed": true,
+  "build_passed": true,
+  "verified_files": [
+    "src/app/companies/new/page.tsx",
+    "src/app/companies/[id]/edit/page.tsx"
+  ]
+}

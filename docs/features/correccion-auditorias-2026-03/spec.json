@@ -1,0 +1,15 @@
+{
+  "process_id": "feature",
+  "name": "Corrección de Auditorías de Seguridad (2026-03)",
+  "description": "Implementación de Kaizen actions reportados en la auditoría AUDITORIA_2026_03_23.md.",
+  "phases": [
+    "Planificación y Especificación",
+    "Corrección Type Guards API",
+    "Limpieza de console.error Server Components",
+    "Implementación y Verificación",
+    "Cierre"
+  ],
+  "persist_ref": "paths.featurePath",
+  "related_actions": ["paths.actionsPath", "AUDITORIA_2026_03_23.md"],
+  "contract_ref": "paths.processPath/process-contract.md"
+}

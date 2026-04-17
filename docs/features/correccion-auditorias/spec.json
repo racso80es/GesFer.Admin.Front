@@ -1,7 +1,12 @@
 {
   "feature_id": "correccion-auditorias",
+  "process_id": "audit-corrections-001",
   "name": "Corrección de Auditorías S+",
-  "description": "Aplica correcciones de TypeScript a bloques catch que pasan errores inferidos directamente al log.",
-  "status": "in-progress",
-  "date": "2026-04-15"
+  "description": "Type guards en catch en rutas API de companies y en páginas new/edit; mensajes seguros para log y estado.",
+  "status": "done",
+  "date": "2026-04-15",
+  "phases": ["Análisis", "Implementación", "Validación"],
+  "persist_ref": "docs/features/correccion-auditorias",
+  "related_actions": ["fix/kaizen-error-handling"],
+  "contract_ref": "SddIA/process/correccion-auditorias"
 }

@@ -26,7 +26,7 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
         setCompany(data);
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        console.error(message);
+        console.error("Error fetching company:", message);
       } finally {
         setIsLoading(false);
       }
@@ -54,7 +54,7 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
       router.refresh();
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      console.error(message);
+      console.error("Error:", message);
       setSubmitError(message);
     }
   };

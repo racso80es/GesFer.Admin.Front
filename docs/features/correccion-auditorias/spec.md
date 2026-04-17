@@ -1,23 +1,49 @@
 ---
 title: Spec - Corrección Auditorías
+feature_id: correccion-auditorias
 date: "2026-04-15"
+version: "1.0"
 ---
 
-# Especificaciones de Implementación
+# Especificación de la corrección
 
-La auditoría determinó la existencia de deuda técnica referente a la validación estricta de variables en la firma del manejador de errores de las páginas relacionadas a organizaciones ("companies").
+## Contexto
 
-## Puntos de Intervención:
+Las auditorías detectaron uso de `console.error` (y estado) pasando el objeto `error` sin type guard en endpoints Next.js y en páginas de companies, en contra del tipado estricto.
 
-1. **`src/app/companies/new/page.tsx`**:
-    *   **Función**: `onSubmit` (línea ~30).
-    *   **Cambio**: Extraer el mensaje usando `error instanceof Error ? error.message : String(error)` y enviar el texto plano a `console.error` y `setError`.
-2. **`src/app/companies/[id]/edit/page.tsx`** (2 instancias):
-    *   **Función 1**: `fetchCompany` (línea ~28).
-    *   **Cambio 1**: Extraer el mensaje y pasar el texto plano a `console.error`.
-    *   **Función 2**: `onSubmit` (línea ~55).
-    *   **Cambio 2**: Extraer el mensaje y pasar el texto plano a `console.error` y `setSubmitError`.
+## Rutas API
 
-## Criterios de Aceptación:
-*   Se elimina cualquier uso directo del objeto `error` como argumento dentro de la cadena `catch`.
-*   El compilador TypeScript (vía `tsc --noEmit`) y la compilación Edge no deben fallar.
+### `src/app/api/companies/route.ts`
+
+- **Ubicación:** bloque `catch` en `POST`.
+- **Cambio:** extraer mensaje con type guard y pasar solo texto a `console.error` y a la respuesta JSON.
+
+### `src/app/api/companies/[id]/route.ts`
+
+- **Ubicación:** bloques `catch` en `GET`, `PUT` y `DELETE`.
+- **Cambio:** mismo patrón.
+
+## Páginas de organizaciones
+
+1. **`src/app/companies/new/page.tsx`** — `handleSubmit` / `onSubmit`: extraer mensaje y pasar texto a `console.error` y `setError`.
+2. **`src/app/companies/[id]/edit/page.tsx`** — `fetchCompany` y `handleSubmit`: extraer mensaje; texto plano a `console.error` y `setSubmitError`.
+
+## Patrón de código
+
+```typescript
+} catch (error) {
+  const message = error instanceof Error ? error.message : String(error);
+  console.error("Error al ejecutar acción:", message);
+  return NextResponse.json(
+    { error: "Error de negocio", detail: message },
+    { status: 500 }
+  );
+}
+```
+
+(En páginas, sustituir el `return NextResponse` por `setError` / `setSubmitError` según corresponda.)
+
+## Criterios de aceptación
+
+- No se pasa el objeto `error` directamente a `console.error` ni a setters de estado.
+- `tsc --noEmit` y el build no fallan por estos cambios.

@@ -1,0 +1,8 @@
+{
+  "process_id": "automatic-task-kaizen-2026-03-23",
+  "name": "Ejecutar Acciones Kaizen de Auditoría",
+  "description": "Refactorización de logs y data fetching en endpoints API y componentes de la UI para alinear el proyecto a los estándares estrictos estipulados en la auditoría del 2026-03-23",
+  "phases": ["planning", "implementation", "validation", "closure"],
+  "persist_ref": "docs/features/automatic-task/",
+  "related_actions": ["fix-error-handling", "update-evolution-log"]
+}

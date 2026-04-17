@@ -1,0 +1,9 @@
+{
+  "process_id": "correcciones-auditoria-2026-03-23",
+  "name": "Correcciones Auditoría 2026-03-23",
+  "description": "Aplica correcciones de la auditoría 2026-03-23",
+  "phases": ["implementacion", "validacion"],
+  "persist_ref": "docs/features/correcciones-auditoria-2026-03-23",
+  "related_actions": [],
+  "contract_ref": "docs/audits/AUDITORIA_2026_03_23.md"
+}

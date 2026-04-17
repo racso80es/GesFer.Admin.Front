@@ -1,0 +1,6 @@
+{
+  "process_id": "correccion-auditorias-2026-04-12",
+  "name": "Corrección de importaciones y catch blocks",
+  "description": "Aplicar correcciones derivadas de AUDITORIA_2026_04_12.md",
+  "phases": ["Analisis", "Ejecucion", "Validacion"]
+}

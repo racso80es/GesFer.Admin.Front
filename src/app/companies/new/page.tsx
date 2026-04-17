@@ -28,7 +28,7 @@ export default function NewCompanyPage() {
       router.refresh();
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      console.error(message);
+      console.error("Error:", message);
       setError(message);
     }
   };

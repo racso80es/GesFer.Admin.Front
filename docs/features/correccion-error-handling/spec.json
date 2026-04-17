@@ -1,0 +1,7 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección de Manejo de Errores",
+  "description": "Aplicación de correcciones del reporte AUDITORIA_2026_04_02.md para el manejo de errores",
+  "persist_ref": "docs/features/correccion-error-handling",
+  "related_actions": ["implementation", "validate", "finalize"]
+}
