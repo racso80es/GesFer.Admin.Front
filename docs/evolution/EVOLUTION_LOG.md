@@ -56,3 +56,17 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Resumen:** Se resolvió el hallazgo H-03 de la auditoría funcional del 2026-03-13. Se implementó una gestión de estado UI (React `useState`) con type guards en `src/app/companies/new/page.tsx` y `src/app/companies/[id]/edit/page.tsx` para mostrar alertas visuales al usuario en caso de que la API retorne errores, complementando el mero uso de `console.error` en el servidor/cliente.
 
 **Documentación:** [docs/features/kaizen-feedback-errores/](../features/kaizen-feedback-errores/)
+## [2026-04-15] [automatic-task/kaizen-implement-logs] Implementar ruta /logs
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Se resolvió el hallazgo H-01 de la auditoría funcional de 2026-03-13 creando la ruta `/logs` y un componente placeholder. Esto evita que el menú del Sidebar redirija a una página 404 de no encontrado.
+
+**Documentación:** [docs/features/kaizen-implement-logs/](../features/kaizen-implement-logs/)
+## [2026-04-16] [automatic-task/kaizen-global-error-handling] Type Guards en Catch Blocks Globales
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Refactorización en varios componentes y vistas (`DestructiveActionConfirm.tsx`, `dashboard/page.tsx`, `login/page.tsx`) para asegurar el manejo correcto de errores en bloques `catch`. Se inyectaron explícitamente *type guards* (`instanceof Error`) para extraer el string del mensaje, cumpliendo con la directiva arquitectónica que prohíbe el uso o registro directo del tipo `unknown`.
+
+**Documentación:** [docs/features/kaizen-global-error-handling/](../features/kaizen-global-error-handling/)

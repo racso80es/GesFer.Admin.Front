@@ -53,7 +53,7 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
       router.push("/companies");
       router.refresh();
     } catch (error) {
-const message = error instanceof Error ? error.message : String(error);
+      const message = error instanceof Error ? error.message : String(error);
       console.error("Error:", message);
       setSubmitError(message);
     }

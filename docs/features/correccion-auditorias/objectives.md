@@ -1,11 +1,19 @@
+---
+title: Objectives - Corrección Auditorías
+feature_id: correccion-auditorias
+date: "2026-04-15"
+---
+
 # Objetivos: Corrección de Auditorías S+
 
-## Objetivo Principal
-Corregir los hallazgos críticos restantes detectados en las auditorías de marzo de 2026, específicamente relacionados con el manejo de errores en las rutas de API.
+## Objetivo principal
 
-## Objetivos Específicos
-- Refactorizar las rutas `src/app/api/companies/route.ts` y `src/app/api/companies/[id]/route.ts`.
-- Implementar estrictos type guards de TypeScript en los bloques `catch`.
-- Extraer strings seguros usando `error instanceof Error ? error.message : String(error)`.
-- Evitar el paso directo del objeto de error `error` u `unknown` a `console.error`.
-- Cumplir con la directiva arquitectónica SddIA de "Testability, Audit & Judge" (Código estricto).
+Corregir los hallazgos de auditoría (marzo–abril de 2026) sobre manejo estricto de errores en rutas API y en las páginas de organizaciones (“companies”).
+
+## Objetivos específicos
+
+- Refactorizar `src/app/api/companies/route.ts` y `src/app/api/companies/[id]/route.ts` con type guards en los bloques `catch`.
+- Aplicar el mismo patrón en `src/app/companies/new/page.tsx` y `src/app/companies/[id]/edit/page.tsx`.
+- Extraer mensajes seguros con `error instanceof Error ? error.message : String(error)`.
+- Evitar que el valor `unknown` del `catch` se pase directamente a `console.error`, `setError` o `setSubmitError`.
+- Cumplir la directiva SddIA de código estricto (Testability, Audit & Judge).

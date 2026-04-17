@@ -1,0 +1,18 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Kaizen Type Guards en Catch Blocks Globales",
+  "description": "Refactorizar bloques catch para evitar registrar variables unknown directamente en console.error.",
+  "phases": [
+    "Análisis de auditorías",
+    "Documentación de objetivos",
+    "Especificación",
+    "Planificación",
+    "Implementación (doc)",
+    "Ejecución",
+    "Validar",
+    "Finalizar"
+  ],
+  "persist_ref": "paths.featurePath/kaizen-global-error-handling",
+  "related_actions": ["spec", "clarify", "planning", "implementation", "execution", "validate", "finalize"],
+  "contract_ref": "paths.processPath/process-contract.json"
+}

@@ -1,34 +1,49 @@
 ---
-name: "Corrección Auditorías: Type Guards"
-description: "Resolución de hallazgos de auditoría (2026-03-23) sobre manejo estricto de errores en handlers de Next.js"
+title: Spec - Corrección Auditorías
+feature_id: correccion-auditorias
+date: "2026-04-15"
 version: "1.0"
-date: "2026-04-09"
-author: "Agente Kaizen"
 ---
 
-# Especificación de la Corrección
+# Especificación de la corrección
 
 ## Contexto
-Las auditorías recientes (ej. `AUDITORIA_2026_03_23.md`) detectaron el uso de `console.error` pasando directamente el objeto original `error` sin extraer un type guard en los endpoints de Next.js, lo que viola las directivas de código estricto.
 
-## Acciones de Refactorización
+Las auditorías detectaron uso de `console.error` (y estado) pasando el objeto `error` sin type guard en endpoints Next.js y en páginas de companies, en contra del tipado estricto.
 
-### 1. `src/app/api/companies/route.ts`
-- **Ubicación:** Bloque `catch` en el método `POST`.
-- **Cambio:** Extraer string del error y enviar a `console.error`.
+## Rutas API
 
-### 2. `src/app/api/companies/[id]/route.ts`
-- **Ubicación:** Bloques `catch` en los métodos `GET`, `PUT` y `DELETE`.
-- **Cambio:** Extraer string del error y enviar a `console.error`.
+### `src/app/api/companies/route.ts`
 
-## Patrón de Código a Implementar
+- **Ubicación:** bloque `catch` en `POST`.
+- **Cambio:** extraer mensaje con type guard y pasar solo texto a `console.error` y a la respuesta JSON.
+
+### `src/app/api/companies/[id]/route.ts`
+
+- **Ubicación:** bloques `catch` en `GET`, `PUT` y `DELETE`.
+- **Cambio:** mismo patrón.
+
+## Páginas de organizaciones
+
+1. **`src/app/companies/new/page.tsx`** — `handleSubmit` / `onSubmit`: extraer mensaje y pasar texto a `console.error` y `setError`.
+2. **`src/app/companies/[id]/edit/page.tsx`** — `fetchCompany` y `handleSubmit`: extraer mensaje; texto plano a `console.error` y `setSubmitError`.
+
+## Patrón de código
+
 ```typescript
 } catch (error) {
   const message = error instanceof Error ? error.message : String(error);
-  console.error("Error al ejecutar accion:", message);
+  console.error("Error al ejecutar acción:", message);
   return NextResponse.json(
     { error: "Error de negocio", detail: message },
     { status: 500 }
   );
 }
 ```
+
+(En páginas, sustituir el `return NextResponse` por `setError` / `setSubmitError` según corresponda.)
+
+## Criterios de aceptación
+
+- No se pasa el objeto `error` directamente a `console.error` ni a setters de estado.
+- `tsc --noEmit` y el build no fallan por estos cambios.

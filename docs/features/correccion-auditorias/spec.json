@@ -1,7 +1,10 @@
 {
+  "feature_id": "correccion-auditorias",
   "process_id": "audit-corrections-001",
-  "name": "Corrección Auditorías: Type Guards",
-  "description": "Resolución de hallazgos de auditoría (2026-03-23) sobre manejo estricto de errores en handlers de Next.js",
+  "name": "Corrección de Auditorías S+",
+  "description": "Type guards en catch en rutas API de companies y en páginas new/edit; mensajes seguros para log y estado.",
+  "status": "done",
+  "date": "2026-04-15",
   "phases": ["Análisis", "Implementación", "Validación"],
   "persist_ref": "docs/features/correccion-auditorias",
   "related_actions": ["fix/kaizen-error-handling"],

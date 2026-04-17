@@ -27,7 +27,7 @@ export default function NewCompanyPage() {
       router.push("/companies");
       router.refresh();
     } catch (error) {
-const message = error instanceof Error ? error.message : String(error);
+      const message = error instanceof Error ? error.message : String(error);
       console.error("Error:", message);
       setError(message);
     }
