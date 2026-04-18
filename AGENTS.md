@@ -44,6 +44,7 @@ Al **empezar una tarea** se debe elegir un **proceso**. Los procesos definen el 
 | **create-tool** | Creación de herramienta: rama `feat/create-tool-<tool-id>`. Entregable: cápsula en paths.toolCapsules. | `paths.featurePath/create-tool-<tool-id>` (doc); entregable en `paths.toolsPath/<tool-id>/` | [`SddIA/process/create-tool/`](./SddIA/process/create-tool/) |
 | **create-template** | Creación de plantilla: rama `feat/create-template-<template-id>`. Entregable: carpeta en paths.templatesPath con spec.md y spec.json. | `paths.featurePath/create-template-<template-id>` (doc); entregable en `paths.templatesPath/<template-id>/` | [`SddIA/process/create-template/`](./SddIA/process/create-template/) |
 | **audit-tool** | Auditoría de herramienta: verificación empírica del funcionamiento. Resultado: informe en paths.auditsPath/tools/<tool-id>/. | `paths.featurePath/audit-tool-<tool-id>` (doc); resultado en `paths.auditsPath/tools/<tool-id>/` | [`SddIA/process/audit-tool/`](./SddIA/process/audit-tool/) |
+| **validate-pull-requests** | Revisión de PR (S+ Grade): consenso multi-agente sobre la rama origen; informe y Kaizen diferido. | `paths.featurePath/validate-pull-requests-<pr-slug>` (doc); semillas en `paths.tasksPath` | [`SddIA/process/validate-pull-requests/`](./SddIA/process/validate-pull-requests/) |
 
 Índice de procesos: [`SddIA/process/README.md`](./SddIA/process/README.md).
 
@@ -82,6 +83,7 @@ Selecciona el rol más específico posible. Si dudas, activa **Arquitecto**.
 | **[BUG-FIX]** | Bug, Fix, Incidencia, Corrección, Reproducción. | Cargar [`SddIA/process/bug-fix/`](./SddIA/process/bug-fix/) (spec.md, spec.json). Orquestar ciclo del fix. |
 | **[CREATE-TOOL]** | Herramienta, Tool, Crear herramienta, Nueva tool. | Cargar [`SddIA/process/create-tool/`](./SddIA/process/create-tool/). Orquestar ciclo de creación de herramienta (cápsula, índice, Cúmulo). |
 | **[CREATE-TEMPLATE]** | Plantilla, Template, Crear plantilla, Nueva plantilla. | Cargar [`SddIA/process/create-template/`](./SddIA/process/create-template/). Orquestar ciclo de creación de plantilla (paths.templatesPath, contrato templates). |
+| **[VALIDATE-PR]** | Pull Request, revisión PR, S+ Grade, consenso multi-agente sobre rama origen. | Cargar [`SddIA/process/validate-pull-requests/`](./SddIA/process/validate-pull-requests/) (spec.md, spec.json). Orquestar architect, qa-judge y security-engineer. |
 
 ---
 
