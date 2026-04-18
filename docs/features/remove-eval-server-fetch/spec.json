@@ -1,0 +1,9 @@
+{
+  "process_id": "feature",
+  "name": "Remove eval from server-fetch",
+  "description": "Kaizen action: Remove eval from server-fetch",
+  "phases": [],
+  "persist_ref": "docs/features/remove-eval-server-fetch",
+  "related_actions": [],
+  "contract_ref": "paths.processPath/process-contract.md"
+}

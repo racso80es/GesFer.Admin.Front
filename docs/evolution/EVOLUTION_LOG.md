@@ -70,3 +70,4 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Resumen:** Refactorización en varios componentes y vistas (`DestructiveActionConfirm.tsx`, `dashboard/page.tsx`, `login/page.tsx`) para asegurar el manejo correcto de errores en bloques `catch`. Se inyectaron explícitamente *type guards* (`instanceof Error`) para extraer el string del mensaje, cumpliendo con la directiva arquitectónica que prohíbe el uso o registro directo del tipo `unknown`.
 
 **Documentación:** [docs/features/kaizen-global-error-handling/](../features/kaizen-global-error-handling/)
+- 2026-04-18: Resolved task fix-server-fetch: Removed eval and dynamic loading hack from server-fetch.ts to comply with edge runtime constraints.
