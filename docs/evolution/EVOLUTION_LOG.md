@@ -71,3 +71,11 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/kaizen-global-error-handling/](../features/kaizen-global-error-handling/)
 - 2026-04-18: Resolved task fix-server-fetch: Removed eval and dynamic loading hack from server-fetch.ts to comply with edge runtime constraints.
+
+## [2026-04-19] [automatic-task/kaizen-correccion-auditoria] Corrección de Logs en API
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Se resolvió un hallazgo medio de la auditoría relacionado con el uso de `console.error` sin interpolación de strings. Se aplicó interpolación de strings seguros en los logs de los controladores de la API (`dashboard/summary`, `companies`, y `companies/[id]`) para garantizar una ingesta de logs unificada.
+
+**Documentación:** [docs/features/correccion-auditoria-2026-04-19/](../features/correccion-auditoria-2026-04-19/)

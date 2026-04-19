@@ -1,0 +1,8 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección de logs en API",
+  "phases": [
+    { "id": "1", "name": "Documentación" },
+    { "id": "2", "name": "Implementación" }
+  ]
+}
