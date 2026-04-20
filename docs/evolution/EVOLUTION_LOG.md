@@ -80,3 +80,4 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Documentación:** [docs/features/correccion-auditoria-2026-04-19/](../features/correccion-auditoria-2026-04-19/)
 [2026-04-19] [feat/fix-config-fs] [Task fix-config-fs validated as already solved. fs and path were removed from config.ts previously.] [DONE]
+[2026-04-20] [fix/fix-jest-haste-map] [Fixed jest config modulePathIgnorePatterns by confirming <rootDir>/.next/ exclusion.] [DONE].
