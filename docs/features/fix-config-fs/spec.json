@@ -1,0 +1,9 @@
+{
+  "process_id": "feature",
+  "name": "fix-config-fs",
+  "description": "Remove fs/path from config.ts",
+  "phases": ["clarify", "validate", "finalize"],
+  "persist_ref": "docs/features/fix-config-fs",
+  "related_actions": ["validate"],
+  "contract_ref": "SddIA/process/process-contract.json"
+}
