@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Company } from "@/lib/types/api";
 import { getAdminApiWithToken } from "@/lib/api/admin-api-server";
 import { auth } from "@/auth";
+import { sanitizeLogMessage } from "@/lib/utils/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -28,8 +29,7 @@ export async function GET(_request: NextRequest, { params }: Params) {
     return NextResponse.json(company);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    // TODO: Saneamiento de log
-    console.error(`Error fetching company ${params.id}: ${message}`);
+    console.error(sanitizeLogMessage(`Error fetching company ${params.id}: ${message}`));
     return NextResponse.json(
       { error: "Error al obtener la organización" },
       { status: 500 }
@@ -49,8 +49,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     return NextResponse.json(company);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    // TODO: Saneamiento de log
-    console.error(`Error updating company ${params.id}: ${message}`);
+    console.error(sanitizeLogMessage(`Error updating company ${params.id}: ${message}`));
     return NextResponse.json(
       { error: "Error al actualizar la organización" },
       { status: 500 }
@@ -69,8 +68,7 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
     return new NextResponse(null, { status: 204 });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    // TODO: Saneamiento de log
-    console.error(`Error deleting company ${params.id}: ${message}`);
+    console.error(sanitizeLogMessage(`Error deleting company ${params.id}: ${message}`));
     return NextResponse.json(
       { error: "Error al eliminar la organización" },
       { status: 500 }

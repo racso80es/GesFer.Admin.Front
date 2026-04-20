@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getAdminApiWithToken } from "@/lib/api/admin-api-server";
 import { auth } from "@/auth";
+import { sanitizeLogMessage } from "@/lib/utils/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -20,8 +21,7 @@ export async function GET() {
     return NextResponse.json(summary);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    // TODO: Saneamiento de log
-    console.error(`Error fetching dashboard summary: ${message}`);
+    console.error(sanitizeLogMessage(`Error fetching dashboard summary: ${message}`));
     return NextResponse.json(
       { error: "Error al obtener el resumen", detail: message },
       { status: 500 }
