@@ -20,7 +20,8 @@ export async function GET() {
     return NextResponse.json(summary);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error("Error fetching dashboard summary:", message);
+    // TODO: Saneamiento de log
+    console.error(`Error fetching dashboard summary: ${message}`);
     return NextResponse.json(
       { error: "Error al obtener el resumen", detail: message },
       { status: 500 }
