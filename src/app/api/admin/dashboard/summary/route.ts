@@ -23,7 +23,7 @@ export async function GET() {
     const message = error instanceof Error ? error.message : String(error);
     console.error(sanitizeLogMessage(`Error fetching dashboard summary: ${message}`));
     return NextResponse.json(
-      { error: "Error al obtener el resumen", detail: message },
+      { error: "Error al obtener el resumen", detail: "Ocurrió un error inesperado al consultar el dashboard." },
       { status: 500 }
     );
   }
