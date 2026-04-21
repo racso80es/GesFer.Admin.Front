@@ -56,12 +56,12 @@ export function sanitizeLogMessage(message: string): string {
   // Limpiar tarjetas con un enfoque más cuidadoso para no afectar fechas/números comunes,
   // aquí usamos la regex de CC definida arriba.
   sanitized = sanitized.replace(CREDIT_CARD_REGEX, (match) => {
-      // Pequeña heurística: Si la longitud de solo dígitos es entre 14 y 16, la redactamos
-      const digitsOnly = match.replace(/[\s-]/g, "");
-      if (digitsOnly.length >= 14 && digitsOnly.length <= 16) {
-          return "[REDACTED_CREDIT_CARD]";
-      }
-      return match;
+    // Pequeña heurística: Si la longitud de solo dígitos es entre 14 y 16, la redactamos
+    const digitsOnly = match.replace(/[\s-]/g, "");
+    if (digitsOnly.length >= 14 && digitsOnly.length <= 16) {
+      return "[REDACTED_CREDIT_CARD]";
+    }
+    return match;
   });
 
   return sanitized;
