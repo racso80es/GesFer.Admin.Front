@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Company } from "@/lib/types/api";
 import { getAdminApiWithToken } from "@/lib/api/admin-api-server";
 import { auth } from "@/auth";
+import { sanitizeLogMessage } from "@/lib/utils/logger";
 
 export const dynamic = "force-dynamic";
 
@@ -17,8 +18,7 @@ export async function GET() {
     return NextResponse.json(companies);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    // TODO: Saneamiento de log
-    console.error(`Error fetching companies: ${message}`);
+    console.error(sanitizeLogMessage(`Error fetching companies: ${message}`));
     return NextResponse.json(
       { error: "Error al obtener las organizaciones", detail: message },
       { status: 500 }
@@ -38,8 +38,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(company, { status: 201 });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    // TODO: Saneamiento de log
-    console.error(`Error creating company: ${message}`);
+    console.error(sanitizeLogMessage(`Error creating company: ${message}`));
     return NextResponse.json(
       { error: "Error al crear la organización", detail: message },
       { status: 500 }
