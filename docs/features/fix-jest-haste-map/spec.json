@@ -1,0 +1,7 @@
+{
+  "process_id": "fix-jest-haste-map",
+  "name": "Fix jest config modulePathIgnorePatterns",
+  "description": "Fix jest config modulePathIgnorePatterns to avoid haste map collisions.",
+  "phases": ["implementation", "validation", "finalization"],
+  "persist_ref": "docs/features/fix-jest-haste-map"
+}
