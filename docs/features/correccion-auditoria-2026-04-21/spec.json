@@ -1,0 +1,5 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección Auditoría 2026-04-21",
+  "description": "Asegurar que los endpoints no devuelvan detalles de error internos."
+}
