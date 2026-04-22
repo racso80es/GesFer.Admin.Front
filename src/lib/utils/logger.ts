@@ -30,7 +30,7 @@ const CREDENTIALS_REGEX = /(?:password|secret|apiKey|api_key|token)["'\s]*[:=]["
  * @returns El mensaje de log con la información sensible redactada.
  */
 export function sanitizeLogMessage(message: string): string {
-  if (!message || typeof message !== "string") {
+  if (!message) {
     return message;
   }
 

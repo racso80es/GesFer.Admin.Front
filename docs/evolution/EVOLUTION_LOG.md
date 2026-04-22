@@ -81,3 +81,9 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Documentación:** [docs/features/correccion-auditoria-2026-04-19/](../features/correccion-auditoria-2026-04-19/)
 [2026-04-19] [feat/fix-config-fs] [Task fix-config-fs validated as already solved. fs and path were removed from config.ts previously.] [DONE]
 [2026-04-20] [fix/fix-jest-haste-map] [Fixed jest config modulePathIgnorePatterns by confirming <rootDir>/.next/ exclusion.] [DONE].
+
+## [2026-04-21] [automatic-task/refactor-logger-types] Refactorización de tipado en sanitizeLogMessage
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Se ha restringido el contrato de `sanitizeLogMessage` al tipo estricto `string`, eliminando los chequeos en runtime para tipos no-string y actualizando los tests correspondientes, cumpliendo con la definición de la tarea 20260421-Refactor-Logger-sanitizeLogMessage-types.md.

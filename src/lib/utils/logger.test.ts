@@ -48,10 +48,4 @@ describe("sanitizeLogMessage", () => {
     expect(sanitizeLogMessage(message)).toBe("User [REDACTED_EMAIL] with token Bearer [REDACTED_TOKEN] and password=[REDACTED_CREDENTIAL] failed.");
   });
 
-  it("should handle non-string inputs safely (returns as is or stringified if we changed the signature, but since it expects string, it will pass through unchanged for now depending on type coerction in JS)", () => {
-    // @ts-expect-error Testing non-string input at runtime
-    expect(sanitizeLogMessage(null)).toBe(null);
-    // @ts-expect-error Testing non-string input at runtime
-    expect(sanitizeLogMessage(undefined)).toBe(undefined);
-  });
 });
