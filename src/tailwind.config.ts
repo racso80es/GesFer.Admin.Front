@@ -43,12 +43,18 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "emerald-signal": "#00d992",
+        "voltagent-mint": "#2fd6a1",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontFamily: {
+        sans: ["Inter", "system-ui", "sans-serif"],
+        mono: ["SFMono-Regular", "monospace"],
+      }
     },
   },
   plugins: [],
