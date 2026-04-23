@@ -19,7 +19,6 @@ export async function GET() {
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error(sanitizeLogMessage(`Error fetching companies: ${message}`));
-    // TODO: Saneamiento de error detail
     return NextResponse.json(
       { error: "Error al obtener las organizaciones", detail: "Error interno del servidor" },
       { status: 500 }
@@ -40,7 +39,6 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error(sanitizeLogMessage(`Error creating company: ${message}`));
-    // TODO: Saneamiento de error detail
     return NextResponse.json(
       { error: "Error al crear la organización", detail: "Error interno del servidor" },
       { status: 500 }
