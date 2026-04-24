@@ -1,0 +1,15 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección Auditoría 2026-04-23",
+  "description": "Aplicación de correcciones del reporte de auditoría 2026-04-23. Sin hallazgos.",
+  "phases": [
+    {
+      "id": "1",
+      "name": "Análisis y Validación",
+      "status": "completed"
+    }
+  ],
+  "persist_ref": "docs/features/correccion-auditorias-2026-04-23",
+  "related_actions": ["validate"],
+  "contract_ref": "SddIA/process/correccion-auditorias/spec.json"
+}
