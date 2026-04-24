@@ -49,25 +49,32 @@
   }
 
   .voltagent-theme {
+    /* Abyss Black (#050507) => HSL: 240, 16%, 3% */
     --background: 240 16% 3%;
+    /* Snow White (#f2f2f2) => HSL: 0, 0%, 95% */
     --foreground: 0 0% 95%;
+    /* Carbon Surface (#101010) => HSL: 0, 0%, 6% */
     --card: 0 0% 6%;
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 6%;
     --popover-foreground: 0 0% 95%;
+    /* Emerald Signal Green (#00d992) => HSL: 160, 100%, 43% */
     --primary: 160 100% 43%;
-    --primary-foreground: 0 0% 6%;
-    --secondary: 20 3% 23%;
+    --primary-foreground: 240 16% 3%;
+    /* Warm Charcoal (#3d3a39) => HSL: 15, 3%, 23% */
+    --secondary: 15 3% 23%;
     --secondary-foreground: 0 0% 95%;
-    --muted: 20 3% 23%;
-    --muted-foreground: 20 5% 72%;
+    --muted: 15 3% 23%;
+    /* Warm Parchment (#b8b3b0) => HSL: 22, 5%, 71% */
+    --muted-foreground: 22 5% 71%;
     --accent: 160 100% 43%;
-    --accent-foreground: 0 0% 6%;
+    --accent-foreground: 240 16% 3%;
     --destructive: 358 96% 66%;
     --destructive-foreground: 0 0% 95%;
-    --border: 20 3% 23%;
-    --input: 20 3% 23%;
-    --ring: 160 100% 43%;
+    --border: 15 3% 23%;
+    --input: 15 3% 23%;
+    /* VoltAgent Mint (#2fd6a1) => HSL: 161, 68%, 51% */
+    --ring: 161 68% 51%;
   }
 }
 
