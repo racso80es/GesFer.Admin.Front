@@ -31,4 +31,40 @@ Acción que orquesta la revisión y actualización: **paths.actionsPath/sddia-di
 3. **Revisión al cambiar SddIA:** Si se añade un proceso (p. ej. refactorization), una acción (p. ej. sddia-difusion) o un disparador, actualizar los touchpoints afectados (acción sddia-difusion).
 
 ---
+
+## Directrices registradas
+
+### Eficiencia Operativa y Gestión de Tokens (EO/GT)
+
+**Objetivo:** Reducir coste operativo y tokens sin degradar la corrección, manteniendo trazabilidad (Karma2Token) y consistencia con **AGENTS.md** y SddIA.
+
+#### Reglas (obligatorias en todos los gestores / touchpoints)
+
+1. **Prohibición de Entropía Social**
+   - El agente debe **eliminar cortesías, prefacios y confirmaciones verbales** en todas las interacciones.
+   - Prohibido: “Entendido”, “Claro”, “Gracias”, “Perfecto”, “Déjame…”, “A continuación…”, “Buena pregunta…”, “Con gusto…”.
+   - Permitido: comunicación estrictamente necesaria para ejecutar (riesgos, bloqueos, pasos, resultados).
+2. **Densidad Técnica S+ (Filtro A: Lógica)**
+   - Respuestas **lacónicas** y centradas en **Lógica/decisión/acción** (Filtro A).
+   - Prioridad de salida: **código/cambios verificables** > comandos vía skill/tool/acción/proceso > prosa.
+   - Evitar redundancia: no repetir lo que el usuario ya sabe; no “narrar” el proceso.
+3. **Pre-verificación de Suposiciones (antes de ejecutar)**
+   - Antes de aplicar cambios, el agente debe **validar el contexto y dependencias existentes** para evitar retrabajo:
+     - estado de archivos/artefactos canónicos (AGENTS.md, SddIA/norms, contratos relevantes),
+     - presencia/ausencia de touchpoints (p. ej. reglas en `.cursor/rules`, configuración de Jules si existe),
+     - coherencia con restricciones de ejecución (comandos solo vía skill/tool/acción/proceso).
+   - La verificación es **técnica y documental**, no una solicitud de confirmación al usuario.
+
+#### Coherencia constitucional y auditoría de desviaciones
+
+- **Coherencia con CONSTITUTION.md**: esta directriz regula **eficiencia de interacción** (no lógica de negocio). Si un gestor o regla local contradice SddIA/AGENTS, **prevalece SddIA** (SSOT).
+- **Desviaciones**: cualquier excepción o desviación detectada debe registrarse como cambio auditable bajo el flujo **Feature** o **Refactorization** correspondiente (según alcance), con trazabilidad SddIA (incl. evolution cuando aplique a `./SddIA/`).
+
+#### Mecanismo de difusión (obligatorio al registrar o modificar esta directriz)
+
+1. **Actualizar `.cursor/rules`** con una regla de aplicación global que refleje EO/GT (difusión para Cursor).
+2. **Actualizar touchpoint Jules** (si existe): incorporar esta directriz en su prompt/reglas operativas para que aplique las mismas restricciones que Cursor.
+3. **Verificar** que los touchpoints no introducen contradicciones con AGENTS.md, SddIA/norms y el contrato Token (Karma2Token).
+
+---
 *Referencia: paths.actionsPath/sddia-difusion/ (SddIA/actions/sddia-difusion/). Actualizar esta tabla al añadir o quitar gestores.*
