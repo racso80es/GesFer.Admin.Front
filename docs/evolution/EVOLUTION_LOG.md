@@ -87,3 +87,8 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Estado:** Completado (En PR). Proceso cerrado en tarea automática.
 
 **Resumen:** Se ha restringido el contrato de `sanitizeLogMessage` al tipo estricto `string`, eliminando los chequeos en runtime para tipos no-string y actualizando los tests correspondientes, cumpliendo con la definición de la tarea 20260421-Refactor-Logger-sanitizeLogMessage-types.md.
+
+## [2026-04-24] [feat/actualizacion-diseny] Implementación de diseño VoltAgent
+
+**Estado:** Completado (En PR).
+**Resumen:** Refactorización UI inyectando el sistema de diseño VoltAgent de forma aditiva mediante la clase .voltagent-theme. Se crearon componentes base v2 y se actualizaron vistas clave (login, listado y edición de organizaciones) garantizando escalabilidad estética.

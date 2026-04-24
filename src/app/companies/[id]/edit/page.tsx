@@ -63,11 +63,11 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
   if (!company) return <div>Organización no encontrada</div>;
 
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-6">Editar Organización</h1>
-      <div className="max-w-2xl bg-white p-6 rounded-lg shadow">
+    <div className="voltagent-theme container mx-auto py-10 bg-background min-h-screen max-w-none text-foreground">
+      <h1 className="text-2xl font-bold mb-6 text-foreground font-sans tracking-tight">Editar Organización</h1>
+      <div className="max-w-2xl bg-card border border-border p-6 rounded-lg shadow-[rgba(92,88,85,0.2)_0px_0px_15px]">
         {submitError && (
-          <div className="mb-4 rounded-md bg-red-50 border border-red-200 p-4 text-red-800 text-sm">
+          <div className="mb-4 rounded-md bg-destructive/10 border border-destructive p-4 text-destructive text-sm">
             {submitError}
           </div>
         )}

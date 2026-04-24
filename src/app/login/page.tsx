@@ -4,10 +4,10 @@ import { useState } from "react";
 import { getDefaultAdminUsername, getDefaultAdminPassword } from "@/lib/env";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/v2/card";
+import { Input } from "@/components/ui/v2/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/v2/button";
 import { ErrorMessage } from "@/components/ui/error-message";
 import { User, Lock, Loader2, Shield } from "lucide-react";
 
@@ -67,7 +67,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="voltagent-theme flex min-h-screen items-center justify-center bg-background">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-1 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
@@ -113,7 +113,7 @@ export default function AdminLoginPage() {
               </div>
             </div>
             {error && <ErrorMessage message={error} />}
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button variant="voltagent-cta" type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
