@@ -92,3 +92,8 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Estado:** Completado (En PR).
 **Resumen:** Refactorización UI inyectando el sistema de diseño VoltAgent de forma aditiva mediante la clase .voltagent-theme. Se crearon componentes base v2 y se actualizaron vistas clave (login, listado y edición de organizaciones) garantizando escalabilidad estética.
+
+## [2026-04-26] [automatic-task/kaizen-npm-audit-2] Resolucion vulnerabilidades
+
+**Estado:** Completado.
+**Resumen:** Ejecutado npm audit fix.
