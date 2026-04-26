@@ -1,0 +1,11 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Registro Auditoría Limpia 2026-04-26",
+  "description": "Registro formal de una auditoría sin hallazgos técnicos.",
+  "phases": [
+    "Análisis de auditorías",
+    "Documentación de objetivos",
+    "Validar"
+  ],
+  "persist_ref": "docs/features/correccion-auditoria-2026-04-26"
+}
