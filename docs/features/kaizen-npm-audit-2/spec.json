@@ -1,0 +1,13 @@
+{
+  "process_id": "feature",
+  "name": "Kaizen Npm Audit 2",
+  "description": "Resolve npm vulnerabilities",
+  "phases": [
+    {
+      "id": "1",
+      "name": "Audit Fix",
+      "status": "completed"
+    }
+  ],
+  "persist_ref": "docs/features/kaizen-npm-audit-2"
+}
