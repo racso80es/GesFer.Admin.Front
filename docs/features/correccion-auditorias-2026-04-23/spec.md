@@ -1,9 +1,8 @@
 ---
-title: Spec Corrección Auditoría 2026-04-23
-date: 2026-04-23
+type: spec
+feature: correccion-auditorias-2026-04-23
 status: completed
 ---
-
-# Spec
-
-El reporte de auditoría no indica hallazgos ni mejoras. El proyecto compila y las métricas de arquitectura están al 100%. Por lo tanto, no hay especificaciones técnicas para implementar.
+# Especificación
+- La auditoría `AUDITORIA_2026_04_23.md` reportó 100% en Arquitectura, Nomenclatura y Estabilidad Async.
+- No hay hallazgos críticos ni medios.
