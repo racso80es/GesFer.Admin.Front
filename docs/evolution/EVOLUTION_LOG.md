@@ -97,3 +97,8 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 
 **Estado:** Completado.
 **Resumen:** Ejecutado npm audit fix.
+
+## [2026-04-29] [fix/kaizen-skills-compilation-2026-04-29] Fix SddIA skills compilation
+
+**Estado:** Completado.
+**Resumen:** Se arregló la compilación de los scripts Rust en scripts/skills-rs.
