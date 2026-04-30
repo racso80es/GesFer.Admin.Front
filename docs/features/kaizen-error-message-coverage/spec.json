@@ -1,0 +1,9 @@
+{
+  "process_id": "kaizen-error-message-coverage",
+  "name": "Add test coverage for error-message component",
+  "description": "Se añade cobertura al componente ui base error-message",
+  "phases": ["1. implementation", "2. execution", "3. finalization"],
+  "persist_ref": "docs/features/kaizen-error-message-coverage/",
+  "related_actions": ["docs/TASKS/ACTIVE/Kaizen_error_message_coverage_2026_04_25.md"],
+  "contract_ref": "paths.processPath/process-contract.md"
+}
