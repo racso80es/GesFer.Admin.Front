@@ -12,8 +12,8 @@ fn main() {
         std::process::exit(1);
     }
     let branch_type = args[1].to_lowercase();
-    if branch_type != "feat" && branch_type != "fix" {
-        eprintln!("BranchType debe ser 'feat' o 'fix'");
+    if branch_type != "feat" && branch_type != "fix" && branch_type != "automatic-task" {
+        eprintln!("BranchType debe ser 'feat', 'fix', o 'automatic-task'");
         std::process::exit(1);
     }
     let branch_name = args[2]
