@@ -93,6 +93,13 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Estado:** Completado (En PR).
 **Resumen:** Refactorización UI inyectando el sistema de diseño VoltAgent de forma aditiva mediante la clase .voltagent-theme. Se crearon componentes base v2 y se actualizaron vistas clave (login, listado y edición de organizaciones) garantizando escalabilidad estética.
 
+## [2026-04-25] [automatic-task/kaizen-error-message-coverage] Añadir tests ErrorMessage
+
+**Estado:** Completado (En PR). Proceso cerrado en tarea automática.
+
+**Resumen:** Se añadió la cobertura de tests faltante al componente base `src/components/ui/error-message.tsx`. Se garantizó la renderización correcta de los mensajes de error visuales y la validación de atributos.
+
+**Documentación:** [docs/features/kaizen-error-message-coverage/](../features/kaizen-error-message-coverage/)
 ## [2026-04-26] [automatic-task/kaizen-npm-audit-2] Resolucion vulnerabilidades
 
 **Estado:** Completado.
@@ -101,3 +108,9 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 - **Acción:** Auditoría de Fase A (Integridad Estructural)
 - **Resultado:** 100% Health, 0 Deuda Técnica. Procedimiento correccion-auditorias ejecutado y registrado.
 - **Responsable:** Guardián de la Infraestructura
+
+## [2026-04-28] [automatic-task/kaizen-npm-audit-3] Resolucion vulnerabilidades
+
+**Estado:** Completado.
+**Resumen:** Ejecutado npm audit fix para mitigar vulnerabilidades y compilado SddIA skills.
+**Documentación:** [docs/features/kaizen-npm-audit-3/](../features/kaizen-npm-audit-3/)
