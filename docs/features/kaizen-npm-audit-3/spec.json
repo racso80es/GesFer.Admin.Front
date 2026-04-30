@@ -1,0 +1,12 @@
+{
+  "name": "kaizen-npm-audit-3",
+  "description": "Resolver vulnerabilidades de NPM",
+  "process_id": "automatic_task",
+  "phases": [
+    {
+      "id": "1",
+      "name": "NPM Audit Fix",
+      "status": "completed"
+    }
+  ]
+}

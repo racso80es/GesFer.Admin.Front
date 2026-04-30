@@ -1,0 +1,8 @@
+{
+  "process_id": "correccion-auditoria-2026-04-28",
+  "name": "Registro de Auditoría Libre de Deuda",
+  "description": "Formalizar el éxito de la auditoría de Fase A con un 100% de salud",
+  "phases": ["registro", "validacion"],
+  "related_actions": ["auditoria-fase-a"],
+  "contract_ref": "SddIA/process/correccion-auditorias"
+}
