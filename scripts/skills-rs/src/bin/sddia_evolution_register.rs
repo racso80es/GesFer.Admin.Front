@@ -118,7 +118,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut hasher = Sha256::new();
     hasher.update(frontmatter.as_bytes());
-    let hash_result = format!("{:x}", hasher.finalize());
+    let hash_result = hex::encode(hasher.finalize());
 
     record.replicacion.hash_integrity = hash_result;
     let final_frontmatter = serde_yaml::to_string(&record)?;
