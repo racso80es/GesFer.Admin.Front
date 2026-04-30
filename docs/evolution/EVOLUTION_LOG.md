@@ -100,3 +100,7 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Resumen:** Se añadió la cobertura de tests faltante al componente base `src/components/ui/error-message.tsx`. Se garantizó la renderización correcta de los mensajes de error visuales y la validación de atributos.
 
 **Documentación:** [docs/features/kaizen-error-message-coverage/](../features/kaizen-error-message-coverage/)
+## [2026-04-26] [automatic-task/kaizen-npm-audit-2] Resolucion vulnerabilidades
+
+**Estado:** Completado.
+**Resumen:** Ejecutado npm audit fix.
