@@ -4,6 +4,7 @@
 
 | ID (GUID) | Fecha | Descripción breve |
 | :--- | :--- | :--- |
+| 7a4c8e10-3f2b-4d9e-a1c5-6b8e7f9d0e12 | 2026-05-01T12:15:00.000000000+00:00 | Skills Git ejecutables (JSON v2), Cúmulo/índice; regeneración Cargo.lock skills-rs |
 | e4d9a2b1-7c3f-4a8e-b5d6-1f0e9c8a7b6d | 2026-05-01T18:00:00.000000000+00:00 | Guías portabilidad create-skill/skills, norma capsule-json-io, paths-via-cumulo evolution SddIA |
 | b7e2f4c8-3a91-4e2d-9f6c-8d8e0a1b2c3d | 2026-05-01T12:00:00.000000000+00:00 | Proceso create-skill, difusión y contrato skills (.exe en raíz de cápsula) |
 | 29c51ecd-7d80-431d-8fdf-277a152d685a | 2026-03-27T12:28:44.648510600+00:00 | Protocolo evolution SddIA v1.1: norma, Cúmulo, Rust, CI, difusión Cursor |

@@ -43,6 +43,8 @@ Esta guía complementa **`reproducir-create-skill-en-otros-entornos-sddia.md`**,
 2. **cumulo.paths.json** → **paths.skillCapsules:** clave **`<skill-id>`** con ruta relativa a la cápsula.
 3. Código fuente Rust (si aplica): copiar o enlazar módulo bajo **paths.skillsRustPath** y ajustar build del destino.
 
+*Nota (este repositorio):* el envelope **JSON v2.0** para skills nuevas está en el crate **gesfer-skills** (`src/capsule_json.rs`, `src/git_cmd.rs`), no en un crate externo `gesfer-capsule`. Otros clones pueden portar esos módulos o sustituirlos por una librería compartida equivalente.
+
 ## 5. Visibilidad opcional
 
 - **SddIA/skills/README.md** o índice local de definiciones.
