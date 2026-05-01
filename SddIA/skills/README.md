@@ -36,6 +36,11 @@ Cada skill tiene en este directorio una carpeta con:
 | frontend-build | Build Next.js (Product, Admin) fallback. | — |
 | security-audit | Auditoría y hooks pre-commit/pre-push. | — |
 
+## Guías de portabilidad (otros repos SddIA)
+
+- **Proceso `create-skill`:** `reproducir-create-skill-en-otros-entornos-sddia.md`
+- **Skills concretas (definición + cápsula):** `reproducir-skills-en-otros-entornos-sddia.md`
+
 ## Referencias
 
 - Contrato global: `skills-contract.json`, `skills-contract.md` (en este directorio).

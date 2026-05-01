@@ -20,7 +20,7 @@ descripcion: >-
 
 Esta guía describe **qué artefactos copiar, qué índices actualizar y cómo validar** para que el proceso **`create-skill`** exista y sea descubrible en **otro repo** que siga el mismo ecosistema SddIA. Las rutas lógicas son siempre las del **Cúmulo** (`SddIA/agents/cumulo.json` → `pathsContract` → `SddIA/agents/cumulo.paths.json`); no documentar rutas físicas como SSOT sin anclarlas a claves `paths.*`.
 
-**Alcance de este documento:** portar la **definición del proceso** (`paths.processPath/create-skill/`) y su **visibilidad** (README de procesos, disparador `#Process`, difusión Cursor si aplica). **No** incluye portar skills concretas; para eso usar `SddIA/skills/reproducir-skills-en-otros-entornos-sddia.md` si existe en el destino, o el contrato `paths.skillsDefinitionPath/skills-contract.json`.
+**Alcance de este documento:** portar la **definición del proceso** (`paths.processPath/create-skill/`) y su **visibilidad** (README de procesos, disparador `#Process`, difusión Cursor si aplica). **No** incluye portar skills concretas; para eso usar `SddIA/skills/reproducir-skills-en-otros-entornos-sddia.md`.
 
 ## 1. Prerrequisitos del entorno destino
 
@@ -54,7 +54,7 @@ Referencia de plantilla: `paths.processPath/create-tool/spec.md`.
    - **`spec.json`** — metadatos machine-readable (`process_id`, `persist_ref`, `phases`, `outputs`, etc.) alineado con el cuerpo de `spec.md`.
 
 2. **Coherencia con contrato de skills**  
-   En `spec.md`, la cápsula ejecutable debe alinearse con `SddIA/skills/skills-contract.md` y `skills-contract.json` (ubicación del `.exe`, manifest, launchers). En este repositorio la convención es **`<nombre>.exe` en la raíz de la cápsula** (paridad con `create-tool`), con `bin/` solo como legado hasta migración.
+   En `spec.md`, la cápsula ejecutable debe describirse como **`<nombre>.exe` en la raíz de la cápsula** (sin `bin/`), según `SddIA/skills/skills-contract.md` y envelope `SddIA/norms/capsule-json-io.md`.
 
 ## 4. Checklist: visibilidad y consumo por agentes / IDE
 
@@ -76,7 +76,7 @@ En la misma intervención o PR:
 
 ## 6. Documentación de la feature de portado (recomendado)
 
-Si el portado se hace como tarea trazable, usar el proceso **`feature`** y persistir en `paths.featurePath/<nombre_feature>/` con el patrón **un `.md` por acción** y frontmatter (`objectives.md`, `clarify.md`, `plan.md`, …) según `SddIA/norms/features-documentation-pattern.md` y `docs/features/features-contract.md`.
+Si el portado se hace como tarea trazable, usar el proceso **`feature`** y persistir en `paths.featurePath/<nombre_feature>/` con el patrón **un `.md` por acción** y frontmatter (`objectives.md`, `clarify.md`, `plan.md`, …) según `SddIA/norms/features-documentation-frontmatter.md` y la convención local para documentación de tareas en el destino.
 
 Nombre sugerido de feature: p. ej. `create-process-create-skill` o `port-process-create-skill-<repo-slug>`.
 
@@ -92,8 +92,9 @@ Nombre sugerido de feature: p. ej. `create-process-create-skill` o `port-process
 
 - Proceso canónico: `paths.processPath/create-skill/spec.md`  
 - Proceso análogo: `paths.processPath/create-tool/spec.md`  
-- Portar skills ejecutables: `SddIA/skills/reproducir-skills-en-otros-entornos-sddia.md` (crear en el destino si no existe)  
+- Portar skills ejecutables: `SddIA/skills/reproducir-skills-en-otros-entornos-sddia.md`  
 - Rutas: `SddIA/norms/paths-via-cumulo.md`  
+- E/S JSON agentes: `SddIA/norms/capsule-json-io.md`
 
 ---
 
