@@ -1,0 +1,9 @@
+{
+  "process_id": "auditoria-2026-05-01",
+  "name": "Registro de Auditoría Técnica",
+  "description": "Documentación formal de la validación estructural sin deuda técnica.",
+  "phases": ["Auditoría", "Registro"],
+  "persist_ref": "docs/audits/AUDITORIA_2026_05_01.md",
+  "related_actions": ["SddIA/process/correccion-auditorias"],
+  "contract_ref": "SddIA/norms/audit-protocol.md"
+}
