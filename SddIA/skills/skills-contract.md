@@ -22,8 +22,8 @@ Cada skill debe tener en **paths.skillsDefinitionPath**/&lt;skill-id&gt;/:
 **Las implementaciones por defecto de los scripts de skills (y de las herramientas tools) han de ser en Rust.**
 
 - **Motivo:** rendimiento, seguridad de memoria, portabilidad y distribución como binario único.
-- **Entrega:** cada skill con ejecutable reside en una **cápsula** **paths.skillCapsules[&lt;skill-id&gt;]** (Cúmulo). Los ejecutables se construyen en paths.skillsRustPath (Cúmulo) y se copian a `&lt;cápsula&gt;/bin/`. Opcional: launcher `.bat` en la cápsula que delegue al binario en `bin/` o al script `.ps1` como fallback.
-- **Launcher:** dentro de la cápsula, el `.bat` invoca el `.exe` en `bin/` si existe; en caso contrario, fallback al script `.ps1` de la cápsula.
+- **Entrega:** cada skill con ejecutable reside en una **cápsula** **paths.skillCapsules[&lt;skill-id&gt;]** (Cúmulo). Los ejecutables se construyen en paths.skillsRustPath (Cúmulo) y se copian a la **raíz de la cápsula** como `&lt;nombre&gt;.exe` (paridad con paths.processPath/create-tool y proceso paths.processPath/create-skill). Las cápsulas existentes con subcarpeta `bin/` son legado hasta migración.
+- **Launcher:** dentro de la cápsula, el `.bat` invoca el `.exe` en la raíz de la cápsula si existe; si solo existiera `bin/&lt;nombre&gt;.exe`, invocar ese; en caso contrario, fallback al script `.ps1` de la cápsula.
 - **manifest.json** (skillId, components, contract_ref), **documentación** (`.md`) son obligatorios en la cápsula. **Rutas canónicas:** Cúmulo `Cúmulo (SddIA/agents/cumulo.json)` → **paths.skillsPath**, **paths.skillCapsules**. En documentación .md no usar rutas literales; referenciar vía Cúmulo.
 
 Referencia: mismo patrón que `paths.toolsDefinitionPath/tools-contract.md` (Implementación por defecto: Rust).
@@ -32,9 +32,9 @@ Referencia: mismo patrón que `paths.toolsDefinitionPath/tools-contract.md` (Imp
 
 Cada skill con implementación invocable reside en una **cápsula** **paths.skillCapsules[&lt;skill-id&gt;]** (Cúmulo) y debe contar con:
 
-- **Implementación Rust:** código en `scripts/skills-rs/src/bin/&lt;skill_bin&gt;.rs`; binario final en `&lt;cápsula&gt;/bin/` (copiado tras `scripts/skills-rs/install.ps1`).
+- **Implementación Rust:** código bajo paths.skillsRustPath (Cúmulo), p. ej. `scripts/skills-rs/src/bin/&lt;skill_bin&gt;.rs`; binario final en **raíz de** `&lt;cápsula&gt;/` como `&lt;nombre&gt;.exe` (salvo cápsulas legadas en migración con `bin/`).
 - **Fallback:** script `.ps1` en la cápsula cuando no exista o no se compile el binario Rust.
-- **Launcher:** `.bat` en la cápsula que invoque el binario en `bin/` si existe, si no el `.ps1`.
+- **Launcher:** `.bat` en la cápsula que invoque el `.exe` en raíz (o en `bin/` si es legado), si no el `.ps1`.
 - **manifest.json:** skillId, version, description, contract_ref, components (launcher_bat, launcher_ps1, doc, bin).
 - **Documentación:** un `.md` en la cápsula que describa uso y parámetros. Idioma: es-ES.
 

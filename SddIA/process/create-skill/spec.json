@@ -1,0 +1,28 @@
+{
+  "spec_version": "1.0.0",
+  "process_id": "create-skill",
+  "name": "Create Skill",
+  "description": "Proceso para la creación de una nueva skill: definición en paths.skillsDefinitionPath, cápsula opcional en paths.skillCapsules con manifest y documentación, índice paths.skillsIndexPath y Cúmulo actualizado. Cumple SddIA/skills/skills-contract.json.",
+  "process_doc_ref": "paths.processPath/create-skill/",
+  "contract_ref": "paths.processPath/process-contract.json",
+  "skills_contract_ref": "SddIA/skills/skills-contract.json",
+  "persist_ref": "paths.featurePath/create-skill-<skill-id>",
+  "paths": {
+    "skillsDefinitionPath_ref": "paths.skillsDefinitionPath (Cúmulo)",
+    "skillsIndexPath_ref": "paths.skillsIndexPath (Cúmulo)",
+    "skillsRustPath_ref": "paths.skillsRustPath (Cúmulo)",
+    "featurePath_ref": "paths.featurePath (Cúmulo)",
+    "skillCapsulesRef": "paths.skillCapsules"
+  },
+  "process_interface_compliance": "Genera en carpeta de la tarea un .md por acción con YAML Frontmatter; entrega ejecutable: cápsula en paths.skillCapsules/<skill-id>/ cuando aplique.",
+  "triggers": [
+    "Crear nueva skill con skill-id",
+    "Solicitud de creación de skill ejecutable o solo definición"
+  ],
+  "inputs": {
+    "skill_id": "kebab-case. Obligatorio.",
+    "description": "Descripción breve. Obligatorio."
+  },
+  "related_actions": ["spec", "implementation", "validate", "finalize"],
+  "related_skills": ["iniciar-rama"]
+}
