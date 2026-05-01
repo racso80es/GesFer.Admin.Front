@@ -1,7 +1,7 @@
 {
   "action_id": "finalize-process",
   "name": "Finalize process",
-  "purpose": "Cierre de proceso o tarea: snapshots vía git-save-snapshot/invoke-commit; si muta SddIA, sddia_evolution_register + snapshot; Evolution Logs; git-sync-remote; git-create-pr. Solo orquestación de skills registradas (sin scripts OS).",
+  "purpose": "Cierre de proceso o tarea: snapshots vía git-save-snapshot/invoke-commit; si muta SddIA, sddia_evolution_register + snapshot; Evolution Logs; git-sync-remote; git-create-pr; paso final git-close-cycle (rama de trabajo). Solo orquestación de skills registradas (sin scripts OS).",
   "inputs": ["Carpeta de tarea (Cúmulo)", "Rama feat/ o fix/"],
   "outputs": ["Rama en origin", "Evolution Logs", "PR", "finalize-process.md opcional"],
   "flow_steps": [
@@ -10,14 +10,16 @@
     "SddIA: sddia_evolution_register + snapshot si aplica",
     "Evolution Logs",
     "git-sync-remote",
-    "git-create-pr"
+    "git-create-pr",
+    "git-close-cycle (último — targetBranch = rama de trabajo)"
   ],
   "orchestrated_skills": [
     "git-save-snapshot",
     "invoke-commit",
     "sddia-evolution-register",
     "git-sync-remote",
-    "git-create-pr"
+    "git-create-pr",
+    "git-close-cycle"
   ],
   "contract_ref": "actions-contract.json"
 }

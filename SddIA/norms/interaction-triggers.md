@@ -30,6 +30,7 @@
 | git-sync-remote | fetch / pull / push opcionales. | paths.skillCapsules.git-sync-remote |
 | git-tactical-retreat | Reset/limpieza destructiva con confirmación explícita. | paths.skillCapsules.git-tactical-retreat |
 | git-create-pr | Push opcional y `gh pr create`. | paths.skillCapsules.git-create-pr |
+| git-close-cycle | Cierre local: integración, pull HEAD, fetch --prune, borrar rama de trabajo. | paths.skillCapsules.git-close-cycle |
 | git-operations | Uso seguro de Git (ramas feat/fix, commits convencionales). | — |
 | documentation | Estándares SSOT y gestión de documentación. | — |
 | filesystem-ops | Operaciones de archivo seguras (PowerShell). | — |
@@ -61,7 +62,7 @@
 | implementation | Implementación (doc): indicar touchpoints en código y documento de implementación; no modifica código. |
 | execution | Ejecución: aplicar al código los cambios del documento de implementación. |
 | validate | Validación: comprobar calidad antes del PR (git diff, build, tests, docs); generar validacion.json. |
-| finalize-process | Cierre de proceso o tarea (commits, Evolution Logs, sincronización remoto, PR). Solo orquestación de skills registradas; git-sync-remote → git-create-pr; commits con invoke-commit o git-save-snapshot. |
+| finalize-process | Cierre de proceso o tarea (commits, Evolution Logs, sincronización remoto, PR). Solo orquestación de skills registradas; git-sync-remote → git-create-pr → git-close-cycle (paso final); commits con invoke-commit o git-save-snapshot. |
 | sddia-difusion | Difusión de SddIA: mantener .cursor/rules, .github y otros gestores IA alineados con AGENTS y SddIA/norms. |
 
 ---

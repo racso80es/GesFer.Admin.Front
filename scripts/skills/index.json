@@ -74,6 +74,13 @@
       "manifest": "git-create-pr/manifest.json",
       "launcher_bat": "git-create-pr/Git-Create-PR.bat",
       "description": "Push opcional y gh pr create (GitHub CLI)."
+    },
+    {
+      "skillId": "git-close-cycle",
+      "path": "git-close-cycle/",
+      "manifest": "git-close-cycle/manifest.json",
+      "launcher_bat": "git-close-cycle/Git-Close-Cycle.bat",
+      "description": "Cierre local post-PR: checkout main/master, pull HEAD, fetch --prune, branch -d/-D."
     }
   ]
 }

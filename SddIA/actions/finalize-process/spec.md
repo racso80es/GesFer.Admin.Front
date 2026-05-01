@@ -8,6 +8,7 @@ flow_steps:
   - Evolution Logs (paths.evolutionPath + paths.evolutionLogFile, contrato)
   - Skill git-sync-remote (push/publicación)
   - Skill git-create-pr (PR con cuerpo desde objectives.md / validacion.md)
+  - Skill git-close-cycle (paso final — targetBranch = rama de trabajo de la tarea)
   - Opcional — finalize-process.md en carpeta de tarea (frontmatter)
 inputs:
   - Carpeta feature o fix (Cúmulo)
@@ -24,6 +25,7 @@ orchestrated_skills:
   - sddia-evolution-register
   - git-sync-remote
   - git-create-pr
+  - git-close-cycle
 optional_pre_pr_checks:
   - verify-pr-protocol
 ---
@@ -47,7 +49,8 @@ Esta acción **no** ejecuta scripts del sistema (`.ps1`, `.bat`, `cmd`, shell) n
 4. **Evolution Logs** en `paths.evolutionPath` según contrato (`evolution_contract.md`).
 5. **Publicación:** skill **git-sync-remote** con `push: true` (tras fetch/pull según política del request).
 6. **Pull Request:** skill **git-create-pr** con título y cuerpo que incorporen resumen de `objectives.md` y `validacion.md`.
-7. **Artefacto opcional:** `finalize-process.md` en la carpeta de la tarea (YAML Frontmatter: `action_id: finalize-process`, `pr_url`, `branch`, `timestamp`).
+7. **Cierre local del ciclo (paso final orquestado):** invocar **git-close-cycle** (cápsula **paths.skillCapsules.git-close-cycle**) con **`targetBranch`** igual al **nombre de la rama de trabajo** de la tarea (p. ej. `feat/...` o `fix/...`). El ejecutor debe **determinar y conservar** ese nombre al **inicio** de la acción (p. ej. desde precondiciones o `git-workspace-recon`), **antes** de cualquier paso que pueda cambiar la interpretación de «rama actual», y pasarlo explícitamente al request de la cápsula. Esta skill ejecuta checkout a la rama de integración, `git pull origin HEAD`, `git fetch --prune` y elimina la rama local indicada (`-d`, con reserva a `-D`). Se ejecuta **después** de **git-create-pr** cuando el disparador semántico es «tarea finalizada» / cierre S+ (misma sesión de orquestación).
+8. **Artefacto opcional:** `finalize-process.md` en la carpeta de la tarea (YAML Frontmatter: `action_id: finalize-process`, `pr_url`, `branch`, `timestamp`).
 
 ## Verificación pre-PR (opcional / según política del repo)
 
