@@ -13,8 +13,8 @@
     { "id": "4", "name": "Planificación", "description": "Acción planning; plan.md (YAML Frontmatter)." },
     { "id": "5", "name": "Implementación (doc)", "description": "Acción implementation; implementation.md (YAML Frontmatter)." },
     { "id": "6", "name": "Ejecución", "description": "Aplicar el plan al código. Consolidar hitos ejecutando git-save-snapshot (commits atómicos). Si el entorno se corrompe severamente, usar git-tactical-retreat." },
-    { "id": "7", "name": "Validar", "description": "Ejecutar validación pre-PR. Invocar git-workspace-recon para verificar la coherencia de los archivos mutados contra el plan. Generar validacion.md." },
-    { "id": "8", "name": "Finalizar", "description": "Cierre del ciclo. Ejecutar git-sync-remote para subida segura al Leviatán, seguido de git-create-pr inyectando el resumen de objectives.md y validacion.md en el cuerpo del Pull Request. Actualizar Evolution Logs." }
+    { "id": "7", "name": "Validar", "description": "Ejecutar validación pre-PR. Invocar git-workspace-recon para verificar la coherencia de los archivos mutados contra el plan. Generar validacion.md. Dejar constancia del conjunto de rutas mutadas (incl. bajo ./SddIA/) para la Evaluación de Impacto SDDIA obligatoria en fase 8 antes de git-sync-remote." },
+    { "id": "8", "name": "Finalizar", "description": "Evaluación de Impacto SDDIA (innegociable): antes de git-sync-remote, analizar archivos modificados; si existe cualquier mutación bajo SddIA/, ejecutar sddia_evolution_register (cápsula paths.skillCapsules.sddia-evolution-register) y un git-save-snapshot adicional que consolide el registro de evolución. Después: git-sync-remote, git-create-pr con objectives.md y validacion.md, y Evolution Logs según contrato." }
   ],
   "related_actions": ["spec", "clarify", "planning", "implementation", "execution", "validate", "finalize"],
   "related_skills": [
@@ -23,7 +23,8 @@
     "git-save-snapshot",
     "git-sync-remote",
     "git-tactical-retreat",
-    "git-create-pr"
+    "git-create-pr",
+    "sddia-evolution-register"
   ],
   "principles_ref": "paths.principlesPath"
 }
