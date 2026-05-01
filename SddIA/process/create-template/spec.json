@@ -22,7 +22,7 @@
     "description": "Descripción breve del fin concreto. Obligatorio.",
     "process_ref": "Proceso que orquesta (feature, correccion-auditorias, etc.). Obligatorio."
   },
-  "related_actions": ["spec", "validate", "finalize"],
+  "related_actions": ["spec", "validate", "finalize-process"],
   "related_skills": [
     "git-workspace-recon",
     "git-branch-manager",

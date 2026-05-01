@@ -23,7 +23,7 @@
     "skill_id": "kebab-case. Obligatorio.",
     "description": "Descripción breve. Obligatorio."
   },
-  "related_actions": ["spec", "implementation", "validate", "finalize"],
+  "related_actions": ["spec", "implementation", "validate", "finalize-process"],
   "related_skills": [
     "git-workspace-recon",
     "git-branch-manager",

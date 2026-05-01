@@ -17,7 +17,7 @@
   "process_interface_compliance": "Genera en carpeta de la tarea un .md por acción con YAML Frontmatter; entrega ejecutable: cápsula en paths.toolCapsules[<tool-id>]. Norma: features-documentation-frontmatter.md.",
   "triggers": ["Crear nueva herramienta en paths.toolsPath", "Solicitud de creación de herramienta con tool-id"],
   "inputs": { "tool_id": "kebab-case. Obligatorio.", "description": "Descripción breve. Obligatorio." },
-  "related_actions": ["spec", "implementation", "validate", "finalize"],
+  "related_actions": ["spec", "implementation", "validate", "finalize-process"],
   "related_skills": [
     "git-workspace-recon",
     "git-branch-manager",

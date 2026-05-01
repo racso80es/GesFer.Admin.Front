@@ -28,7 +28,7 @@
       {
         "ext": ".md",
         "frontmatter": true,
-        "purpose": "Documentación legible con metadatos en YAML Frontmatter. Un fichero .md por acción (objectives.md, spec.md, clarify.md, plan.md, implementation.md, execution.md, validacion.md, finalize.md). No ficheros .json separados."
+        "purpose": "Documentación legible con metadatos en YAML Frontmatter. Un fichero .md por acción (objectives.md, spec.md, clarify.md, plan.md, implementation.md, execution.md, validacion.md, finalize-process.md). No ficheros .json separados."
       }
     ]
   },

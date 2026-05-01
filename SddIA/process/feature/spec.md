@@ -39,7 +39,7 @@ related_actions:
   - implementation
   - execution
   - validate
-  - finalize
+  - finalize-process
 related_skills:
   - git-workspace-recon
   - git-branch-manager
@@ -54,11 +54,11 @@ spec_version: 2.0.0
 
 Este documento define el **proceso de tarea** para desarrollar una funcionalidad (**spec_version 2.0.0**), integrando el **Arsenal Táctico Git (grado S+)**: máquina de estados basada en `git-workspace-recon`, `git-branch-manager`, `git-save-snapshot`, `git-sync-remote`, `git-tactical-retreat`, `git-create-pr` y, cuando muta `./SddIA/`, `sddia_evolution_register` vía cápsula `sddia-evolution-register` (contrato en paths.skillsDefinitionPath y cápsulas en paths.skillCapsules, Cúmulo). Está ubicado en paths.processPath/feature/ (Cúmulo). Las acciones que orquesta están en paths.actionsPath (Cúmulo). La ruta de persistencia se obtiene de **Cúmulo** (paths.featurePath/<nombre_feature>).
 
-**Interfaz de proceso:** Cumple la interfaz en Cúmulo (`process_interface`): solicita/genera en la carpeta de la tarea (Cúmulo) un **`.md` por acción** con **YAML Frontmatter** (objectives.md, spec.md, clarify.md, plan.md, implementation.md, execution.md, validacion.md, finalize.md). No ficheros .json separados. Norma: SddIA/norms/features-documentation-frontmatter.md.
+**Interfaz de proceso:** Cumple la interfaz en Cúmulo (`process_interface`): solicita/genera en la carpeta de la tarea (Cúmulo) un **`.md` por acción** con **YAML Frontmatter** (objectives.md, spec.md, clarify.md, plan.md, implementation.md, execution.md, validacion.md, finalize-process.md). No ficheros .json separados. Norma: SddIA/norms/features-documentation-frontmatter.md.
 
 ## Propósito
 
-El proceso **feature** define el procedimiento formal de ciclo completo para desarrollar una funcionalidad o tarea: desde la preparación del entorno y la rama hasta el cierre y la apertura del Pull Request. Orquesta las acciones **spec**, **clarify**, **planning**, **implementation**, **execution**, **validate** y **finalize** en secuencia, fija la ubicación de la documentación de la tarea y garantiza trazabilidad en los logs de evolución.
+El proceso **feature** define el procedimiento formal de ciclo completo para desarrollar una funcionalidad o tarea: desde la preparación del entorno y la rama hasta el cierre y la apertura del Pull Request. Orquesta las acciones **spec**, **clarify**, **planning**, **implementation**, **execution**, **validate** y **finalize-process** en secuencia, fija la ubicación de la documentación de la tarea y garantiza trazabilidad en los logs de evolución.
 
 Proporciona un flujo repetible y auditado, alineado con las Leyes Universales (soberanía documental en AGENTE_CUMULO, prohibición estricta de commits directos en `master`). Las transiciones Git del ciclo se gobiernan por el Arsenal Táctico (reconocimiento de workspace, ramificación, snapshots atómicos, sincronización remota, retirada táctica y creación de PR).
 
@@ -76,7 +76,7 @@ Ruta de la tarea: Cúmulo (paths.featurePath/<nombre_feature>).
 | **5** | Implementación | Generar documento de implementación. Especificación técnica: paths.actionsPath/implementation/. Entrada: carpeta de la tarea (Cúmulo)/objectives.md, spec.md, clarify.md; salida: carpeta de la tarea (Cúmulo)/implementation.md (YAML Frontmatter) |
 | **6** | Ejecución | Aplicar el plan al código (Tekton Developer). Especificación técnica: paths.actionsPath/execution/. Entrada: carpeta de la tarea (Cúmulo)/implementation.md; salida: carpeta de la tarea (Cúmulo)/execution.md (YAML Frontmatter). **git-save-snapshot:** consolidar hitos con commits atómicos. Ante corrupción severa del entorno: **git-tactical-retreat** (solo con confirmación explícita según norma del proyecto). |
 | **7** | Validar | Ejecutar validación pre-PR (acción **validate**). **git-workspace-recon:** verificar coherencia de archivos mutados frente al plan. Salida: carpeta de la tarea (Cúmulo)/validacion.md (YAML Frontmatter). Dejar trazado el inventario de rutas mutadas (incluye comprobar si hay cambios bajo `./SddIA/`) como insumo obligatorio para la fase 8. Especificación técnica: paths.actionsPath/validate/. |
-| **8** | Finalizar | **Evaluación de Impacto SDDIA (innegociable):** antes de **git-sync-remote**, analizar archivos modificados del workspace. Si **existe cualquier mutación** bajo el directorio **`SddIA/`**, es **obligatorio** ejecutar **`sddia_evolution_register`** (binario Rust / cápsula **paths.skillCapsules.sddia-evolution-register**) y realizar un **git-save-snapshot adicional** que consolide el registro de evolución; solo entonces proceder con **git-sync-remote** y **git-create-pr** (cuerpo del PR con objectives.md y validacion.md). Actualizar Evolution Logs según contrato. Especificación técnica: paths.actionsPath/finalize/. Entrada: carpeta de la tarea (Cúmulo); salida: finalize.md, logs de evolución y PR. |
+| **8** | Finalizar | **Evaluación de Impacto SDDIA (innegociable):** antes de **git-sync-remote**, analizar archivos modificados del workspace. Si **existe cualquier mutación** bajo el directorio **`SddIA/`**, es **obligatorio** ejecutar **`sddia_evolution_register`** (binario Rust / cápsula **paths.skillCapsules.sddia-evolution-register**) y realizar un **git-save-snapshot adicional** que consolide el registro de evolución; solo entonces proceder con **git-sync-remote** y **git-create-pr** (cuerpo del PR con objectives.md y validacion.md). Actualizar Evolution Logs según contrato. Especificación técnica: paths.actionsPath/finalize-process/. Entrada: carpeta de la tarea (Cúmulo); salida: finalize-process.md, logs de evolución y PR. |
 
 ### Evaluación de Impacto SDDIA (innegociable, fases 7–8)
 
@@ -106,7 +106,7 @@ Este proceso se implementa como **procedimiento** que combina:
 | **implementation.md** | Touchpoints y ítems de implementación (YAML Frontmatter + contenido MD). |
 | **execution.md** | Registro de ítems aplicados (YAML Frontmatter + contenido MD). |
 | **validacion.md** | Resultado de validación pre-PR (YAML Frontmatter + contenido MD). |
-| **finalize.md** | Cierre, PR, Evolution Logs (YAML Frontmatter + contenido MD). |
+| **finalize-process.md** | Cierre, PR, Evolution Logs (YAML Frontmatter + contenido MD). |
 
 ### Actualización de Evolution Logs
 
@@ -125,7 +125,7 @@ Al cierre de la feature (fase 8):
 
 ## Dependencias con otras acciones
 
-*   El proceso **feature** invoca o utiliza los resultados de las acciones **spec**, **clarify**, **plan**, **implementation**, **execution**, **validate** y **finalize** en paths.actionsPath (Cúmulo).
+*   El proceso **feature** invoca o utiliza los resultados de las acciones **spec**, **clarify**, **plan**, **implementation**, **execution**, **validate** y **finalize-process** en paths.actionsPath (Cúmulo).
 *   La **documentación de la tarea** (objetivo, spec, clarifications, plan, validacion) debe residir en **paths.featurePath/<nombre_feature>/** (Cúmulo) para aprobación y revisión humana.
 
 ## Estándares de Calidad
@@ -140,4 +140,4 @@ El mismo patrón de persistencia se aplica a correcciones de bugs mediante el pr
 
 ## Referencia de ejecución
 
-Procedimiento aplicado en la rama **feat/e2e-product-back-mocked** (2026-02-10). Documentación de la tarea: paths.featurePath/<nombre_feature>/. Acciones relacionadas: paths.actionsPath (spec/, clarify/, planning/, execution/, validate/, finalize/).
+Procedimiento aplicado en la rama **feat/e2e-product-back-mocked** (2026-02-10). Documentación de la tarea: paths.featurePath/<nombre_feature>/. Acciones relacionadas: paths.actionsPath (spec/, clarify/, planning/, execution/, validate/, finalize-process/).

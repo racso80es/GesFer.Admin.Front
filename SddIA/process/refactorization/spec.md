@@ -38,7 +38,7 @@ related_actions:
   - implementation
   - execution
   - validate
-  - finalize
+  - finalize-process
 related_skills:
   - git-workspace-recon
   - git-branch-manager
@@ -56,7 +56,7 @@ Este documento define el **proceso de tarea** para una refactorización (**spec_
 
 ## Propósito
 
-El proceso **refactorization** define el ciclo completo para una refactorización: mismo flujo que feature (rama, documentación, spec, implementación, validación, cierre), sin añadir funcionalidad nueva. Orquesta **spec**, **clarify**, **planning**, **implementation**, **execution**, **validate** y **finalize**.
+El proceso **refactorization** define el ciclo completo para una refactorización: mismo flujo que feature (rama, documentación, spec, implementación, validación, cierre), sin añadir funcionalidad nueva. Orquesta **spec**, **clarify**, **planning**, **implementation**, **execution**, **validate** y **finalize-process**.
 
 ## Alcance del procedimiento
 

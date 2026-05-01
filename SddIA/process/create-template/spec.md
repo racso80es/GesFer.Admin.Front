@@ -32,7 +32,7 @@ process_interface_compliance: 'Genera en carpeta de la tarea un .md por acción 
 related_actions:
   - spec
   - validate
-  - finalize
+  - finalize-process
 related_skills:
   - git-workspace-recon
   - git-branch-manager

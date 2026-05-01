@@ -32,7 +32,7 @@ Todo proceso cumple el **contrato** en [process-contract.json](./process-contrac
 8. **Audit-tool:** paths.processPath/audit-tool/. Ruta: Cúmulo (paths.featurePath/audit-tool-&lt;tool-id&gt;). Resultado: paths.auditsPath/tools/&lt;tool-id&gt;/ (audit-report.md, audit-result.json).
 9. **Validate-pull-requests:** paths.processPath/validate-pull-requests/. Ruta doc: Cúmulo (paths.featurePath/validate-pull-requests-&lt;pr-slug&gt;). Semillas Kaizen: paths.tasksPath (o `tasks_path_cumulo` resuelto desde Cúmulo).
 
-Las **acciones** (spec, clarify, plan, implementation, execution, validate, finalize) siguen en paths.actionsPath (Cúmulo) y son invocadas por los procesos.
+Las **acciones** (spec, clarify, plan, implementation, execution, validate, finalize-process) siguen en paths.actionsPath (Cúmulo) y son invocadas por los procesos.
 
 ## Interfaz de procesos (norma para agentes)
 
