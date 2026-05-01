@@ -34,6 +34,7 @@ Cada skill tiene en este directorio una carpeta con:
 | git-sync-remote | Sincronización fetch/pull/push. | git-sync-remote |
 | git-tactical-retreat | Reset/limpieza destructiva con confirmación. | git-tactical-retreat |
 | git-create-pr | Push opcional y PR con gh. | git-create-pr |
+| git-close-cycle | Checkout integración, pull/fetch prune, eliminar rama local de trabajo. | git-close-cycle |
 | git-operations | Uso seguro de Git (ramas feat/fix, commits convencionales). | — |
 | documentation | Estándares SSOT y gestión de documentación. | — |
 | filesystem-ops | Operaciones de archivo seguras (PowerShell). | — |
