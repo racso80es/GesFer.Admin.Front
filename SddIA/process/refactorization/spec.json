@@ -16,7 +16,7 @@
     { "id": "7", "name": "Validar", "description": "Acción validate; git-workspace-recon." },
     { "id": "8", "name": "Finalizar", "description": "git-sync-remote; git-create-pr; Evolution Logs." }
   ],
-  "related_actions": ["spec", "clarify", "planning", "implementation", "execution", "validate", "finalize"],
+  "related_actions": ["spec", "clarify", "planning", "implementation", "execution", "validate", "finalize-process"],
   "related_skills": [
     "git-workspace-recon",
     "git-branch-manager",

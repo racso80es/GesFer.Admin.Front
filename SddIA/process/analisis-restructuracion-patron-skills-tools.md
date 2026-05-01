@@ -86,26 +86,26 @@
 | `SddIA/actions/implementation.md` | Acción implementation | No | No |
 | `SddIA/actions/execution.md` | Acción execution | No | No |
 | `SddIA/actions/validate.md` | Acción validate | No | No |
-| `SddIA/actions/finalize.md` | Acción finalize | No | No |
+| `SddIA/actions/finalize-process/spec.md` | Acción finalize-process | No | No |
 | `SddIA/actions/sddia-difusion.md` | Acción sddia-difusion | No | No |
 
 - **No existe** `actions-contract.json` ni `actions-contract.md` en la raíz de actions.
 - **No hay** spec.json por acción: solo ficheros .md sueltos en la raíz de paths.actionsPath.
-- **No hay** carpeta por acción: no existe `SddIA/actions/spec/`, `SddIA/actions/finalize/`, etc.
+- **Evolución:** El análisis original hablaba de un modelo sin carpetas por acción; el estado vigente del repo usa **SddIA/actions/<action-id>/** (p. ej. `finalize-process/`).
 
 ### 3.2 Consumidores que referencian actions
 
 - paths.actionsPath (Cúmulo).
 - Process (feature.md, refactorization.md, create-tool): “acciones en paths.actionsPath”.
 - interaction-triggers.md (#Action): listado desde paths.actionsPath (cada .md es una acción).
-- AGENTS.norms.md, finalize.md: referencias a paths.actionsPath/<action>.md y cierre vía git-sync-remote → git-create-pr.
+- AGENTS.norms.md, finalize-process.md (documentación de tarea): referencias a paths.actionsPath/<action-id>/ y cierre vía git-sync-remote → git-create-pr.
 
 ### 3.3 Gap frente al patrón skills/tools
 
 | Aspecto | Skills/Tools | Actions (actual) |
 |---------|--------------|------------------|
 | Contrato en SddIA | skills-contract.json, tools-contract.json | No existe actions-contract.json ni .md |
-| Unidad por ítem | Carpeta <id>/ con spec.md + spec.json | Un solo .md por acción en raíz (spec.md, finalize.md, …) |
+| Unidad por ítem | Carpeta <id>/ con spec.md + spec.json | Un solo .md por acción en raíz (spec.md, finalize-process.md, …) |
 | Identificador | action_id = nombre fichero sin .md | Implícito por nombre de fichero; no hay action_id en JSON por acción |
 | Machine-readable | spec.json por ítem (phases, parameters, contract_ref) | No hay JSON por acción; solo documentación .md |
 
@@ -192,7 +192,7 @@ SddIA/actions/
   validate/
     spec.md
     spec.json
-  finalize/
+  finalize-process/
     spec.md
     spec.json
   sddia-difusion/
@@ -207,7 +207,7 @@ SddIA/actions/
 ## 7. Impacto en referencias (Cúmulo y normas)
 
 - **paths.processPath** hoy = ./SddIA/process/. Si se mantiene, las referencias pasan de `paths.processPath/feature.md` a `paths.processPath/feature/spec.md` (o `paths.processPath/feature/` con convención de que el punto de entrada es spec).
-- **paths.actionsPath** hoy = ./SddIA/actions/. Referencias de `paths.actionsPath/finalize.md` a `paths.actionsPath/finalize/spec.md` (o finalize/ con spec como estándar).
+- **paths.actionsPath** hoy = ./SddIA/actions/. Convención: `paths.actionsPath/finalize-process/spec.md` (carpeta por action_id).
 - **interaction-triggers.md:** actualizar list_source y ejemplos a rutas por carpeta (paths.processPath/<process-id>/, paths.actionsPath/<action-id>/).
 - **AGENTS.md, process README, create-tool, bug-fix, feature.md, refactorization.md:** actualizar enlaces a definiciones por carpeta y a los nuevos contratos.
 

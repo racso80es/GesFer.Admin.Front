@@ -22,7 +22,7 @@ Toda **nueva documentación de tarea** en paths.featurePath o paths.fixPath (Cú
 | implementation | implementation.md |
 | execution | execution.md |
 | validate | validacion.md |
-| finalize | finalize.md |
+| finalize-process | finalize-process.md |
 
 ### Formato
 

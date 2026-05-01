@@ -26,7 +26,7 @@ phases:
 - description: Ejecutar proceso objetivo (por defecto feature); leer carpeta-tarea si existe spec/plan; generar artefactos en paths.featurePath si aplica. Hitos intermedios con git-save-snapshot. Ante fallo estructural, git-tactical-retreat solo con confirmación explícita.
   id: '3'
   name: Ejecución
-- description: Mover unidad a DONE/; Evolution Log; finalize.md cuando aplique. Cierre git-sync-remote y git-create-pr inyectando resumen de la tarea y finalize/validacion en el cuerpo del Pull Request cuando corresponda publicar cambios.
+- description: Mover unidad a DONE/; Evolution Log; finalize-process.md cuando aplique. Cierre git-sync-remote y git-create-pr inyectando resumen de la tarea y finalize-process/validacion en el cuerpo del Pull Request cuando corresponda publicar cambios.
   id: '4'
   name: Finalización y archivo
 principles_ref: paths.principlesPath
@@ -89,7 +89,7 @@ Inicia y continúa las instrucciones definidas en el proceso correspondiente, po
 Transición a estado `DONE` tras el cumplimiento del proceso.
 - Mueve el archivo de la tarea de `ACTIVE/` a `DONE/` bajo paths.tasksPath.
 - Actualiza Evolution Log (paths.evolutionPath / paths.evolutionLogFile, Cúmulo) con resumen y enlace al artefacto en `DONE/`.
-- Generar `finalize.md` del ciclo feature cuando aplique.
+- Generar `finalize-process.md` del ciclo feature cuando aplique.
 - **git-sync-remote** y **git-create-pr** con resumen de la intervención y referencias a documentación de tarea en el cuerpo del PR.
 
 ## Estructura de Carpetas Requerida

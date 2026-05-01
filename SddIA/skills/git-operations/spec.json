@@ -12,6 +12,6 @@
   "common_workflows": {
     "start_task": "git-workspace-recon -> git-branch-manager (crear rama feat/ o fix/)",
     "save_progress": "git-save-snapshot o invoke-commit (commit atómico)",
-    "finalize": "git-sync-remote -> git-create-pr"
+    "finalize-process": "git-sync-remote -> git-create-pr"
   }
 }

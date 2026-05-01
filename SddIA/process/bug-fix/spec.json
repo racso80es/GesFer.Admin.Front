@@ -10,7 +10,7 @@
   "triggers": ["Reporte de bug", "Fallo en CI o tests", "Solicitud de fix con bug-id o título"],
   "skills": ["documentation", "filesystem-ops", "dotnet-development"],
   "constraints": ["Rama fix/<nombre_fix>, nunca master.", "Documentación obligatoria en paths.fixPath/<nombre_fix>.", "Alcance mínimo: causa raíz; no refactor en la misma rama."],
-  "related_actions": ["spec", "clarify", "implementation", "execution", "validate", "finalize"],
+  "related_actions": ["spec", "clarify", "implementation", "execution", "validate", "finalize-process"],
   "related_skills": [
     "git-workspace-recon",
     "git-branch-manager",

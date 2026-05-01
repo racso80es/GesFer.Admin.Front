@@ -4,7 +4,7 @@
 
 ## Definición
 
-La **documentación de tarea** es el conjunto de artefactos generados por las acciones del ciclo (spec, clarify, planning, implementation, execution, validate, finalize) en la carpeta de persistencia de la tarea: **paths.featurePath/<nombre_feature>/** o **paths.fixPath/<nombre_fix>/** (Cúmulo).
+La **documentación de tarea** es el conjunto de artefactos generados por las acciones del ciclo (spec, clarify, planning, implementation, execution, validate, finalize-process) en la carpeta de persistencia de la tarea: **paths.featurePath/<nombre_feature>/** o **paths.fixPath/<nombre_fix>/** (Cúmulo).
 
 ## Patrón obligatorio: un solo fichero .md por acción con YAML Frontmatter
 
@@ -40,14 +40,14 @@ status: draft | in_progress | done
 | **implementation** | implementation.md | id, action_id, feature_id, touchpoints, items |
 | **execution** | execution.md | id, action_id, feature_id, items_applied, status |
 | **validate** | validacion.md | id, action_id, feature_id, global, checks, git_changes |
-| **finalize** | finalize.md | id, action_id, feature_id, pr_url, branch, timestamp |
+| **finalize-process** | finalize-process.md | id, action_id, feature_id, pr_url, branch, timestamp |
 
 ## Obligaciones
 
 1. **Estructura:** Cada artefacto de acción es un único `.md` con YAML Frontmatter.
 2. **Sincronidad:** Los metadatos en el frontmatter deben reflejar el estado real del documento; no hay paridad MD/JSON porque no existe `.json` separado.
 3. **Validación:** La acción `validate` puede incluir un check que verifique la existencia y formato correcto del frontmatter en los artefactos de la carpeta de la tarea.
-4. **Consumidores:** Las acciones que lean metadatos (clarify, planning, implementation, execution, validate, finalize) deben obtenerlos del frontmatter del `.md` correspondiente, no de ficheros `.json`.
+4. **Consumidores:** Las acciones que lean metadatos (clarify, planning, implementation, execution, validate, finalize-process) deben obtenerlos del frontmatter del `.md` correspondiente, no de ficheros `.json`.
 
 ## Referencias
 
