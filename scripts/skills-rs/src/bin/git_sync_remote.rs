@@ -44,8 +44,16 @@ fn handle(req: &Value) -> Result<Value, String> {
     if do_pull {
         git_cmd::git(&["pull", remote, &branch])?;
     }
+    let mut push_set_upstream = false;
     if do_push {
-        git_cmd::git(&["push", remote, &branch])?;
+        let (ucode, _, _) = git_cmd::git_output(&["rev-parse", "--abbrev-ref", "@{u}"])?;
+        let has_upstream = ucode == 0;
+        if has_upstream {
+            git_cmd::git(&["push", remote, &branch])?;
+        } else {
+            git_cmd::git(&["push", "-u", remote, "HEAD"])?;
+            push_set_upstream = true;
+        }
     }
 
     Ok(json!({
@@ -53,7 +61,8 @@ fn handle(req: &Value) -> Result<Value, String> {
         "branch": branch,
         "fetch": do_fetch,
         "pull": do_pull,
-        "push": do_push
+        "push": do_push,
+        "pushSetUpstream": push_set_upstream
     }))
 }
 
