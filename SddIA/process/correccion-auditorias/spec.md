@@ -4,31 +4,31 @@ input_ref: paths.auditsPath
 name: Corrección según Auditorías
 persist_ref: paths.featurePath/<nombre_correccion>
 phases:
-  - description: Revisar últimos informes en paths.auditsPath; consolidar hallazgos (críticos/medios/bajos).
+  - description: Revisar últimos informes en paths.auditsPath; consolidar hallazgos (críticos/medios/bajos). Ejecutar git-workspace-recon para validar entorno limpio antes de ramificar.
     id: '0'
     name: Análisis de auditorías
-  - description: objectives.md con hallazgos priorizados y criterios de cierre.
+  - description: objectives.md con hallazgos priorizados y criterios de cierre. Crear rama feat/correccion-segun-auditorias o feat/correccion-auditorias-<id> con git-branch-manager (nunca master).
     id: '1'
-    name: Documentación de objetivos
-  - description: Acción spec; spec.md, spec.json.
+    name: Documentación de objetivos y rama
+  - description: Acción spec; spec.md (YAML Frontmatter).
     id: '2'
     name: Especificación
-  - description: Acción clarify si aplica; clarify.md, clarify.json.
+  - description: Acción clarify si aplica; clarify.md (YAML Frontmatter).
     id: '3'
     name: Clarificación
-  - description: Acción planning; plan.
+  - description: Acción planning; plan.md (YAML Frontmatter).
     id: '4'
     name: Planificación
-  - description: Acción implementation; implementation.md, implementation.json.
+  - description: Acción implementation; implementation.md (YAML Frontmatter).
     id: '5'
     name: Implementación (doc)
-  - description: Acción execution; execution.json.
+  - description: Acción execution; aplicar correcciones. Consolidar hitos con git-save-snapshot. Ante fallo estructural, git-tactical-retreat (con confirmación explícita).
     id: '6'
     name: Ejecución
-  - description: Acción validate; validacion.json.
+  - description: Acción validate; git-workspace-recon para coherencia; validacion.md (YAML Frontmatter).
     id: '7'
     name: Validar
-  - description: Acción finalize; Evolution Logs, PR.
+  - description: Acción finalize; git-sync-remote; git-create-pr con objectives.md y validacion.md en el cuerpo del PR; Evolution Logs.
     id: '8'
     name: Finalizar
 principles_ref: paths.principlesPath
@@ -42,51 +42,57 @@ related_actions:
   - validate
   - finalize
 related_skills:
-  - iniciar-rama
-  - finalizar-git
+  - git-workspace-recon
+  - git-branch-manager
+  - git-save-snapshot
+  - git-sync-remote
+  - git-tactical-retreat
+  - git-create-pr
   - documentation
   - security-audit
-spec_version: 1.0.0
+spec_version: 2.0.0
 ---
-# Proceso: Corrección según Auditorías
+# Proceso: Corrección según Auditorías (spec_version 2.0.0)
 
-Este documento define el **proceso de tarea** para la corrección de hallazgos derivados de auditorías (paths.auditsPath). Está ubicado en paths.processPath/correccion-auditorias/ (Cúmulo). La ruta de persistencia se obtiene de **Cúmulo** (paths.featurePath/<nombre_correccion>).
+Este documento define el **proceso de tarea** para la corrección de hallazgos derivados de auditorías (**spec_version 2.0.0**), con **Arsenal Táctico Git (S+)**: `git-workspace-recon`, `git-branch-manager`, `git-save-snapshot`, `git-sync-remote`, `git-tactical-retreat`, `git-create-pr`. Ubicación: paths.processPath/correccion-auditorias/ (Cúmulo). Entrada: paths.auditsPath. Persistencia: **Cúmulo** (paths.featurePath/<nombre_correccion>).
 
-**Interfaz de proceso:** Cumple la interfaz en Cúmulo (`process_interface`): solicita/genera en la carpeta de la tarea (Cúmulo) al menos un **`.md`** (objectives.md, spec.md, clarify.md) y al menos un **`.json`** (spec.json, audit-hallazgos.json o similar, validacion.json).
+**Interfaz de proceso:** Cumple la interfaz en Cúmulo (`process_interface`): solicita/genera en la carpeta de la tarea (Cúmulo) un **`.md` por acción** con **YAML Frontmatter** (objectives.md, spec.md, clarify.md, plan.md, implementation.md, execution.md, validacion.md, finalize.md). No ficheros .json separados en esa carpeta de tarea. Norma: SddIA/norms/features-documentation-frontmatter.md.
 
 ## Propósito
 
-El proceso **correccion-auditorias** orquesta el ciclo de corrección de hallazgos reportados en los informes de auditoría (paths.auditsPath): análisis de auditorías recientes, priorización de hallazgos, documentación de objetivos, y ejecución de correcciones mediante feature o bug-fix según el tipo de hallazgo.
+El proceso **correccion-auditorias** orquesta el ciclo de corrección de hallazgos en paths.auditsPath: análisis, priorización, documentación y ejecución alineada con feature.
 
 ## Entrada
 
-- **Fuentes:** Informes en paths.auditsPath (p. ej. AUDITORIA_YYYY_MM_DD.md, validacion-*.json).
-- **Artefacto de análisis:** Documento de objetivos (objectives.md) que consolida hallazgos, prioridades y alcance.
+- **Fuentes:** Informes en paths.auditsPath (p. ej. AUDITORIA_YYYY_MM_DD.md).
+- **Artefacto de análisis:** objectives.md con hallazgos y prioridades.
 
 ## Alcance
 
-- **Rama:** feat/correccion-segun-auditorias o feat/correccion-auditorias-<identificador> (nunca master).
-- **Documentación:** Carpeta paths.featurePath/<nombre_correccion>/ con objectives.md (objetivo, hallazgos consolidados, prioridades), spec.md/spec.json, clarify.md si aplica, implementation, validacion.json.
-- **Skills:** iniciar-rama, documentation, invoke-command, security-audit cuando aplique.
-- **Restricciones:** Priorizar hallazgos críticos (compilación, seguridad, violación de capas); alcance acotado por lo reportado en auditorías.
+- **Rama:** feat/correccion-segun-auditorias o feat/correccion-auditorias-<identificador> (nunca master); **git-workspace-recon** antes de **git-branch-manager**.
+- **Documentación:** paths.featurePath/<nombre_correccion>/ con ciclo completo en .md (YAML Frontmatter).
+- **Skills:** suite táctica en `related_skills`; documentation y security-audit cuando aplique.
+- **Restricciones:** Priorizar hallazgos críticos; alcance acotado a lo auditado.
 
-## Fases
+## Fases (resumen)
 
-1. **Análisis de auditorías:** Revisar últimos informes en paths.auditsPath y consolidar hallazgos (críticos / medios / bajos).
-2. **Documentación de objetivos:** Redactar objectives.md con hallazgos priorizados y criterios de cierre.
-3. **Especificación y plan:** Acciones spec, clarify, planning según ciclo feature.
-4. **Implementación y ejecución:** Aplicar correcciones; cada hallazgo puede ser un ítem de implementation.
-5. **Validación y cierre:** validacion.json; registrar en paths.auditsPath o Evolution Logs que los hallazgos fueron abordados.
+| Fase | Nombre | Descripción |
+| :--- | :--- | :--- |
+| **0** | Análisis | Revisar paths.auditsPath; **git-workspace-recon** |
+| **1** | Objetivos y rama | objectives.md; **git-branch-manager** |
+| **2–5** | Spec → implementación (doc) | Acciones spec, clarify, planning, implementation |
+| **6** | Ejecución | Código; **git-save-snapshot**; **git-tactical-retreat** si procede |
+| **7** | Validar | validate + **git-workspace-recon**; validacion.md |
+| **8** | Finalizar | **git-sync-remote**; **git-create-pr**; Evolution Logs |
 
 ## Integración
 
-- Los agentes **Auditor (Back/Front/Process)** generan los informes en paths.auditsPath.
-- El ciclo de corrección lo orquestan **Arquitecto** y **Tekton** usando este proceso.
-- Referencia canónica de la tarea: paths.featurePath/<nombre_correccion>/ (Cúmulo). SSOT para esa ronda de corrección.
+- Informes en paths.auditsPath (Auditor).
+- Orquestación: Arquitecto y Tekton.
+- SSOT: paths.featurePath/<nombre_correccion>/ (Cúmulo).
 
 ## Referencias
 
-- paths.auditsPath (Cúmulo)
-- paths.featurePath (Cúmulo)
+- paths.auditsPath, paths.featurePath (Cúmulo)
 - Proceso feature: paths.processPath/feature/
-- AGENTS.md — Leyes Universales (COMPILACIÓN, GIT, Soberanía documental)
+- AGENTS.md — Leyes Universales

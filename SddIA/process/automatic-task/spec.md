@@ -14,16 +14,19 @@ paths:
   tasksPath_ref: paths.tasksPath (Cúmulo)
 persist_ref: paths.tasksPath
 phases:
+- description: Ejecutar git-workspace-recon para validar entorno limpio. Preparar rama feat/ o fix/ con git-branch-manager antes de tocar la cola de tareas.
+  id: '0'
+  name: Preparar entorno
 - description: Candidatos en raíz de paths.tasksPath y KAIZEN/; prioridad, fecha o indicación del usuario; sin colisión con ACTIVE/.
   id: '1'
   name: Identificación y triaje
-- description: Rama feat/ o fix/; mover unidad a paths.tasksPath/ACTIVE/; commit y push (vía skill/proceso).
+- description: Mover unidad a paths.tasksPath/ACTIVE/; consolidar bloqueo con git-save-snapshot; publicar con git-sync-remote (vía cápsulas; norma git-via-skills-or-process).
   id: '2'
   name: Activación y bloqueo
-- description: Ejecutar proceso objetivo (por defecto feature); leer carpeta-tarea si existe spec/plan; generar artefactos en paths.featurePath si aplica.
+- description: Ejecutar proceso objetivo (por defecto feature); leer carpeta-tarea si existe spec/plan; generar artefactos en paths.featurePath si aplica. Hitos intermedios con git-save-snapshot. Ante fallo estructural, git-tactical-retreat solo con confirmación explícita.
   id: '3'
   name: Ejecución
-- description: Mover unidad a DONE/; Evolution Log; finalize.md cuando aplique.
+- description: Mover unidad a DONE/; Evolution Log; finalize.md cuando aplique. Cierre git-sync-remote y git-create-pr inyectando resumen de la tarea y finalize/validacion en el cuerpo del Pull Request cuando corresponda publicar cambios.
   id: '4'
   name: Finalización y archivo
 principles_ref: paths.principlesPath
@@ -38,15 +41,19 @@ related_actions:
 - execution
 - finalization
 related_skills:
-- iniciar-rama
-- finalizar-git
+- git-workspace-recon
+- git-branch-manager
+- git-save-snapshot
+- git-sync-remote
+- git-tactical-retreat
+- git-create-pr
 - invoke-command
-spec_version: 1.3.1
+spec_version: 2.0.0
 ---
 
-# Proceso: Automatic Task
+# Proceso: Automatic Task (spec_version 2.0.0)
 
-Este documento define el **proceso de tarea** para que una unidad de ejecución SDDIA procese una tarea del backlog de forma autónoma. Está ubicado en paths.processPath/automatic_task/ (Cúmulo). Asegura la integridad del repositorio y la visibilidad del progreso. Las rutas de cola y estados se obtienen de **Cúmulo** (paths.tasksPath); el ciclo de implementación por defecto usa paths.featurePath y el proceso **feature** (paths.processPath/feature/).
+Este documento define el **proceso de tarea** para que una unidad de ejecución SDDIA procese una tarea del backlog de forma autónoma (**spec_version 2.0.0**), con **Arsenal Táctico Git (S+)**: `git-workspace-recon`, `git-branch-manager`, `git-save-snapshot`, `git-sync-remote`, `git-tactical-retreat`, `git-create-pr` (más `invoke-command` cuando aplique invocación genérica trazada). Ubicación canónica del spec: paths.processPath/automatic_task/ (Cúmulo); esta copia bajo paths.processPath/automatic-task/ debe mantenerse alineada. Cola: **Cúmulo** (paths.tasksPath); ciclo por defecto: paths.featurePath y proceso **feature** (paths.processPath/feature/).
 
 **Interfaz de proceso:** Las unidades **carpeta-tarea** bajo paths.tasksPath y la documentación generada al ejecutar el proceso **feature** cumplen la interfaz en Cúmulo (`process_interface`): artefactos **`.md`** con frontmatter YAML donde aplique el ciclo estándar. Patrón: SddIA/norms/features-documentation-pattern.md.
 
@@ -55,6 +62,10 @@ Este documento define el **proceso de tarea** para que una unidad de ejecución 
 ## Unidad de tarea
 
 ## Fases del Proceso
+
+### 0. Preparar entorno
+
+Ejecutar **git-workspace-recon** para validar un workspace limpio y coherente. Crear o seleccionar rama de trabajo **feat/** o **fix/** con **git-branch-manager** antes de mover ficheros en paths.tasksPath.
 
 ### 1. Identificación y Triaje (Triage)
 Localiza en `docs/TASKS/` el archivo `.md` con la prioridad más alta, el que el usuario indique o el de fecha más antigua.
@@ -65,19 +76,21 @@ Localiza en `docs/TASKS/` el archivo `.md` con la prioridad más alta, el que el
 
 ### 2. Activación y Bloqueo (Activation)
 Transición a estado `ACTIVE` para evitar colisiones con otras IAs (Jules/Cursor).
-- Crea una nueva rama `feat/<nombre_feature>` o `fix/<nombre_fix>`.
-- Mueve el archivo de la tarea de `docs/TASKS/` a `docs/TASKS/ACTIVE/`.
-- **Sincronización Inmediata**: Realiza el primer commit con la reubicación del archivo de la tarea a su nueva ubicación `ACTIVE/` y haz push a origin en la rama actual. Esto bloquea el TODO.
+- La rama `feat/<nombre_feature>` o `fix/<nombre_fix>` debe existir tras la fase 0 (**git-branch-manager**).
+- Mueve el archivo de la tarea bajo paths.tasksPath a `ACTIVE/` (resolver ruta real vía Cúmulo, p. ej. docs/tasks/).
+- **Sincronización inmediata:** **git-save-snapshot** con la reubicación a `ACTIVE/`; **git-sync-remote** para publicar el bloqueo en la rama actual.
 
 ### 3. Ejecución (Execution)
 Inicia y continúa las instrucciones definidas en el proceso correspondiente, por defecto el proceso `feature` (definido en `SddIA/process/feature/spec.md`).
-- Esto implica generar la documentación de la tarea (objectives, spec, clarify, plan, implementation, execution, validacion) en `paths.featurePath/<nombre_feature>`.
+- Generar la documentación de la tarea en `paths.featurePath/<nombre_feature>` cuando aplique.
+- Consolidar hitos con **git-save-snapshot**. Ante corrupción severa del entorno, **git-tactical-retreat** solo con confirmación explícita.
 
 ### 4. Finalización y Archivo (Finalization)
 Transición a estado `DONE` tras el cumplimiento del proceso.
-- Mueve el archivo de la tarea de `docs/TASKS/ACTIVE/` a `docs/TASKS/DONE/`.
-- Actualiza `docs/EVOLUTION_LOG.md` con un resumen de la intervención, enlazando al archivo en `DONE/`.
-- Genera la documentación de finalización del proceso feature (`finalize.md`).
+- Mueve el archivo de la tarea de `ACTIVE/` a `DONE/` bajo paths.tasksPath.
+- Actualiza Evolution Log (paths.evolutionPath / paths.evolutionLogFile, Cúmulo) con resumen y enlace al artefacto en `DONE/`.
+- Generar `finalize.md` del ciclo feature cuando aplique.
+- **git-sync-remote** y **git-create-pr** con resumen de la intervención y referencias a documentación de tarea en el cuerpo del PR.
 
 ## Estructura de Carpetas Requerida
 Para el correcto funcionamiento de este proceso, el repositorio debe mantener la siguiente jerarquía:
@@ -91,5 +104,6 @@ Para el correcto funcionamiento de este proceso, el repositorio debe mantener la
 
 ## Historial de versión del spec
 
+- **2.0.0:** Estándar S+ Grade — suite táctica Git (recon, branch-manager, save-snapshot, sync-remote, tactical-retreat, create-pr); fase 0 de preparación; eliminación de iniciar-rama/finalizar-git como referencias operativas.
 - **1.3.1:** Frontmatter alineado con process-contract (contract_ref, principles_ref, persist_ref, phases, paths, process_interface_compliance, related_skills); introducción estándar con ubicación e interfaz de proceso.
 - **1.0.0:** Especificación inicial del proceso Automatic Task.

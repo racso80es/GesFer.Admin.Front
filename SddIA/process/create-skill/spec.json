@@ -1,8 +1,8 @@
 {
-  "spec_version": "1.0.0",
+  "spec_version": "2.0.0",
   "process_id": "create-skill",
   "name": "Create Skill",
-  "description": "Proceso para la creación de una nueva skill: definición en paths.skillsDefinitionPath, cápsula opcional en paths.skillCapsules con manifest y documentación, índice paths.skillsIndexPath y Cúmulo actualizado. Cumple SddIA/skills/skills-contract.json.",
+  "description": "Proceso para la creación de una nueva skill: definición, cápsula opcional, índice, Cúmulo. Cumple skills-contract; Arsenal Táctico Git S+.",
   "process_doc_ref": "paths.processPath/create-skill/",
   "contract_ref": "paths.processPath/process-contract.json",
   "skills_contract_ref": "SddIA/skills/skills-contract.json",
@@ -14,7 +14,7 @@
     "featurePath_ref": "paths.featurePath (Cúmulo)",
     "skillCapsulesRef": "paths.skillCapsules"
   },
-  "process_interface_compliance": "Genera en carpeta de la tarea un .md por acción con YAML Frontmatter; entrega ejecutable: cápsula en paths.skillCapsules/<skill-id>/ cuando aplique.",
+  "process_interface_compliance": "Genera en carpeta de la tarea un .md por acción con YAML Frontmatter; entrega ejecutable: cápsula en paths.skillCapsules[<skill-id>] cuando aplique.",
   "triggers": [
     "Crear nueva skill con skill-id",
     "Solicitud de creación de skill ejecutable o solo definición"
@@ -24,5 +24,19 @@
     "description": "Descripción breve. Obligatorio."
   },
   "related_actions": ["spec", "implementation", "validate", "finalize"],
-  "related_skills": ["iniciar-rama"]
+  "related_skills": [
+    "git-workspace-recon",
+    "git-branch-manager",
+    "git-save-snapshot",
+    "git-sync-remote",
+    "git-tactical-retreat",
+    "git-create-pr"
+  ],
+  "phases": [
+    { "id": "0", "name": "Preparar entorno", "description": "git-workspace-recon; git-branch-manager (feat/create-skill-<skill-id>)." },
+    { "id": "1", "name": "Especificación y definición SddIA", "description": "objectives.md, spec.md; paths.skillsDefinitionPath." },
+    { "id": "2", "name": "Implementación de cápsula e integración", "description": "Cápsula, índice, Cúmulo; git-save-snapshot." },
+    { "id": "3", "name": "Validar", "description": "Validación contractual y operativa." },
+    { "id": "4", "name": "Finalizar", "description": "git-sync-remote; git-create-pr." }
+  ]
 }
