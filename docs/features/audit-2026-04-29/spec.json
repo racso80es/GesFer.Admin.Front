@@ -1,0 +1,9 @@
+{
+  "process_id": "audit-2026-04-29",
+  "name": "Registro Auditoría Saludable",
+  "description": "Registro de auditoría 100% exitosa",
+  "phases": ["validation"],
+  "persist_ref": "docs/audits/AUDITORIA_2026_04_29.md",
+  "related_actions": [],
+  "contract_ref": "SddIA/process/correccion-auditorias"
+}
