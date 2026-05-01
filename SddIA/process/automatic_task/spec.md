@@ -104,6 +104,6 @@ Para el correcto funcionamiento de este proceso, el repositorio debe mantener la
 
 ## Historial de versión del spec
 
-- **2.0.0:** Estándar S+ Grade — suite táctica Git (recon, branch-manager, save-snapshot, sync-remote, tactical-retreat, create-pr); fase 0 de preparación; eliminación de iniciar-rama/finalizar-git como referencias operativas.
+- **2.0.0:** Estándar S+ Grade — suite táctica Git (recon, branch-manager, save-snapshot, sync-remote, tactical-retreat, create-pr); fase 0 de preparación.
 - **1.3.1:** Frontmatter alineado con process-contract (contract_ref, principles_ref, persist_ref, phases, paths, process_interface_compliance, related_skills); introducción estándar con ubicación e interfaz de proceso.
 - **1.0.0:** Especificación inicial del proceso Automatic Task.

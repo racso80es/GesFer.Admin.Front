@@ -10,8 +10,8 @@ status: Active
 
 # Skill: git-branch-manager
 
-- `create: true` → `git checkout -b <branchName>`.
-- `create: false` y `checkout: true` → `git checkout`.
-- `create: false` y `checkout: false` → `git branch` (crea ref sin checkout).
+- `create: true` → crear rama y cambiar a ella.
+- `create: false` y `checkout: true` → cambiar a rama existente.
+- `create: false` y `checkout: false` → crear referencia de rama sin cambio de contexto.
 
 Envelope v2: `meta.entityId` = `git-branch-manager`.

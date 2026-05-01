@@ -26,8 +26,6 @@ Cada skill tiene en este directorio una carpeta con:
 
 | skill_id | Descripción breve | Cápsula (paths.skillCapsules) |
 | :--- | :--- | :--- |
-| iniciar-rama | Crea rama feat/ o fix/ actualizada con master; inicio de acción. | iniciar-rama |
-| finalizar-git | Aceptar PR a master, unificar, eliminar rama, volver a master. | finalizar-git |
 | invoke-command | Interceptor de comandos de sistema (git, dotnet, npm, pwsh). | invoke-command |
 | invoke-commit | Commit con parámetros directos (--message, --files, --all). | invoke-commit |
 | git-workspace-recon | Inspección del workspace Git (JSON v2 / CLI). | git-workspace-recon |

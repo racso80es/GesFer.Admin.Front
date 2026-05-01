@@ -25,7 +25,7 @@ skill_ref: finalizar-proceso
 
 ## Propósito
 
-La acción **finalize** (finalizar) cierra el ciclo de la feature: asegura commits atómicos en la rama, actualiza los Evolution Logs, **sube la rama al remoto (push)** y crea el Pull Request hacia `master`. Solo debe ejecutarse cuando la validación ha pasado; en caso contrario, debe advertir o bloquear. **Comportamiento obligatorio:** al realizar finalize, el ejecutor debe comprender e incluir el paso de **subir (push)**: publicar la rama actual en `origin` antes de crear el PR; sin este paso el cierre no está completo. Proporciona trazabilidad y cierre formal alineado con las Leyes Universales (no commit en master, documentación en paths.featurePath según Cúmulo).
+La acción **finalize** (finalizar) cierra el ciclo de la feature: asegura commits atómicos en la rama, actualiza los Evolution Logs, **publica/sincroniza la rama en el remoto** (vía skill `git-sync-remote`) y crea el Pull Request (vía skill `git-create-pr`). Solo debe ejecutarse cuando la validación ha pasado; en caso contrario, debe advertir o bloquear. **Comportamiento obligatorio:** al realizar finalize, el ejecutor debe incluir el paso de **publicar rama** en `origin` antes de crear el PR; sin este paso el cierre no está completo. Proporciona trazabilidad y cierre formal alineado con las Leyes Universales (no commit en master, documentación en paths.featurePath según Cúmulo).
 
 ## Principio
 
@@ -41,7 +41,7 @@ La acción **finalize** (finalizar) cierra el ciclo de la feature: asegura commi
 
 ## Salidas
 
-- **Rama publicada (subir / push):** La rama actual debe quedar subida en `origin`; es una salida obligatoria de finalize antes de considerar el PR creado.
+- **Rama publicada:** La rama actual debe quedar publicada en `origin` mediante `git-sync-remote`; es una salida obligatoria de finalize antes de considerar el PR creado.
 - **Evolution Logs actualizados:**
   - paths.evolutionPath + paths.evolutionLogFile (raíz docs: docs/EVOLUTION_LOG.md según proyecto): una línea con formato `[YYYY-MM-DD] [feat/<nombre>] [Descripción breve del resultado.] [Estado].`
   - paths.evolutionPath + paths.evolutionLogFile: una sección con fecha, título de la feature, resumen de acción/alcance/resultado y referencia a la carpeta de la feature (Cúmulo)/objectives.md.
@@ -78,7 +78,7 @@ Para **ejecutar** la acción finalize (pasos de push y PR), se debe invocar el s
 4. **Actualización de Evolution Logs:**
    - Añadir entrada en docs/EVOLUTION_LOG.md (raíz) o paths.evolutionPath + paths.evolutionLogFile.
    - Añadir sección en paths.evolutionPath + paths.evolutionLogFile con resumen y enlace a la carpeta de la feature.
-5. **Ejecutar script finalize (push + PR):** **Invocar** `.\scripts\actions\finalize\Invoke-Finalize.ps1 -Persist "docs/features/<nombre_feature>/"` desde la raíz del repo. Este script comprueba precondiciones, opcionalmente ejecuta verify-pr-protocol y **invoca la skill finalizar-proceso** (Push-And-CreatePR.ps1 de la cápsula), que realiza el push y la creación del PR. Sin este paso ejecutado con éxito, el cierre no está completo. El agente no ejecuta `git push` ni `gh pr create` directamente; toda la interacción Git se hace a través de la skill (Ley COMANDOS).
+5. **Ejecutar finalize (publicación + PR):** Invocar la orquestación definida por el proyecto para realizar **git-sync-remote** y **git-create-pr**. Sin este paso ejecutado con éxito, el cierre no está completo. El agente no ejecuta `git ...` ni `gh ...` directamente; toda la interacción Git se hace a través de skills (Ley COMANDOS).
 6. **Persistencia opcional:** Escribir finalize.md en la carpeta de la feature (Cúmulo) con YAML Frontmatter (pr_url, branch, timestamp); no finalize.json separado. Norma: SddIA/norms/features-documentation-frontmatter.md.
 7. **Auditoría:** Registrar el evento de finalización en paths.auditsPath + paths.accessLogFile (Cúmulo).
 8. **Post-PR (skill finalizar-proceso, fase post_pr):** Una vez el PR esté aceptado/mergeado en el remoto, el ejecutor (o el usuario) aplica la fase **post_pr** de la skill **FinalizarProceso** invocando `.\scripts\skills\finalizar-proceso\Finalizar-Proceso.ps1 -BranchName "feat/<nombre_feature>"` (o Finalizar-Proceso.bat). Por defecto se elimina la rama remota; usar `-NoDeleteRemote` para no borrarla. Ver paths.skillsDefinitionPath/finalizar-proceso/spec.md.

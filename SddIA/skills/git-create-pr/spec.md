@@ -10,6 +10,6 @@ status: Active
 
 # Skill: git-create-pr
 
-Depende de **GitHub CLI** (`gh`). Complementa `finalizar-git` / `push_and_create_pr` con skill dedicada y contrato JSON v2.
+Depende de **GitHub CLI** (`gh`). Complementa los flujos de publicación/cierre (suite Git S+) con skill dedicada y contrato JSON v2.
 
 Envelope v2: `meta.entityId` = `git-create-pr`.

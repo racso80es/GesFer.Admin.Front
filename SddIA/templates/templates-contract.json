@@ -62,7 +62,7 @@
         "items": {
           "type": "string"
         },
-        "description": "Skills recomendadas (iniciar-rama, finalizar-git, documentation, etc.)."
+        "description": "Skills recomendadas (git-workspace-recon, git-branch-manager, git-save-snapshot, git-sync-remote, git-tactical-retreat, git-create-pr, invoke-commit, documentation, etc.)."
       },
       "interested_agents": {
         "type": "array",
