@@ -4,7 +4,7 @@ action_id: objectives
 feature_id: refactor-actions-contract-and-finalize
 title: "Refactor del contrato de acciones y metamorfosis finalize → finalize-process"
 date: "2026-05-01"
-status: in_progress
+status: done
 branch: feat/refactor-actions-contract-and-finalize
 scope: |
   Contrato de acciones (solo orquestación skills/tools), renombrado de la acción de cierre,
