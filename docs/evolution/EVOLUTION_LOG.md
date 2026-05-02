@@ -119,3 +119,9 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 **Estado:** Completado.
 **Resumen:** Ejecutado npm audit fix para mitigar vulnerabilidades y compilado SddIA skills.
 **Documentación:** [docs/features/kaizen-npm-audit-3/](../features/kaizen-npm-audit-3/)
+
+## [2026-05-02] [automatic-task/kaizen-npm-audit-2026-05-02] Resolucion vulnerabilidades
+
+**Estado:** Completado.
+**Resumen:** Ejecutado npm audit fix y overrides para mitigar vulnerabilidades sin actualizar a Next 15.
+**Documentación:** [docs/features/kaizen-npm-audit-2026-05-02/](../features/kaizen-npm-audit-2026-05-02/)
