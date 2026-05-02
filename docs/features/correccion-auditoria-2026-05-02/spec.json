@@ -1,0 +1,9 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección Auditoría 2026-05-02",
+  "description": "Registro formal de la auditoría 2026-05-02",
+  "phases": [],
+  "persist_ref": "docs/features/correccion-auditoria-2026-05-02",
+  "related_actions": ["validate"],
+  "contract_ref": "SddIA/process/process-contract.json"
+}
