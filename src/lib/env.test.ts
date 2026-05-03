@@ -22,6 +22,16 @@ describe('env utilities', () => {
     // Clear CI/build flags if present in the environment running the tests
     delete process.env.npm_lifecycle_event;
     delete process.env.CI;
+    // Clear other variables so tests can reliably check fallback/missing behavior
+    delete process.env.ADMIN_API_URL;
+    delete process.env.NEXT_PUBLIC_ADMIN_API_URL;
+    delete process.env.NEXTAUTH_URL;
+    delete process.env.VERCEL_URL;
+    delete process.env.CLIENT_URL;
+    delete process.env.NEXT_PUBLIC_CLIENT_URL;
+    delete process.env.NEXT_PUBLIC_API_URL;
+    delete process.env.NEXT_PUBLIC_ADMIN_DEFAULT_USERNAME;
+    delete process.env.NEXT_PUBLIC_ADMIN_DEFAULT_PASSWORD;
   });
 
   afterEach(() => {

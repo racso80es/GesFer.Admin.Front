@@ -1,0 +1,35 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Registro de Auditoría Exitosa 2026-04-30",
+  "description": "Formalización y registro del resultado S+ de la auditoría de Fase A con métricas de salud al 100%.",
+  "phases": [
+    {
+      "id": "0",
+      "name": "Análisis de auditorías",
+      "description": "Consolidación de un informe 100% S+."
+    },
+    {
+      "id": "1",
+      "name": "Documentación de objetivos",
+      "description": "Creación del documento objectives.md."
+    },
+    {
+      "id": "2",
+      "name": "Especificación",
+      "description": "Creación del documento spec.md y spec.json."
+    },
+    {
+      "id": "3",
+      "name": "Implementación y ejecución",
+      "description": "Verificación de las pruebas y build (The Wall) localmente."
+    },
+    {
+      "id": "4",
+      "name": "Validación y cierre",
+      "description": "Generación del registro validacion.md."
+    }
+  ],
+  "persist_ref": "docs/features/auditoria-2026-04-30",
+  "related_actions": ["spec", "validate"],
+  "contract_ref": "SddIA/process/process-contract.json"
+}
