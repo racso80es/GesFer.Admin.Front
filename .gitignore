@@ -7,6 +7,9 @@ logs/
 *.log
 !logFile!
 
+# Petición efímera Tekton → cápsulas (scripts/skills/run-capsule-from-tekton-request.ps1)
+.tekton_request.json
+
 # Archivos temporales
 *.tmp
 *.temp

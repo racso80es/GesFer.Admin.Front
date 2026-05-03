@@ -22,7 +22,8 @@
     "Rutas canónicas solo desde Cúmulo (paths.actionsPath, paths.processPath, paths.featurePath, paths.fixPath, paths.principlesPath, paths.patternsPath).",
     "Acciones de diseño/implementación: validar principios según principles-contract.",
     "Planning, implementation, execution: aplicar patrones según patterns-in-planning-implementation-execution.md.",
-    "Cumplimiento obligatorio de Karma2Token para trazabilidad y seguridad."
+    "Cumplimiento obligatorio de Karma2Token para trazabilidad y seguridad.",
+    "Alcance de ejecución: las acciones solo orquestan skills/tools registradas; prohibido prescribir ejecución directa de scripts OS o comandos no canalizados por skill/tool (ver actions-contract.md)."
   ],
   "consumers": [
     "paths.processPath",

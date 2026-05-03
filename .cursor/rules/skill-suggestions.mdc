@@ -17,10 +17,15 @@ Cuando el usuario escriba **#Skill** (solo o en un mensaje), responde sugiriendo
 
 | skill_id | Descripción |
 |----------|-------------|
-| **iniciar-rama** | Crea rama feat/ o fix/ actualizada con master/main. Inicio de acción o tarea. Cápsula: paths.skillCapsules.iniciar-rama |
-| **finalizar-git** | Aceptar PR a master, unificar, eliminar rama, volver a master. Pre-pr / post_pr. Cápsula: paths.skillCapsules.finalizar-git |
 | **invoke-command** | Interceptor de comandos de sistema (git, dotnet, npm, pwsh). Telemetría y registro por rama. Cápsula: paths.skillCapsules.invoke-command |
 | **invoke-commit** | Operaciones de commit con parámetros directos (--message, --files, --all). Sin ficheros .txt. Cápsula: paths.skillCapsules.invoke-commit |
+| **git-workspace-recon** | Inspección JSON del workspace Git. Cápsula: paths.skillCapsules.git-workspace-recon |
+| **git-branch-manager** | Crear o cambiar de rama. Cápsula: paths.skillCapsules.git-branch-manager |
+| **git-save-snapshot** | git add + commit (envelope JSON v2 o CLI). Cápsula: paths.skillCapsules.git-save-snapshot |
+| **git-sync-remote** | fetch / pull / push opcionales. Cápsula: paths.skillCapsules.git-sync-remote |
+| **git-tactical-retreat** | Reset/limpieza con confirmación explícita. Cápsula: paths.skillCapsules.git-tactical-retreat |
+| **git-create-pr** | Push opcional y gh pr create. Cápsula: paths.skillCapsules.git-create-pr |
+| **git-close-cycle** | Cierre local: integración, pull origin HEAD, fetch --prune, borrar rama de trabajo (-d/-D). Cápsula: paths.skillCapsules.git-close-cycle |
 | **git-operations** | Uso seguro de Git (ramas feat/fix, commits convencionales). Solo definición. |
 | **documentation** | Estándares SSOT y gestión de documentación. Solo definición. |
 | **filesystem-ops** | Operaciones de archivo seguras (PowerShell). Solo definición. |

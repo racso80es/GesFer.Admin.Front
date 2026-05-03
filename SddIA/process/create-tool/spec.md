@@ -11,6 +11,22 @@ paths:
   toolsIndexPath_ref: paths.toolsIndexPath (Cúmulo)
   toolsPath_ref: paths.toolsPath (Cúmulo)
 persist_ref: paths.featurePath/create-tool-<tool-id>
+phases:
+  - description: Ejecutar git-workspace-recon para validar entorno limpio. Tras confirmar, crear rama feat/create-tool-<tool-id> desde master usando git-branch-manager.
+    id: '0'
+    name: Preparar entorno
+  - description: Objetivos y especificación (objectives.md, spec.md); definición en paths.toolsDefinitionPath.
+    id: '1'
+    name: Especificación y definición SddIA
+  - description: Cápsula, manifest, índice, Cúmulo; hitos consolidados con git-save-snapshot. Ante fallo estructural, git-tactical-retreat (con confirmación explícita).
+    id: '2'
+    name: Implementación de cápsula e integración
+  - description: Validación contractual y funcional de la tool.
+    id: '3'
+    name: Validar
+  - description: Cierre. git-sync-remote; git-create-pr inyectando objectives.md y validacion.md en el cuerpo del PR.
+    id: '4'
+    name: Finalizar
 process_doc_ref: paths.processPath/create-tool/
 process_id: create-tool
 process_interface_compliance: 'Genera en carpeta de la tarea un .md por acción con YAML Frontmatter (objectives.md, spec.md, implementation.md, validacion.md); no ficheros .json separados. Entrega ejecutable: cápsula en paths.toolCapsules[<tool-id>]. Norma: features-documentation-frontmatter.md.'
@@ -18,18 +34,23 @@ related_actions:
   - spec
   - implementation
   - validate
-  - finalize
+  - finalize-process
 related_skills:
-  - iniciar-rama
-spec_version: 1.0.0
+  - git-workspace-recon
+  - git-branch-manager
+  - git-save-snapshot
+  - git-sync-remote
+  - git-tactical-retreat
+  - git-create-pr
+spec_version: 2.0.0
 tools_contract_ref: SddIA/tools/tools-contract.json
 triggers:
   - Crear nueva herramienta en paths.toolsPath
   - Solicitud de creación de herramienta con tool-id
 ---
-# Proceso: Creación de herramientas (create-tool)
+# Proceso: Creación de herramientas (create-tool) (spec_version 2.0.0)
 
-Este documento define el **proceso de tarea** para crear una nueva herramienta (tool) en el proyecto. Está ubicado en paths.processPath/create-tool/ (Cúmulo). Las rutas de herramientas se obtienen de **Cúmulo** (paths.toolsPath, paths.toolCapsules, paths.toolsIndexPath).
+Este documento define el **proceso de tarea** para crear una nueva herramienta (tool) (**spec_version 2.0.0**), con **Arsenal Táctico Git (S+)**: `git-workspace-recon`, `git-branch-manager`, `git-save-snapshot`, `git-sync-remote`, `git-tactical-retreat`, `git-create-pr`. Ubicación: paths.processPath/create-tool/ (Cúmulo). Rutas: **Cúmulo** (paths.toolsPath, paths.toolCapsules, paths.toolsIndexPath).
 
 **Interfaz de proceso:** Cumple la interfaz en Cúmulo (`process_interface`): la tarea de creación genera en la carpeta de la tarea (Cúmulo) un **`.md` por acción** con **YAML Frontmatter** (objectives.md, spec.md, implementation.md, validacion.md). No ficheros .json separados. El **resultado ejecutable** es la cápsula en **paths.toolCapsules[<tool-id>]** con todos los artefactos requeridos por el contrato de herramientas. Norma: SddIA/norms/features-documentation-frontmatter.md.
 
@@ -43,7 +64,9 @@ El proceso **create-tool** define el procedimiento para incorporar una nueva her
 - **Definición (SddIA):** paths.toolsDefinitionPath/<tool-id>/ con spec.md y spec.json (implementation_path_ref obligatorio).
 - **Cápsula (implementación):** paths.toolCapsules[<tool-id>].
 
-Fases: 0 Preparar entorno | 1 Objetivos y especificación | 1b Definición en SddIA | 2–6 Cápsula, manifest, scripts, índice, Cúmulo | 7 Opcional Rust | 8 Validación | 9 Cierre.
+**Flujo Git (S+):** Fase 0 — **git-workspace-recon** y **git-branch-manager** (rama `feat/create-tool-<tool-id>`). Durante cápsula/índice/Cúmulo — **git-save-snapshot** por hitos; **git-tactical-retreat** solo ante emergencia y con confirmación. Cierre — **git-sync-remote** y **git-create-pr** con objectives.md y validacion.md en el cuerpo del PR.
+
+Fases detalladas (orientativas, alineadas al frontmatter): 0 Preparar entorno | 1 Objetivos, spec y definición SddIA | 2–6 Cápsula, manifest, scripts, índice, Cúmulo (snapshots) | 7 Opcional Rust | 8 Validación | 9 Cierre (sync + PR).
 
 ## Restricciones
 

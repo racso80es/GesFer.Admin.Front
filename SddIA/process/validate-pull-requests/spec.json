@@ -1,5 +1,5 @@
 {
-  "spec_version": "1.0.0",
+  "spec_version": "2.0.0",
   "process_id": "validate-pull-requests",
   "name": "Validación integral de Pull Requests (S+ Grade)",
   "description": "Nodo de control que orquesta architect, qa-judge y security-engineer sobre la rama origen del PR; produce informe de consenso y semillas Kaizen en paths.tasksPath.",
@@ -62,7 +62,7 @@
     {
       "id": "0",
       "name": "Preparar contexto y rama del PR",
-      "description": "Verificar Karma2Token (paths.tokensPath). Sincronizar el working tree con la rama origen del PR solo vía skill, herramienta, acción o proceso (SddIA/norms/git-via-skills-or-process.md); p. ej. paths.skillCapsules.invoke-command. Confirmar análisis sobre el código propuesto en el PR, no la rama de integración destino."
+      "description": "git-workspace-recon; git-branch-manager (u equivalente) para alinear con la rama origen del PR. Verificar Karma2Token (paths.tokensPath). Confirmar análisis sobre el código propuesto en el PR, no la rama de integración destino."
     },
     {
       "id": "1",
@@ -82,16 +82,23 @@
     {
       "id": "4",
       "name": "Consenso e informe final",
-      "description": "Integrar dictámenes, aplicar criterios de veredicto y redactar validacion.md según formato de consenso del spec.md."
+      "description": "Integrar dictámenes, aplicar criterios de veredicto y redactar validacion.md según formato de consenso del spec.md. git-save-snapshot si se versiona borrador en rama."
     },
     {
       "id": "5",
       "name": "Persistencia y Cúmulo Kaizen",
-      "description": "Persistir validacion.md bajo persist_ref. Escribir semillas Kaizen en tasks_path_cumulo con nombre [YYYYMMDD]-Refactor-[Tema].md y plantilla del spec.md."
+      "description": "Persistir validacion.md bajo persist_ref; semillas Kaizen en tasks_path_cumulo. git-sync-remote; git-create-pr (objectives + validacion en cuerpo del PR). git-tactical-retreat solo ante emergencia con confirmación."
     }
   ],
   "related_actions": ["spec", "validate"],
-  "related_skills": ["invoke-command"],
+  "related_skills": [
+    "git-workspace-recon",
+    "git-branch-manager",
+    "git-save-snapshot",
+    "git-sync-remote",
+    "git-tactical-retreat",
+    "git-create-pr"
+  ],
   "related_agents": [
     { "ref": "SddIA/agents/architect.json", "role": "architect" },
     { "ref": "SddIA/agents/qa-judge.json", "role": "qa-judge" },

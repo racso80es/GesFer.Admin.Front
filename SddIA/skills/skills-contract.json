@@ -6,14 +6,14 @@
     "language": "rust",
     "rationale": "Rendimiento, seguridad de memoria, portabilidad y distribución como binario. Las implementaciones por defecto de scripts de skills (y de tools) han de ser en Rust.",
     "delivery": [
-      "Cada skill con ejecutable reside en una cápsula paths.skillCapsules[skill-id]. Los ejecutables se construyen en paths.skillsRustPath (Cúmulo) y se copian a <cápsula>/bin/.",
-      "Launcher .bat en la cápsula invoca el .exe en bin/.",
+      "Cada skill con ejecutable reside en una cápsula paths.skillCapsules[skill-id]. Los ejecutables se construyen en paths.skillsRustPath (Cúmulo) y se copian a la raíz de la cápsula como <nombre>.exe (paridad create-tool/create-skill; legado bin/ hasta migración).",
+      "Launcher .bat en la cápsula invoca el .exe en raíz (o bin/ si legado).",
       "manifest.json, documentación .md obligatorios en la cápsula. Rutas canónicas: Cúmulo paths.skillCapsules."
     ]
   },
   "implementation": {
     "format": "Rust executable (.exe)",
-    "location_pattern": "scripts/skills/{skill-id}/bin/{nombre}.exe",
+    "location_pattern": "scripts/skills/{skill-id}/{nombre}.exe",
     "source_location": "scripts/skills-rs/src/{nombre}.rs",
     "prohibited_formats": [
       ".ps1",
@@ -39,12 +39,12 @@
     },
     {
       "ext": "binary",
-      "path": "<cápsula>/bin/<skill_bin>.exe",
-      "purpose": "Ejecutable Rust en la cápsula (copiado desde skills-rs/install.ps1). OBLIGATORIO."
+      "path": "<cápsula>/<skill_bin>.exe",
+      "purpose": "Ejecutable Rust en la raíz de la cápsula. OBLIGATORIO si hay binario. Legado: <cápsula>/bin/ hasta migración."
     },
     {
       "ext": ".bat",
-      "purpose": "Launcher en cápsula: invoca binario en bin/."
+      "purpose": "Launcher en cápsula: invoca .exe en raíz (o bin/ si legado)."
     },
     {
       "ext": ".json",
@@ -57,7 +57,7 @@
     }
   ],
   "implementation_requirements": [
-    "El ejecutable o script sugerido para la implementación de la skill debe ser desarrollado en Rust (localizado en paths.toolsRustPath (Cúmulo))."
+    "El ejecutable sugerido para la implementación de la skill debe ser desarrollado en Rust (paths.skillsRustPath (Cúmulo))."
   ],
   "security_model": {
     "required_token": "Karma2Token",

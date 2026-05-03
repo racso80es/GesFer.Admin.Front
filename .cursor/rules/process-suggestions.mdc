@@ -11,7 +11,7 @@ Cuando el usuario escriba **#Process** (solo o en un mensaje), responde sugirien
 
 1. **Reconocer el disparador:** Si en el mensaje aparece `#Process`, interpretar que el usuario quiere ver o elegir un proceso.
 2. **Listar procesos existentes** con formato claro: `process_id` y descripción breve.
-3. **Fuente:** paths.processPath (Cúmulo): README.md y carpetas por proceso (feature/, bug-fix/, refactorization/, create-tool/), cada una con spec.md y spec.json.
+3. **Fuente:** paths.processPath (Cúmulo): README.md y carpetas por proceso (feature/, bug-fix/, refactorization/, create-tool/, create-skill/), cada una con spec.md y spec.json.
 
 ## Listado canónico (fuente: SddIA/process/ — Cúmulo paths.processPath)
 
@@ -21,6 +21,7 @@ Cuando el usuario escriba **#Process** (solo o en un mensaje), responde sugirien
 | **bug-fix** | Corrección de un bug: rama fix/\<nombre_fix\>, documentación en paths.fixPath/\<nombre_fix\>/ (Cúmulo). Alcance mínimo. |
 | **refactorization** | Refactorización: rama feat/refactorization-\<nombre_refactor\>, documentación en paths.featurePath/refactorization-\<nombre_refactor\>/ (Cúmulo). |
 | **create-tool** | Creación de una nueva herramienta: rama feat/create-tool-\<tool-id\>, cápsula en paths.toolCapsules, índice y Cúmulo actualizados. |
+| **create-skill** | Creación de una nueva skill: rama feat/create-skill-\<skill-id\>, definición en paths.skillsDefinitionPath, cápsula en paths.skillCapsules e índice actualizados si hay ejecutable. |
 | **correccion-auditorias** | Corrección de hallazgos de auditoría: rama feat/correccion-segun-auditorias; entrada paths.auditsPath; documentación en paths.featurePath. |
 | **create-template** | Creación de plantilla: rama feat/create-template-\<template-id\>, carpeta en paths.templatesPath. Configuración predefinida de proceso con fin concreto. |
 | **audit-tool** | Auditoría de herramienta: verificación empírica del funcionamiento de una tool. Resultado: informe en paths.auditsPath/tools/\<tool-id\>/. |

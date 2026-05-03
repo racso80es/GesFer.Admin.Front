@@ -32,6 +32,55 @@
       "manifest": "invoke-commit/manifest.json",
       "launcher_bat": "invoke-commit/Invoke-Commit.bat",
       "description": "Operaciones de commit con parámetros directos (--message, --files, --all). Sin ficheros .txt."
+    },
+    {
+      "skillId": "git-workspace-recon",
+      "path": "git-workspace-recon/",
+      "manifest": "git-workspace-recon/manifest.json",
+      "launcher_bat": "git-workspace-recon/Git-Workspace-Recon.bat",
+      "description": "Inspección JSON del workspace Git (rama, status, remotos, último commit)."
+    },
+    {
+      "skillId": "git-branch-manager",
+      "path": "git-branch-manager/",
+      "manifest": "git-branch-manager/manifest.json",
+      "launcher_bat": "git-branch-manager/Git-Branch-Manager.bat",
+      "description": "Crear rama (-b) o checkout según request/CLI."
+    },
+    {
+      "skillId": "git-save-snapshot",
+      "path": "git-save-snapshot/",
+      "manifest": "git-save-snapshot/manifest.json",
+      "launcher_bat": "git-save-snapshot/Git-Save-Snapshot.bat",
+      "description": "git add + commit con mensaje (request JSON o CLI)."
+    },
+    {
+      "skillId": "git-sync-remote",
+      "path": "git-sync-remote/",
+      "manifest": "git-sync-remote/manifest.json",
+      "launcher_bat": "git-sync-remote/Git-Sync-Remote.bat",
+      "description": "fetch / pull / push opcionales contra remote/rama."
+    },
+    {
+      "skillId": "git-tactical-retreat",
+      "path": "git-tactical-retreat/",
+      "manifest": "git-tactical-retreat/manifest.json",
+      "launcher_bat": "git-tactical-retreat/Git-Tactical-Retreat.bat",
+      "description": "Reset duro o limpieza working tree; exige confirmDestructive (Visión Zero)."
+    },
+    {
+      "skillId": "git-create-pr",
+      "path": "git-create-pr/",
+      "manifest": "git-create-pr/manifest.json",
+      "launcher_bat": "git-create-pr/Git-Create-PR.bat",
+      "description": "Push opcional y gh pr create (GitHub CLI)."
+    },
+    {
+      "skillId": "git-close-cycle",
+      "path": "git-close-cycle/",
+      "manifest": "git-close-cycle/manifest.json",
+      "launcher_bat": "git-close-cycle/Git-Close-Cycle.bat",
+      "description": "Cierre local post-PR: checkout main/master, pull HEAD, fetch --prune, branch -d/-D."
     }
   ]
 }

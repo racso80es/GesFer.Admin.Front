@@ -28,7 +28,7 @@ La validación de esta estructura puede realizarse mediante la acción `validate
 
 ## Documentación de tarea (paths.featurePath, paths.fixPath)
 
-La **documentación de tarea** (output de las acciones spec, clarify, planning, implementation, execution, validate, finalize) sigue el mismo patrón: **un solo .md por acción con YAML Frontmatter**; no ficheros .json separados. Norma específica: **SddIA/norms/features-documentation-frontmatter.md**.
+La **documentación de tarea** (output de las acciones spec, clarify, planning, implementation, execution, validate, finalize-process) sigue el mismo patrón: **un solo .md por acción con YAML Frontmatter**; no ficheros .json separados. Norma específica: **SddIA/norms/features-documentation-frontmatter.md**.
 
 ## Referencias
 

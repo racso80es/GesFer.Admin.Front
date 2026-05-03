@@ -1,8 +1,8 @@
 ---
 common_workflows:
-  finalize: git push origin <branch_name>
-  save_progress: 'git commit -m ''<type>: <short_description>'''
-  start_task: git checkout -b <type>/<description>
+  start_task: git-workspace-recon → git-branch-manager (crear rama feat/ o fix/)
+  save_progress: git-save-snapshot o invoke-commit (commit atómico)
+  finalize-process: git-sync-remote → git-create-pr
 contract_ref: paths.skillsDefinitionPath/skills-contract.json (Cúmulo)
 name: Git Operations Standard
 rules:
@@ -29,9 +29,9 @@ Uso seguro y semántico de Git: ramas feat/fix, commits convencionales, pre-push
 
 ## Common workflows
 
-- start_task: git checkout -b <type>/<description>
-- save_progress: git commit -m '<type>: <short_description>'
-- finalize: git push origin <branch_name>
+- start_task: git-workspace-recon → git-branch-manager
+- save_progress: git-save-snapshot o invoke-commit
+- finalize-process: git-sync-remote → git-create-pr
 
 ## Alcance
 

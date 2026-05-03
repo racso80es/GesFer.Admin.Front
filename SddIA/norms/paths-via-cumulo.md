@@ -9,7 +9,9 @@ En SddIA **no se escriben rutas de ficheros literales** (ej. `docs/features/`, `
 ## Claves de paths (contrato cumulo.paths.json)
 
 - **Persistencia de tareas:** paths.featurePath, paths.fixPath, paths.logPath.
-- **Evolution y auditoría:** paths.evolutionPath, paths.evolutionLogFile, paths.auditsPath, paths.accessLogFile.
+- **Evolution de producto:** paths.evolutionPath, paths.evolutionLogFile (p. ej. `docs/evolution/`).
+- **Protocolo evolution SddIA (cambios bajo `./SddIA/`):** paths.sddiaEvolutionPath, paths.sddiaEvolutionLogFile, paths.sddiaEvolutionContractFile.
+- **Auditoría y acceso:** paths.auditsPath, paths.accessLogFile.
 - **Técnico y operativo:** paths.architecturePath, paths.infrastructurePath, paths.debtPath, paths.tasksPath.
 - **SddIA:** paths.actionsPath, paths.processPath, paths.patternsPath, paths.principlesPath, paths.tokensPath, paths.normsPath.
 - **Skills y tools:** paths.skillsDefinitionPath, paths.skillCapsules[skill-id], paths.skillsRustPath; paths.toolsDefinitionPath, paths.toolCapsules[tool-id], paths.toolsRustPath.

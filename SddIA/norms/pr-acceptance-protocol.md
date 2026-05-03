@@ -1,7 +1,7 @@
 # Protocolo de Aceptación de Pull Requests
 
 Este documento define las **condiciones obligatorias** que deben cumplirse antes de que cualquier Pull Request (PR) sea creado o aceptado. Este protocolo es aplicable a:
-- Agentes de IA durante la acción `finalize`.
+- Agentes de IA durante la acción `finalize-process`.
 - Desarrolladores locales (Cursor) antes de hacer `push`.
 - Sistemas de CI/CD (GitHub Actions) como condición de bloqueo.
 
@@ -31,5 +31,5 @@ Este documento define las **condiciones obligatorias** que deben cumplirse antes
 ## Violaciones
 Cualquier intento de eludir este protocolo resultará en:
 - Rechazo automático del PR por GitHub Actions.
-- Bloqueo de la acción `finalize` por parte del Agente.
+- Bloqueo de la acción `finalize-process` por parte del Agente.
 - Advertencia en el editor local.

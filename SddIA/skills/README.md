@@ -26,15 +26,26 @@ Cada skill tiene en este directorio una carpeta con:
 
 | skill_id | Descripción breve | Cápsula (paths.skillCapsules) |
 | :--- | :--- | :--- |
-| iniciar-rama | Crea rama feat/ o fix/ actualizada con master; inicio de acción. | iniciar-rama |
-| finalizar-git | Aceptar PR a master, unificar, eliminar rama, volver a master. | finalizar-git |
 | invoke-command | Interceptor de comandos de sistema (git, dotnet, npm, pwsh). | invoke-command |
+| invoke-commit | Commit con parámetros directos (--message, --files, --all). | invoke-commit |
+| git-workspace-recon | Inspección del workspace Git (JSON v2 / CLI). | git-workspace-recon |
+| git-branch-manager | Crear o checkout de rama. | git-branch-manager |
+| git-save-snapshot | Stage y commit con request JSON o CLI. | git-save-snapshot |
+| git-sync-remote | Sincronización fetch/pull/push. | git-sync-remote |
+| git-tactical-retreat | Reset/limpieza destructiva con confirmación. | git-tactical-retreat |
+| git-create-pr | Push opcional y PR con gh. | git-create-pr |
+| git-close-cycle | Checkout integración, pull/fetch prune, eliminar rama local de trabajo. | git-close-cycle |
 | git-operations | Uso seguro de Git (ramas feat/fix, commits convencionales). | — |
 | documentation | Estándares SSOT y gestión de documentación. | — |
 | filesystem-ops | Operaciones de archivo seguras (PowerShell). | — |
 | dotnet-development | Estándares .NET (build, test, logging). | — |
 | frontend-build | Build Next.js (Product, Admin) fallback. | — |
 | security-audit | Auditoría y hooks pre-commit/pre-push. | — |
+
+## Guías de portabilidad (otros repos SddIA)
+
+- **Proceso `create-skill`:** `reproducir-create-skill-en-otros-entornos-sddia.md`
+- **Skills concretas (definición + cápsula):** `reproducir-skills-en-otros-entornos-sddia.md`
 
 ## Referencias
 

@@ -40,7 +40,7 @@
   "instructions": [
     "TypeScript/Next.js: Use strict typing. Avoid `any`. Prefer server components unless interactivity requires client.",
     "Post-Check: Run npm run build / npm run lint / npm run test. All must pass before commit.",
-    "Execution contract: Every system command (including git status, git add, git commit, git push, npm run, etc.) MUST be run via: .\\scripts\\skills\\Invoke-Command.ps1 -Command '<command>' [-Fase Accion]. Never run git or other system commands directly in the shell.",
+    "Execution contract: Every system command MUST be run via invoke-command (or a dedicated skill when it exists, e.g. git-workspace-recon/git-branch-manager/git-save-snapshot/git-sync-remote/git-tactical-retreat/git-create-pr/invoke-commit). Never run git or other system commands directly in the shell.",
     "Bug/fix doc path: para fixes {persist} = paths.fixPath/<nombre_fix> (consultar SddIA/agents/cumulo.json). Documentación en {persist}/.",
     "Principios: Aplicar principios técnicos en paths.principlesPath (contrato principlesContract) durante implementación. Coherencia con principles-contract."
   ],

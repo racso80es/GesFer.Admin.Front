@@ -1,0 +1,12 @@
+{
+  "skillId": "git-create-pr",
+  "version": "1.0.0",
+  "description": "Push opcional y creación de PR con GitHub CLI (gh).",
+  "contract_ref": "SddIA/skills/skills-contract.json",
+  "components": {
+    "launcher_bat": "Git-Create-PR.bat",
+    "doc": "git-create-pr.md",
+    "bin": "bin/git_create_pr.exe"
+  },
+  "env": ["Windows 11", "PowerShell 7+", "Git", "GitHub CLI (gh)"]
+}
