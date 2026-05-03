@@ -1,4 +1,5 @@
 "use client";
+import { sanitizeLogMessage } from "@/lib/utils/logger";
 
 import { useState } from "react";
 import {
@@ -54,7 +55,7 @@ export function DestructiveActionConfirm({
       onOpenChange(false);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      console.error("Error al ejecutar acción destructiva:", message);
+      console.error(sanitizeLogMessage(`Error al ejecutar acción destructiva: ${message}`));
     } finally {
       setIsExecuting(false);
     }

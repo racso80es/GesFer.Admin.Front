@@ -1,4 +1,5 @@
 "use client";
+import { sanitizeLogMessage } from "@/lib/utils/logger";
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -55,7 +56,7 @@ export default function AdminDashboardPage() {
         setSummary(data);
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        console.error("Error al cargar el resumen:", message);
+        console.error(sanitizeLogMessage(`Error al cargar el resumen: ${message}`));
         setError("Error al conectar con el servidor");
       } finally {
         setIsLoading(false);

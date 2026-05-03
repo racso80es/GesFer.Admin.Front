@@ -1,0 +1,5 @@
+{
+  "process_id": "correccion-logs",
+  "name": "Corregir Sanitizacion Logs",
+  "description": "Corregir logs que no esten sanitizados usando sanitizeLogMessage"
+}
