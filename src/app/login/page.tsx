@@ -1,4 +1,5 @@
 "use client";
+import { sanitizeLogMessage } from "@/lib/utils/logger";
 
 import { useState } from "react";
 import { getDefaultAdminUsername, getDefaultAdminPassword } from "@/lib/env";
@@ -55,7 +56,7 @@ export default function AdminLoginPage() {
       setIsLoading(false);
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
-      console.error("Error en login administrativo:", message);
+      console.error(sanitizeLogMessage(`Error en login administrativo: ${message}`));
       const isNetworkError = err instanceof TypeError && (err.message === "Failed to fetch" || err.message.includes("fetch"));
       setError(
         isNetworkError

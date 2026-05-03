@@ -1,0 +1,8 @@
+{
+  "process_id": "correccion_auditoria_2026_04_29",
+  "name": "Registro Auditoría 2026-04-29",
+  "description": "Registro formal de la auditoría 2026-04-29",
+  "phases": [],
+  "persist_ref": "docs/features/correccion-auditoria-2026-04-29",
+  "related_actions": ["audit-registration"]
+}

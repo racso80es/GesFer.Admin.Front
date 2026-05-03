@@ -1,4 +1,5 @@
 "use client";
+import { sanitizeLogMessage } from "@/lib/utils/logger";
 
 import { CompanyForm } from "@/components/companies/company-form";
 import { useRouter } from "next/navigation";
@@ -28,7 +29,7 @@ export default function NewCompanyPage() {
       router.refresh();
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      console.error("Error:", message);
+      console.error(sanitizeLogMessage(`Error: ${message}`));
       setError(message);
     }
   };

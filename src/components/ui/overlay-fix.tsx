@@ -1,4 +1,5 @@
 "use client";
+import { sanitizeLogMessage } from "@/lib/utils/logger";
 
 import { useEffect } from "react";
 

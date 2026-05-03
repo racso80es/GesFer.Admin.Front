@@ -1,4 +1,5 @@
 "use client";
+import { sanitizeLogMessage } from "@/lib/utils/logger";
 
 import { CompanyForm } from "@/components/companies/company-form";
 import { useRouter } from "next/navigation";
@@ -26,7 +27,7 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
         setCompany(data);
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        console.error("Error fetching company:", message);
+        console.error(sanitizeLogMessage(`Error fetching company: ${message}`));
       } finally {
         setIsLoading(false);
       }
@@ -54,7 +55,7 @@ export default function EditCompanyPage({ params }: EditCompanyPageProps) {
       router.refresh();
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      console.error("Error:", message);
+      console.error(sanitizeLogMessage(`Error: ${message}`));
       setSubmitError(message);
     }
   };
