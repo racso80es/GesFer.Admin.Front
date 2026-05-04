@@ -1,0 +1,13 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección Auditoría 2026-05-03",
+  "description": "Registro de auditoría exitosa sin hallazgos técnicos.",
+  "phases": [
+    "Análisis",
+    "Especificación",
+    "Validación"
+  ],
+  "persist_ref": "docs/features/correccion-auditoria-2026-05-03",
+  "related_actions": ["spec", "validacion"],
+  "contract_ref": "SddIA/process/correccion-auditorias/spec.json"
+}
