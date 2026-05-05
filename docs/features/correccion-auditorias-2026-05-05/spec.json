@@ -1,0 +1,8 @@
+{
+  "process_id": "correccion-auditorias-2026-05-05",
+  "name": "Corrección de vulnerabilidades",
+  "description": "Fix para npm audit sin major upgrades",
+  "phases": [],
+  "persist_ref": "docs/features/correccion-auditorias-2026-05-05",
+  "related_actions": ["execution", "validate", "finalize-process"]
+}
