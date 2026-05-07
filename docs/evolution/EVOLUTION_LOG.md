@@ -122,3 +122,4 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 - [2026-05-01] Ejecución del proceso automatic-task y correccion-auditorias para registrar la auditoría 2026-04-29. Tarea: [Kaizen_2026_05_01](../TASKS/DONE/Kaizen_2026_05_01.md)
 - 2026-05-04: Kaizen_2026_05_02 completado, auditoría registrada (docs/TASKS/DONE/Kaizen_2026_05_02.md)
 [2026-05-06] [feat/kaizen-auditoria-2026-05-03] [Registro formal de auditoría 2026-05-03 sin hallazgos] [DONE]
+- 2026-05-05: Fixed npm audit vulnerabilities by overriding glob to ^11.0.0 and postcss to 8.5.14 in package.json.
