@@ -65,10 +65,10 @@
   },
   "overrides": {
     "@next/eslint-plugin-next": {
-      "glob": "10.4.5"
+      "glob": "^11.0.0"
     },
     "next": {
-      "postcss": "8.5.10"
+      "postcss": "8.5.14"
     }
   }
 }
