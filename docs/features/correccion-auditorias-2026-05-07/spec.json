@@ -1,0 +1,9 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección de Auditoría 2026-05-07",
+  "description": "Registro de auditoría sin hallazgos",
+  "phases": [],
+  "persist_ref": "paths.featurePath/correccion-auditorias-2026-05-07",
+  "related_actions": ["objectives", "spec", "validacion"],
+  "contract_ref": "paths.processPath/process-contract.json"
+}
