@@ -1,0 +1,9 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Registro Kaizen Auditoria 2026-05-03",
+  "description": "Registro de auditoría sin hallazgos",
+  "phases": [],
+  "persist_ref": "docs/features/kaizen-auditoria-2026-05-03",
+  "related_actions": [],
+  "contract_ref": "SddIA/templates/templates-contract.json"
+}
