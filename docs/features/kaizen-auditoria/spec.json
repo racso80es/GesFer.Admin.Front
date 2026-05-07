@@ -1,0 +1,9 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Kaizen Auditoría 2026-05-03",
+  "description": "Formalización de auditoría perfecta",
+  "phases": ["validacion"],
+  "persist_ref": "docs/features/kaizen-auditoria",
+  "related_actions": ["validate"],
+  "contract_ref": "paths.processPath/process-contract.json"
+}
