@@ -1,0 +1,14 @@
+{
+  "spec_version": "2.0.0",
+  "process_id": "feature",
+  "name": "Fix NPM Audit Vulnerabilities",
+  "description": "Fix npm audit findings using overrides to prevent breaking changes.",
+  "phases": [
+    { "id": "1", "name": "Plan", "description": "Formulate plan and update overrides." },
+    { "id": "2", "name": "Execution", "description": "Apply package.json overrides and run npm install." },
+    { "id": "3", "name": "Validation", "description": "Run tests and build to ensure functionality remains intact." }
+  ],
+  "persist_ref": "docs/features/automatic-task-kaizen-npm-audit",
+  "related_actions": ["npm-audit-fix"],
+  "contract_ref": "SddIA/process/process-contract.md"
+}
