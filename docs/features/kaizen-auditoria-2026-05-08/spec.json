@@ -1,0 +1,9 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Kaizen 2026-05-08",
+  "description": "Registro de auditoría perfecta",
+  "phases": [],
+  "persist_ref": "docs/TASKS",
+  "related_actions": [],
+  "contract_ref": "SddIA/process/process-contract.md"
+}
