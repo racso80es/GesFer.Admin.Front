@@ -1,0 +1,28 @@
+{
+  "name": "Corrección Auditoría 2026-05-08",
+  "description": "Documentación formal de la validación satisfactoria de la auditoría del 2026-05-08 sin hallazgos.",
+  "process_id": "correccion-auditorias",
+  "persist_ref": "paths.featurePath/correccion-auditoria-2026-05-08",
+  "contract_ref": "paths.processPath/process-contract.json",
+  "phases": [
+    {
+      "id": "1",
+      "name": "Análisis y Documentación",
+      "description": "Generación del reporte de auditoría y los ficheros de tracking de la feature."
+    },
+    {
+      "id": "2",
+      "name": "Verificación y Cierre",
+      "description": "Verificación de la integridad estructural y validación sin deuda técnica."
+    }
+  ],
+  "related_actions": [
+    "spec",
+    "clarify",
+    "planning",
+    "implementation",
+    "execution",
+    "validate",
+    "finalize-process"
+  ]
+}
