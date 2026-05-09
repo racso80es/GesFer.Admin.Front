@@ -1,0 +1,8 @@
+{
+  "process_id": "kaizen-auditoria-2026-05-06",
+  "name": "Registro Auditoria 2026-05-06",
+  "description": "Registro de la auditoria perfecta.",
+  "phases": [],
+  "persist_ref": "docs/features/kaizen-auditoria-2026-05-06",
+  "related_actions": ["audit"]
+}
