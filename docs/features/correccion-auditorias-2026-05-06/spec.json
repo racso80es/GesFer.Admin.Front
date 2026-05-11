@@ -1,9 +1,8 @@
 {
   "process_id": "correccion-auditorias",
-  "name": "Correccion Auditoria 2026-05-06",
-  "description": "Registro de auditoria limpia",
+  "name": "Corrección Auditoría 2026-05-06",
+  "description": "Registro formal de la auditoría 2026-05-06 sin hallazgos técnicos.",
   "phases": [],
   "persist_ref": "docs/features/correccion-auditorias-2026-05-06",
-  "related_actions": ["validate"],
-  "contract_ref": "SddIA/process/correccion-auditorias/spec.json"
+  "related_actions": ["validate", "finalize-process"]
 }
