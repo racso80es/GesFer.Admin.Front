@@ -1,0 +1,23 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Registro Corrección Auditorías 2026-05-09",
+  "description": "Registro formal de la auditoría 2026-05-09 sin hallazgos técnicos que corregir.",
+  "phases": [
+    {
+      "id": "0",
+      "name": "Análisis de auditorías",
+      "description": "Revisar últimos informes en docs/audits/AUDITORIA_2026_05_09.md."
+    },
+    {
+      "id": "1",
+      "name": "Documentación de objetivos",
+      "description": "Generación de artefactos de seguimiento en docs/features/correccion-auditorias-2026-05-09."
+    }
+  ],
+  "persist_ref": "docs/features/correccion-auditorias-2026-05-09",
+  "related_actions": [
+    "spec",
+    "validate"
+  ],
+  "contract_ref": "SddIA/process/process-contract.json"
+}
