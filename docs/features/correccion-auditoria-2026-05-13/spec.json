@@ -1,0 +1,30 @@
+{
+  "process_id": "correccion-auditorias",
+  "name": "Corrección Auditoría 2026-05-13",
+  "description": "Registro formal del proceso correccion-auditorias para la auditoría limpia del 2026-05-13",
+  "phases": [
+    {
+      "id": "0",
+      "name": "Análisis de auditorías",
+      "description": "Revisión de AUDITORIA_2026_05_13.md - No hay hallazgos"
+    },
+    {
+      "id": "1",
+      "name": "Documentación de objetivos",
+      "description": "Crear objectives.md y rama"
+    },
+    {
+      "id": "2",
+      "name": "Especificación",
+      "description": "Crear spec.md y spec.json"
+    },
+    {
+      "id": "7",
+      "name": "Validar",
+      "description": "Crear validacion.md"
+    }
+  ],
+  "persist_ref": "docs/features/correccion-auditoria-2026-05-13",
+  "related_actions": ["spec", "validate"],
+  "contract_ref": "SddIA/process/process-contract.json"
+}
