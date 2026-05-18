@@ -124,8 +124,8 @@ Registro de evolución del proyecto GesFer.Admin.Front.
 [2026-05-06] [feat/kaizen-auditoria-2026-05-03] [Registro formal de auditoría 2026-05-03 sin hallazgos] [DONE]
 - 2026-05-05: Fixed npm audit vulnerabilities by overriding glob to ^11.0.0 and postcss to 8.5.14 in package.json.
 [2026-05-06] [feat/correccion-auditorias-2026-05-06] [Registro formal de auditoría 2026-05-06 sin hallazgos] [DONE]
-## [2026-05-17] [feat/correccion-auditorias-2026-05-17] Registro formal de auditoria
+## [2026-05-17] [feat/correccion-auditoria-2026-05-17] Registro formal de auditoria
 
 **Estado:** Completado
-**Resumen:** Registro formal de auditoría 2026-05-17 sin hallazgos
-**Documentación:** [docs/features/correccion-auditorias-2026-05-17/](../features/correccion-auditorias-2026-05-17/)
+**Resumen:** Registro formal de auditoría 2026-05-17 con hallazgos de CI
+**Documentación:** [docs/features/correccion-auditoria-2026-05-17/](../features/correccion-auditoria-2026-05-17/)

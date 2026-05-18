@@ -1,5 +1,5 @@
 {
-  "process_id": "correccion-auditorias-2026-05-17",
+  "process_id": "correccion-auditoria-2026-05-17",
   "phases": ["audit", "validation"],
   "related_actions": [],
   "contract_ref": "audit"

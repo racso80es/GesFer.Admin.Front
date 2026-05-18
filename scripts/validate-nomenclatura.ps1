@@ -36,7 +36,7 @@ function Test-KebabCase {
 # Rama: feat/<kebab> | fix/<kebab> | feat/refactorization-<kebab> | automatic-task/<kebab>
 function Test-BranchName {
     param([string]$b)
-    if ($b -eq "main" -or $b -eq "master") { return $true }
+    if ($b -eq "main" -or $b -eq "master" -or $b -match "^jules-(.+)$") { return $true }
     if ($b -match '^feat/(.+)$') { $suffix = $Matches[1]; return (Test-KebabCase $suffix) -or ($suffix -match '^refactorization-[a-z0-9]+(-[a-z0-9]+)*$') }
     if ($b -match '^fix/(.+)$') { return Test-KebabCase $Matches[1] }
     if ($b -match '^automatic-task/(.+)$') { return Test-KebabCase $Matches[1] }
