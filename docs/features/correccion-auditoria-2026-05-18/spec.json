@@ -1,0 +1,15 @@
+{
+  "process_id": "correccion-auditoria-2026-05-18",
+  "phases": [
+    {
+      "name": "documentation",
+      "status": "completed"
+    },
+    {
+      "name": "verification",
+      "status": "pending"
+    }
+  ],
+  "related_actions": ["audit", "document"],
+  "contract_ref": "docs/audits/AUDITORIA_2026_05_18.md"
+}
