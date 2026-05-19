@@ -1,0 +1,7 @@
+[
+  { "command": "npm install --legacy-peer-deps" },
+  { "command": "npm run build" },
+  { "command": "npm run lint" },
+  { "command": "npm run test" },
+  { "command": "grep -rn \"TODO\" src/ docs/" }
+]
