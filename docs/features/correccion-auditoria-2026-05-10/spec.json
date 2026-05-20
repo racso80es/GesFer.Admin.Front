@@ -1,11 +1,6 @@
 {
-  "process_id": "correccion-auditorias",
-  "name": "Registro formal auditoria 2026-05-10",
-  "description": "Formalización de una auditoria sin hallazgos técnicos. Proyecto 100% S+.",
-  "contract_ref": "SddIA/process/process-contract.json",
-  "persist_ref": "docs/features/correccion-auditoria-2026-05-10",
-  "phases": [
-    { "id": "0", "name": "Análisis", "description": "Auditoría estructural limpia. Sin reportes negativos." },
-    { "id": "1", "name": "Documentación y Validación", "description": "Creación de reportes, ramas, validación por build." }
-  ]
+  "process_id": "correccion-auditoria-2026-05-10",
+  "phases": ["documentacion", "validacion"],
+  "related_actions": ["auditoria"],
+  "contract_ref": "SddIA/process/correccion-auditorias"
 }
