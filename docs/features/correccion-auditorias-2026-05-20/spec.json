@@ -1,0 +1,6 @@
+{
+  "process_id": "correccion-auditorias",
+  "phases": ["registro"],
+  "related_actions": ["auditoria-2026-05-20"],
+  "contract_ref": "SddIA"
+}
